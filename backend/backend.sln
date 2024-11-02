@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageLearningAI.Service", "LanguageLearningAI.Service\LanguageLearningAI.Service.csproj", "{DD3ADDC9-5F12-4202-8805-70DC2D8B82E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LanguageLearningAI.Service", "LanguageLearningAI.Service\LanguageLearningAI.Service.csproj", "{DD3ADDC9-5F12-4202-8805-70DC2D8B82E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageLearningAI.API", "LanguageLearningAI.API\LanguageLearningAI.API.csproj", "{62AE0E5B-8E79-4B75-B957-0E201BA09F6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageLearningAI.Core", "LanguageLearningAI.Core\LanguageLearningAI.Core.csproj", "{BDFEB179-A55E-4005-84BE-ED3B87C9E44D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageLearningAI.Domain", "LanguageLearningAI.Domain\LanguageLearningAI.Domain.csproj", "{0B082CA0-E112-4437-AE56-BD9C75634CD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{DD3ADDC9-5F12-4202-8805-70DC2D8B82E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD3ADDC9-5F12-4202-8805-70DC2D8B82E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD3ADDC9-5F12-4202-8805-70DC2D8B82E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62AE0E5B-8E79-4B75-B957-0E201BA09F6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62AE0E5B-8E79-4B75-B957-0E201BA09F6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62AE0E5B-8E79-4B75-B957-0E201BA09F6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62AE0E5B-8E79-4B75-B957-0E201BA09F6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDFEB179-A55E-4005-84BE-ED3B87C9E44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDFEB179-A55E-4005-84BE-ED3B87C9E44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDFEB179-A55E-4005-84BE-ED3B87C9E44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDFEB179-A55E-4005-84BE-ED3B87C9E44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B082CA0-E112-4437-AE56-BD9C75634CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B082CA0-E112-4437-AE56-BD9C75634CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B082CA0-E112-4437-AE56-BD9C75634CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B082CA0-E112-4437-AE56-BD9C75634CD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
