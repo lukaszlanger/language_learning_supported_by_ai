@@ -7,6 +7,5 @@ namespace LanguageLearningAI.Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NativeLanguage { get; set; }
-        public string LearningLanguage { get; set; }
     }
 }

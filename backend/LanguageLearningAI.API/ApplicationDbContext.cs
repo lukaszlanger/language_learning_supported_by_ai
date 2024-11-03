@@ -1,5 +1,4 @@
 ﻿using LanguageLearningAI.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,5 +14,16 @@ namespace LanguageLearningAI.API
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Phrase> Phrases { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Phrase>()
+                .HasIndex(p => p.LessonId);
+
+            builder.Entity<Quiz>()
+                .HasIndex(q => q.PhraseId);
+        }
     }
 }

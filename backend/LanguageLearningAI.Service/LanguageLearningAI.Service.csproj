@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LanguageLearningAI.API\LanguageLearningAI.API.csproj" />
     <ProjectReference Include="..\LanguageLearningAI.Domain\LanguageLearningAI.Domain.csproj" />
   </ItemGroup>
 

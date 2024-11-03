@@ -29,15 +29,5 @@
         /// Gets or sets the native language of the user.
         /// </summary>
         public string NativeLanguage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the learning language of the user.
-        /// </summary>
-        public string LearningLanguage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the difficulty level of learning language.
-        /// </summary>
-        public string DifficultyLevel { get; set; }
     }
 }

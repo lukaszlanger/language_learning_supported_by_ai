@@ -1,55 +1,36 @@
-using LanguageLearningAI.Core.Dtos;
-using LanguageLearningAI.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using LanguageLearningAI.Core.Services;
+using LanguageLearningAI.Core.Dtos;
 
-namespace LanguageLearningAI.API.Controllers;
-
-[Route("api/[controller]")]
-[ApiController]
-public class AuthController : ControllerBase
+namespace LanguageLearningAI.API.Controllers
 {
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
-
-    public AuthController(UserManager<User> userManager, SignInManager<User> signInManager)
+    [ApiController]
+    [Route("api/auth")]
+    public class AuthController : ControllerBase
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
-    }
+        private readonly IAuthService _authService;
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
-    {
-        var user = new User
+        public AuthController(IAuthService authService)
         {
-            UserName = registerDto.Email,
-            Email = registerDto.Email,
-            FirstName = registerDto.FirstName,
-            LastName = registerDto.LastName,
-            NativeLanguage = registerDto.NativeLanguage,
-            LearningLanguage = registerDto.LearningLanguage,
-            DifficultyLevel = registerDto.DifficultyLevel
-        };
-
-        var result = await _userManager.CreateAsync(user, registerDto.Password);
-        if (!result.Succeeded)
-        {
-            return BadRequest(result.Errors);
+            _authService = authService;
         }
 
-        return Ok("User registered successfully");
-    }
-
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
-    {
-        var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, false, false);
-        if (!result.Succeeded)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            return Unauthorized();
+            var success = await _authService.RegisterUser(registerDto);
+            if (!success) return BadRequest("User already exists.");
+
+            return Ok("User registered successfully");
         }
 
-        return Ok("User logged in successfully");
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            var user = await _authService.LoginUser(loginDto);
+            if (user == null) return Unauthorized();
+
+            return Ok("Login successful");
+        }
     }
 }
