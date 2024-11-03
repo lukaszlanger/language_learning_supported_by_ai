@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LanguageLearningAI.Core</name>
+    </assembly>
+    <members>
+        <member name="T:LanguageLearningAI.Core.Dtos.CreatePhraseDto">
+            <summary>
+            Represents the data transfer object for creating a phrase.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.CreatePhraseDto.Text">
+            <summary>
+            Gets or sets the text of the phrase.
+            </summary>
+            <example>Apple</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.CreatePhraseDto.Translation">
+            <summary>
+            Gets or sets the translation of the phrase.
+            </summary>
+            <example>Jabłko</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.CreatePhraseDto.LessonId">
+            <summary>
+            Gets or sets the lesson ID of the phrase.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="T:LanguageLearningAI.Core.Dtos.CreateQuizDto">
+            <summary>
+            Represents the data transfer object for creating a quiz.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.CreateQuizDto.PhraseId">
+            <summary>
+            Gets or sets the phrase ID.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.CreateQuizDto.QuestionText">
+            <summary>
+            Gets or sets the question text.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.CreateQuizDto.CorrectAnswer">
+            <summary>
+            Gets or sets the correct answer.
+            </summary>
+        </member>
+        <member name="T:LanguageLearningAI.Core.Dtos.LoginDto">
+            <summary>
+            Represents the login data transfer object.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.LoginDto.Email">
+            <summary>
+            Gets or sets the email.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.LoginDto.Password">
+            <summary>
+            Gets or sets the password.
+            </summary>
+        </member>
+        <member name="T:LanguageLearningAI.Core.Dtos.PhraseDto">
+            <summary>
+            Represents a phrase data transfer object.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.PhraseDto.Id">
+            <summary>
+            Gets or sets the ID of the phrase.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.PhraseDto.Text">
+            <summary>
+            Gets or sets the text of the phrase.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.PhraseDto.Translation">
+            <summary>
+            Gets or sets the translation of the phrase.
+            </summary>
+        </member>
+        <member name="T:LanguageLearningAI.Core.Dtos.RegisterDto">
+            <summary>
+            Represents the data transfer object for user registration.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.RegisterDto.Email">
+            <summary>
+            Gets or sets the email of the user.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.RegisterDto.Password">
+            <summary>
+            Gets or sets the password of the user.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.RegisterDto.FirstName">
+            <summary>
+            Gets or sets the first name of the user.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.RegisterDto.LastName">
+            <summary>
+            Gets or sets the last name of the user.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.RegisterDto.NativeLanguage">
+            <summary>
+            Gets or sets the native language of the user.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,6 +1,6 @@
 ﻿using LanguageLearningAI.Domain.Entities;
 
-namespace LanguageLearningAI.Domain.Repositories
+namespace LanguageLearningAI.Core.Repositories
 {
     public interface IPhraseRepository
     {

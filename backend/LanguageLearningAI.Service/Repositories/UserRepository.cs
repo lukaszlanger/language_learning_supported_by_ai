@@ -1,6 +1,6 @@
-﻿using LanguageLearningAI.API;
+﻿using LanguageLearningAI.Core.Repositories;
+using LanguageLearningAI.Domain;
 using LanguageLearningAI.Domain.Entities;
-using LanguageLearningAI.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace LanguageLearningAI.Service.Repositories
@@ -27,6 +27,11 @@ namespace LanguageLearningAI.Service.Repositories
         public async Task<bool> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<IEnumerable<User>> GetUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
         }
     }
 }

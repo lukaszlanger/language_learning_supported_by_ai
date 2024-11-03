@@ -1,7 +1,7 @@
 ﻿using LanguageLearningAI.Core.Dtos;
+using LanguageLearningAI.Core.Repositories;
 using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Domain.Entities;
-using LanguageLearningAI.Domain.Repositories;
 
 namespace LanguageLearningAI.Service.Services
 {
@@ -45,12 +45,13 @@ namespace LanguageLearningAI.Service.Services
             return phrase?.Translation;
         }
 
-        public async Task AddPhraseAsync(PhraseCreateDto phraseDto)
+        public async Task AddPhraseAsync(CreatePhraseDto createPhraseDto)
         {
             var phrase = new Phrase
             {
-                Text = phraseDto.Text,
-                Translation = phraseDto.Translation
+                Text = createPhraseDto.Text,
+                Translation = createPhraseDto.Translation,
+                LessonId = createPhraseDto.LessonId
             };
             await _phraseRepository.AddAsync(phrase);
         }

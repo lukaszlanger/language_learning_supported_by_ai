@@ -18,19 +18,24 @@ namespace LanguageLearningAI.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            var success = await _authService.RegisterUser(registerDto);
-            if (!success) return BadRequest("User already exists.");
+            var result = await _authService.RegisterUser(registerDto);
+            if (result.Succeeded)
+            {
+                return Ok("User registered successfully.");
+            }
 
-            return Ok("User registered successfully");
+            return BadRequest(result.Errors);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var user = await _authService.LoginUser(loginDto);
-            if (user == null) return Unauthorized();
-
-            return Ok("Login successful");
+            var result = await _authService.LoginUser(loginDto);
+            if (result.Succeeded)
+            {
+                return Ok("Login successful.");
+            }
+            return Unauthorized("Invalid login attempt.");
         }
     }
 }

@@ -43,13 +43,13 @@ namespace LanguageLearningAI.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddPhrase([FromBody] PhraseCreateDto phraseDto)
+        public async Task<ActionResult> AddPhrase([FromBody] CreatePhraseDto createPhraseDto)
         {
-            if (phraseDto == null)
+            if (createPhraseDto == null)
                 return BadRequest("Phrase data is null.");
 
-            await _phraseService.AddPhraseAsync(phraseDto);
-            return CreatedAtAction(nameof(GetPhraseById), new { id = phraseDto.Text }, phraseDto);
+            await _phraseService.AddPhraseAsync(createPhraseDto);
+            return CreatedAtAction(nameof(GetPhraseById), new { id = createPhraseDto.Text }, createPhraseDto);
         }
     }
 }

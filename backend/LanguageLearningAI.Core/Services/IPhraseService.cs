@@ -7,6 +7,6 @@ namespace LanguageLearningAI.Core.Services
         Task<IEnumerable<PhraseDto>> GetAllPhrasesAsync();
         Task<PhraseDto> GetPhraseByIdAsync(int id);
         Task<string> GetTranslationAsync(int id);
-        Task AddPhraseAsync(PhraseCreateDto phraseDto);
+        Task AddPhraseAsync(CreatePhraseDto createPhraseDto);
     }
 }

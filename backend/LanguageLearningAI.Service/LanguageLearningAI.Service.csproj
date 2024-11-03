@@ -1,6 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+    <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -19,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LanguageLearningAI.API\LanguageLearningAI.API.csproj" />
+    <ProjectReference Include="..\LanguageLearningAI.Core\LanguageLearningAI.Core.csproj" />
     <ProjectReference Include="..\LanguageLearningAI.Domain\LanguageLearningAI.Domain.csproj" />
   </ItemGroup>
 

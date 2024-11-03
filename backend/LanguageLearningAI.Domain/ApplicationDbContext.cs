@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace LanguageLearningAI.API
+namespace LanguageLearningAI.Domain
 {
     public class ApplicationDbContext : IdentityDbContext<User>
     {

@@ -1,11 +1,12 @@
 ﻿using LanguageLearningAI.Domain.Entities;
 
-namespace LanguageLearningAI.Domain.Repositories
+namespace LanguageLearningAI.Core.Repositories
 {
     public interface IUserRepository
     {
         Task<User> GetUserByEmailAsync(string email);
         Task AddUserAsync(User user);
         Task<bool> SaveChangesAsync();
+        Task<IEnumerable<User>> GetUsersAsync();
     }
 }

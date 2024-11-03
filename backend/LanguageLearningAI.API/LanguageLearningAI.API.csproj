@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,12 +29,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.9.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LanguageLearningAI.Core\LanguageLearningAI.Core.csproj" />
     <ProjectReference Include="..\LanguageLearningAI.Domain\LanguageLearningAI.Domain.csproj" />
+    <ProjectReference Include="..\LanguageLearningAI.Service\LanguageLearningAI.Service.csproj" />
   </ItemGroup>
 
 </Project>
