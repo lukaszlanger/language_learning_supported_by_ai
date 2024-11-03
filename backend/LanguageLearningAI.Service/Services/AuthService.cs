@@ -33,7 +33,7 @@ namespace LanguageLearningAI.Service.Services
 
         public async Task<User> LoginUser(LoginDto loginDto)
         {
-            return await _userRepository.GetUserByEmailAsync(loginDto.Email); // Dodaj logikę logowania
+            return await _userRepository.GetUserByEmailAsync(loginDto.Email);
         }
     }
 }
