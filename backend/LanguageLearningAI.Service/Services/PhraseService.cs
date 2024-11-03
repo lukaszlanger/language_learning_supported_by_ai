@@ -1,4 +1,5 @@
-﻿using LanguageLearningAI.Core.Services;
+﻿using LanguageLearningAI.Core.Dtos;
+using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Domain.Entities;
 using LanguageLearningAI.Domain.Repositories;
 
@@ -13,14 +14,29 @@ namespace LanguageLearningAI.Service.Services
             _phraseRepository = phraseRepository;
         }
 
-        public async Task<IEnumerable<Phrase>> GetAllPhrasesAsync()
+        public async Task<IEnumerable<PhraseDto>> GetAllPhrasesAsync()
         {
-            return await _phraseRepository.GetAllAsync();
+            var phrases = await _phraseRepository.GetAllAsync();
+            return phrases.Select(p => new PhraseDto
+            {
+                Id = p.Id,
+                Text = p.Text,
+                Translation = p.Translation
+            });
         }
 
-        public async Task<Phrase> GetPhraseByIdAsync(int id)
+        public async Task<PhraseDto> GetPhraseByIdAsync(int id)
         {
-            return await _phraseRepository.GetByIdAsync(id);
+            var phrase = await _phraseRepository.GetByIdAsync(id);
+            if (phrase == null)
+                return null;
+
+            return new PhraseDto
+            {
+                Id = phrase.Id,
+                Text = phrase.Text,
+                Translation = phrase.Translation
+            };
         }
 
         public async Task<string> GetTranslationAsync(int id)
@@ -29,8 +45,13 @@ namespace LanguageLearningAI.Service.Services
             return phrase?.Translation;
         }
 
-        public async Task AddPhraseAsync(Phrase phrase)
+        public async Task AddPhraseAsync(PhraseCreateDto phraseDto)
         {
+            var phrase = new Phrase
+            {
+                Text = phraseDto.Text,
+                Translation = phraseDto.Translation
+            };
             await _phraseRepository.AddAsync(phrase);
         }
     }

@@ -1,5 +1,5 @@
-﻿using LanguageLearningAI.Core.Services;
-using LanguageLearningAI.Domain.Entities;
+﻿using LanguageLearningAI.Core.Dtos;
+using LanguageLearningAI.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageLearningAI.API.Controllers
@@ -16,14 +16,14 @@ namespace LanguageLearningAI.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Phrase>>> GetAllPhrases()
+        public async Task<ActionResult<IEnumerable<PhraseDto>>> GetAllPhrases()
         {
             var phrases = await _phraseService.GetAllPhrasesAsync();
             return Ok(phrases);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Phrase>> GetPhraseById(int id)
+        public async Task<ActionResult<PhraseDto>> GetPhraseById(int id)
         {
             var phrase = await _phraseService.GetPhraseByIdAsync(id);
             if (phrase == null)
@@ -43,13 +43,13 @@ namespace LanguageLearningAI.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddPhrase([FromBody] Phrase phrase)
+        public async Task<ActionResult> AddPhrase([FromBody] PhraseCreateDto phraseDto)
         {
-            if (phrase == null)
-                return BadRequest("Phrase is null.");
+            if (phraseDto == null)
+                return BadRequest("Phrase data is null.");
 
-            await _phraseService.AddPhraseAsync(phrase);
-            return CreatedAtAction(nameof(GetPhraseById), new { id = phrase.Id }, phrase);
+            await _phraseService.AddPhraseAsync(phraseDto);
+            return CreatedAtAction(nameof(GetPhraseById), new { id = phraseDto.Text }, phraseDto);
         }
     }
 }

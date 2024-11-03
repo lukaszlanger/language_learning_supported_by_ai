@@ -1,12 +1,12 @@
-﻿using LanguageLearningAI.Domain.Entities;
+﻿using LanguageLearningAI.Core.Dtos;
 
 namespace LanguageLearningAI.Core.Services
 {
     public interface IPhraseService
     {
-        Task<IEnumerable<Phrase>> GetAllPhrasesAsync();
-        Task<Phrase> GetPhraseByIdAsync(int id);
+        Task<IEnumerable<PhraseDto>> GetAllPhrasesAsync();
+        Task<PhraseDto> GetPhraseByIdAsync(int id);
         Task<string> GetTranslationAsync(int id);
-        Task AddPhraseAsync(Phrase phrase);
+        Task AddPhraseAsync(PhraseCreateDto phraseDto);
     }
 }
