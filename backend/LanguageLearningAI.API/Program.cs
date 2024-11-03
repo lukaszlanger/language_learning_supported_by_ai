@@ -1,4 +1,3 @@
-using LanguageLearningAI.Core.Dtos;
 using LanguageLearningAI.Core.Repositories;
 using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Domain;
@@ -19,7 +18,8 @@ namespace LanguageLearningAI.API
 
             // Register repositories
             builder.Services.AddScoped<IPhraseRepository, PhraseRepository>();
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ILessonRepository, LessonRepository>();
+            builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 
             // Register services
             builder.Services.AddScoped<IAuthService, AuthService>();

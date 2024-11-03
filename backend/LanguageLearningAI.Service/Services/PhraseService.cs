@@ -39,12 +39,6 @@ namespace LanguageLearningAI.Service.Services
             };
         }
 
-        public async Task<string> GetTranslationAsync(int id)
-        {
-            var phrase = await _phraseRepository.GetByIdAsync(id);
-            return phrase?.Translation;
-        }
-
         public async Task AddPhraseAsync(CreatePhraseDto createPhraseDto)
         {
             var phrase = new Phrase

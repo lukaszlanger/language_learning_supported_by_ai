@@ -32,16 +32,6 @@ namespace LanguageLearningAI.API.Controllers
             return Ok(phrase);
         }
 
-        [HttpGet("{id}/translation")]
-        public async Task<ActionResult<string>> GetTranslation(int id)
-        {
-            var translation = await _phraseService.GetTranslationAsync(id);
-            if (translation == null)
-                return NotFound();
-
-            return Ok(translation);
-        }
-
         [HttpPost]
         public async Task<ActionResult> AddPhrase([FromBody] CreatePhraseDto createPhraseDto)
         {
