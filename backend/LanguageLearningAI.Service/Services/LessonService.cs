@@ -21,7 +21,7 @@ namespace LanguageLearningAI.Service.Services
             return lessons.Select(lesson => new LessonDto
             {
                 Id = lesson.Id,
-                Title = lesson.Title,
+                Topic = lesson.Topic,
                 DifficultyLevel = (int)lesson.DifficultyLevel,
                 LearningLanguage = lesson.LearningLanguage
             });
@@ -33,7 +33,7 @@ namespace LanguageLearningAI.Service.Services
             return lessons.Select(lesson => new LessonDto
             {
                 Id = lesson.Id,
-                Title = lesson.Title,
+                Topic = lesson.Topic,
                 DifficultyLevel = (int)lesson.DifficultyLevel,
                 LearningLanguage = lesson.LearningLanguage,
                 UserId = lesson.UserId
@@ -49,7 +49,7 @@ namespace LanguageLearningAI.Service.Services
             return new LessonDto
             {
                 Id = lesson.Id,
-                Title = lesson.Title,
+                Topic = lesson.Topic,
                 DifficultyLevel = (int)lesson.DifficultyLevel,
                 LearningLanguage = lesson.LearningLanguage
             };
@@ -59,7 +59,7 @@ namespace LanguageLearningAI.Service.Services
         {
             var lesson = new Lesson
             {
-                Title = createLessonDto.Title,
+                Topic = createLessonDto.Topic,
                 DifficultyLevel = (DifficultyLevel)createLessonDto.DifficultyLevel,
                 LearningLanguage = createLessonDto.LearningLanguage
             };
@@ -72,7 +72,7 @@ namespace LanguageLearningAI.Service.Services
             if (lesson == null)
                 throw new KeyNotFoundException("Lesson not found");
 
-            lesson.Title = lessonDto.Title;
+            lesson.Topic = lessonDto.Topic;
             lesson.DifficultyLevel = (DifficultyLevel)lessonDto.DifficultyLevel;
             lesson.LearningLanguage = lessonDto.LearningLanguage;
 

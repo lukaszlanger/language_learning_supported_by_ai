@@ -6,10 +6,10 @@
     public class CreateLessonDto
     {
         /// <summary>
-        /// Gets or sets the title of the lesson.
+        /// Gets or sets the topic of the lesson.
         /// </summary>
         /// <example>Grocery store</example>
-        public string Title { get; set; }
+        public string Topic { get; set; }
 
         /// <summary>
         /// Gets or sets the difficulty level of the lesson.

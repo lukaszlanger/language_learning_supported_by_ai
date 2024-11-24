@@ -1,5 +1,4 @@
 ﻿using LanguageLearningAI.Core.Repositories;
-using LanguageLearningAI.Domain;
 using LanguageLearningAI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

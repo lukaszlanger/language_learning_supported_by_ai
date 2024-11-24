@@ -15,7 +15,7 @@
         /// Gets or sets the lesson title.
         /// </summary>
         /// <example>Grocery store</example>
-        public string Title { get; set; }
+        public string Topic { get; set; }
 
         /// <summary>
         /// Gets or sets the difficulty level of the lesson.

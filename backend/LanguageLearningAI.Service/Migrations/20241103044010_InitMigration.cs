@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LanguageLearningAI.API.Migrations
+namespace LanguageLearningAI.Service.Migrations
 {
     /// <inheritdoc />
-    public partial class RecreatedModelSnapshot : Migration
+    public partial class InitMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

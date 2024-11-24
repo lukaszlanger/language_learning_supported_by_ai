@@ -17,16 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20241102214628_InitialCreate.cs" />
-    <Compile Remove="Migrations\20241102214628_InitialCreate.Designer.cs" />
-    <Compile Remove="Migrations\20241103014511_UserUpdateAndAddedOtherEntities.cs" />
-    <Compile Remove="Migrations\20241103014511_UserUpdateAndAddedOtherEntities.Designer.cs" />
-    <Compile Remove="Migrations\20241103034957_EntitiesUpdate.cs" />
-    <Compile Remove="Migrations\20241103034957_EntitiesUpdate.Designer.cs" />
-    <Compile Remove="Migrations\20241103043501_EntitiesUpdate.cs" />
-    <Compile Remove="Migrations\20241103043501_EntitiesUpdate.Designer.cs" />
-    <Compile Remove="Migrations\20241103043714_EntitiesUpdate.cs" />
-    <Compile Remove="Migrations\20241103043714_EntitiesUpdate.Designer.cs" />
+    <Compile Remove="ApplicationDbContext.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +28,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.9.0" />
   </ItemGroup>

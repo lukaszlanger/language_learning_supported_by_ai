@@ -43,7 +43,7 @@ namespace LanguageLearningAI.API.Controllers
         public async Task<IActionResult> CreateLesson([FromBody] CreateLessonDto createLessonDto)
         {
             await _lessonService.AddLessonAsync(createLessonDto);
-            return CreatedAtAction(nameof(GetLessonById), new { id = createLessonDto.Title }, createLessonDto);
+            return CreatedAtAction(nameof(GetLessonById), new { id = createLessonDto.Topic }, createLessonDto);
         }
 
         [HttpPut("{id}")]

@@ -1,7 +1,7 @@
 using LanguageLearningAI.Core.Repositories;
 using LanguageLearningAI.Core.Services;
-using LanguageLearningAI.Domain;
 using LanguageLearningAI.Domain.Entities;
+using LanguageLearningAI.Service;
 using LanguageLearningAI.Service.Repositories;
 using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Identity;
@@ -22,12 +22,16 @@ namespace LanguageLearningAI.API
             builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 
             // Register services
+            builder.Services.AddHttpClient();
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IPhraseService, PhraseService>();
+            builder.Services.AddScoped<IAIService, HuggingFaceAIService>();
 
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("LanguageLearningAI.Service")));
 
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

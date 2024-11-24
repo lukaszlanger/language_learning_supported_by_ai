@@ -9,9 +9,9 @@
             Represents the data transfer object for creating a lesson.
             </summary>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreateLessonDto.Title">
+        <member name="P:LanguageLearningAI.Core.Dtos.CreateLessonDto.Topic">
             <summary>
-            Gets or sets the title of the lesson.
+            Gets or sets the topic of the lesson.
             </summary>
             <example>Grocery store</example>
         </member>
@@ -84,7 +84,7 @@
             </summary>
             <example>1</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.LessonDto.Title">
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonDto.Topic">
             <summary>
             Gets or sets the lesson title.
             </summary>
@@ -101,6 +101,12 @@
             Gets or sets the learning language of the lesson.
             </summary>
             <example>en</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonDto.UserId">
+            <summary>
+            Gets or sets id of the user assigned to lesson.
+            </summary>
+            <example>1</example>
         </member>
         <member name="T:LanguageLearningAI.Core.Dtos.LoginDto">
             <summary>
