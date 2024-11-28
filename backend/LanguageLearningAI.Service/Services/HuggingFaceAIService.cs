@@ -4,6 +4,8 @@ using LanguageLearningAI.Domain.Entities;
 using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Core.Repositories;
 using LanguageLearningAI.Domain.Enums;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace LanguageLearningAI.Service.Services
 {
@@ -13,19 +15,46 @@ namespace LanguageLearningAI.Service.Services
         private readonly ILessonRepository _lessonRepository;
         private readonly IPhraseRepository _phraseRepository;
         private readonly IQuizRepository _quizRepository;
-
-        private const string HuggingFaceUrl = "https://api-inference.huggingface.co/models/your-model-name";
+        private readonly IConfiguration _configuration;
+        private readonly HttpClient _httpClient;
+        private const string ApiUrl = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B";
+        private const string ApiToken = "";
 
         public HuggingFaceAIService(
             IHttpClientFactory httpClientFactory,
             ILessonRepository lessonRepository,
             IPhraseRepository phraseRepository,
-            IQuizRepository quizRepository)
+            IQuizRepository quizRepository,
+            IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
             _lessonRepository = lessonRepository;
             _phraseRepository = phraseRepository;
             _quizRepository = quizRepository;
+            _configuration = configuration;
+            _httpClient = new HttpClient();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ApiToken);
+        }
+
+        private string HuggingFaceUrl => _configuration.GetValue<string>("HuggingFace:BaseUrl");
+
+        public async Task<string> GenerateTextAsync(string prompt)
+        {
+            var requestData = new { inputs = prompt };
+            var response = await _httpClient.PostAsJsonAsync(ApiUrl, requestData);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonDocument.Parse(responseContent);
+                var generatedText = result.RootElement[0].GetProperty("generated_text").GetString();
+                return generatedText;
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Błąd podczas generowania tekstu: {errorContent}");
+            }
         }
 
         public async Task<Lesson> GenerateLessonAsync(string topic, string language, int difficultyLevel)

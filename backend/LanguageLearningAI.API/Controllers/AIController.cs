@@ -1,6 +1,7 @@
 ﻿using LanguageLearningAI.Core.Dtos;
 using LanguageLearningAI.Core.Mapping;
 using LanguageLearningAI.Core.Services;
+using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageLearningAI.API.Controllers
@@ -14,6 +15,31 @@ namespace LanguageLearningAI.API.Controllers
         public AIController(IAIService aiService)
         {
             _aiService = aiService;
+        }
+
+        [HttpPost("test")]
+        public async Task<string> GenerateTextWithRetryAsync(string prompt, int retryCount = 3)
+        {
+            for (int i = 0; i < retryCount; i++)
+            {
+                try
+                {
+                    if (!System.Text.Encoding.UTF8.GetBytes(prompt).All(b => b < 128))
+                    {
+                        throw new Exception("Prompt contains non-ASCII characters.");
+                    }
+
+                    string wygenerowanyTekst = await _aiService.GenerateTextAsync(prompt);
+                    Console.WriteLine(wygenerowanyTekst);
+                    return await _aiService.GenerateTextAsync(prompt);
+                }
+                catch (Exception ex) when (ex.Message.Contains("Model is currently loading"))
+                {
+                    Console.WriteLine($"Model wciąż się ładuje. Próba {i + 1} z {retryCount}. Czekam 2 minuty...");
+                    await Task.Delay(TimeSpan.FromMinutes(1)); // Czekaj 2 minuty przed kolejną próbą
+                }
+            }
+            throw new Exception("Model nie jest dostępny po wielokrotnych próbach.");
         }
 
         [HttpPost("generate-lesson")]
