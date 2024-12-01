@@ -2,9 +2,7 @@
 using System.Text;
 using System.Text.Json;
 using LanguageLearningAI.Core.Services;
-using System.Text.Json.Nodes;
 using LanguageLearningAI.Domain.Enums;
-using System.Net.Http;
 
 namespace LanguageLearningAI.Service.Services
 {
@@ -27,7 +25,7 @@ namespace LanguageLearningAI.Service.Services
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
-        public async Task<JsonObject> GenerateQuizAsync(string topic, string learningLanguage, int difficultyLevel)
+        public async Task<string> GenerateQuizAsync(string topic, string learningLanguage, int difficultyLevel)
         {
             var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel) 
                                  ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");
@@ -60,7 +58,7 @@ namespace LanguageLearningAI.Service.Services
             response.EnsureSuccessStatusCode();
 
             var responseString = await response.Content.ReadAsStringAsync();
-            return responseString; // Odpowiedź jako string JSON
+            return responseString;
         }
     }
 }

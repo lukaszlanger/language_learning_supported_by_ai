@@ -1,5 +1,4 @@
-﻿using LanguageLearningAI.Core.Dtos;
-using LanguageLearningAI.Core.Services;
+﻿using LanguageLearningAI.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageLearningAI.API.Controllers
@@ -15,6 +14,7 @@ namespace LanguageLearningAI.API.Controllers
             _quizService = quizService;
         }
 
+        /*
         [HttpGet]
         public async Task<IActionResult> GetAllQuizzes()
         {
@@ -61,7 +61,7 @@ namespace LanguageLearningAI.API.Controllers
                 return NotFound(new { message = "Quiz not found" });
             }
         }
-
+        */
     }
 
 }

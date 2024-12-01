@@ -22,30 +22,6 @@ namespace LanguageLearningAI.Core.Mapping
                 Translation = dto.Translation
             };
 
-        public static QuizDto Map(Quiz quiz) =>
-            new QuizDto
-            {
-                Id = quiz.Id,
-                PhraseId = quiz.PhraseId,
-                QuestionText = quiz.QuestionText,
-                CorrectAnswer = quiz.CorrectAnswer,
-                UserAnswer = quiz.UserAnswer,
-                IsCorrect = quiz.IsCorrect,
-                Attempts = quiz.Attempts
-            };
-
-        public static Quiz Map(QuizDto dto) =>
-            new Quiz
-            {
-                Id = dto.Id,
-                PhraseId = dto.PhraseId,
-                QuestionText = dto.QuestionText,
-                CorrectAnswer = dto.CorrectAnswer,
-                UserAnswer = dto.UserAnswer,
-                IsCorrect = dto.IsCorrect,
-                Attempts = dto.Attempts
-            };
-
         public static LessonDto Map(Lesson lesson) =>
             new LessonDto
             {

@@ -26,7 +26,7 @@ namespace LanguageLearningAI.Service.Repositories
         public async Task<IEnumerable<Quiz>> GetQuizzesByLessonAsync(int lessonId)
         {
             return await _context.Quizzes
-                .Where(q => q.Phrase.Lesson.Id == lessonId)
+                .Where(q => q.LessonId == lessonId)
                 .ToListAsync();
         }
 

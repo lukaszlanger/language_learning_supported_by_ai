@@ -1,4 +1,5 @@
-﻿using LanguageLearningAI.Domain.Entities;
+﻿using System.Text.Json;
+using LanguageLearningAI.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ namespace LanguageLearningAI.Service
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Phrase> Phrases { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
+        public DbSet<QuizQuestion> QuizQuestions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -23,7 +25,23 @@ namespace LanguageLearningAI.Service
                 .HasIndex(p => p.LessonId);
 
             builder.Entity<Quiz>()
-                .HasIndex(q => q.PhraseId);
+                .HasOne(q => q.Lesson)
+                .WithMany(l => l.Quizzes)
+                .HasForeignKey(q => q.LessonId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<QuizQuestion>()
+                .HasOne(qq => qq.Quiz)
+                .WithMany(q => q.Questions)
+                .HasForeignKey(qq => qq.QuizId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<QuizQuestion>()
+                .Property(qq => qq.Answers)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions)null))
+                .HasColumnType("NVARCHAR(MAX)");
         }
     }
 }

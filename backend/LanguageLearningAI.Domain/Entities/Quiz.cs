@@ -3,10 +3,9 @@
     public class Quiz
     {
         public int Id { get; set; }
-        public string Question { get; set; }
-        public string CorrectAnswer { get; set; }
-        public string UserAnswer { get; set; }
-        public bool IsCorrect { get; set; }
-        public int Attempts { get; set; }
+        public int LessonId { get; set; }
+        public Lesson Lesson { get; set; }
+        public string UserId { get; set; }
+        public ICollection<QuizQuestion> Questions { get; set; }
     }
 }

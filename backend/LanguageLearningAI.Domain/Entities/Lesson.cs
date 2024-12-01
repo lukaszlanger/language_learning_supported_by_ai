@@ -12,5 +12,6 @@ namespace LanguageLearningAI.Domain.Entities
 
         public User User { get; set; }
         public ICollection<Phrase> Phrases { get; set; }
+        public ICollection<Quiz> Quizzes { get; set; }
     }
 }

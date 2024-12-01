@@ -113,8 +113,6 @@ namespace LanguageLearningAI.Service.Services
                 var responseData = await response.Content.ReadAsStringAsync();
                 var quizData = JsonSerializer.Deserialize<Quiz>(responseData);
 
-                quizData.PhraseId = phrase.Id;
-
                 quizzes.Add(quizData);
             }
 
