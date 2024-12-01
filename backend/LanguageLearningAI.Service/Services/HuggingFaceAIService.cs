@@ -4,39 +4,34 @@ using LanguageLearningAI.Domain.Entities;
 using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Core.Repositories;
 using LanguageLearningAI.Domain.Enums;
-using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace LanguageLearningAI.Service.Services
 {
+    // Obsolete
     public class HuggingFaceAIService : IAIService
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ILessonRepository _lessonRepository;
-        private readonly IPhraseRepository _phraseRepository;
-        private readonly IQuizRepository _quizRepository;
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
-        private const string ApiUrl = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B";
-        private const string ApiToken = "";
+        private readonly string _apiKey;
+        private const string ApiUrl = "https://api-inference.huggingface.co/models/microsoft/Phi-3.5-mini-instruct";
 
         public HuggingFaceAIService(
             IHttpClientFactory httpClientFactory,
             ILessonRepository lessonRepository,
-            IPhraseRepository phraseRepository,
-            IQuizRepository quizRepository,
             IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
             _lessonRepository = lessonRepository;
-            _phraseRepository = phraseRepository;
-            _quizRepository = quizRepository;
             _configuration = configuration;
+            _apiKey = _configuration.GetValue<string>("HuggingFace:ApiKey") ?? throw new ArgumentNullException("API Key not found in configuration"); ;
             _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ApiToken);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
-        private string HuggingFaceUrl => _configuration.GetValue<string>("HuggingFace:BaseUrl");
+        private string HuggingFaceUrl => _configuration.GetValue<string>("HuggingFace:BaseUrl") ?? throw new ArgumentNullException("Base url not found in configuration");
 
         public async Task<string> GenerateTextAsync(string prompt)
         {
@@ -48,13 +43,11 @@ namespace LanguageLearningAI.Service.Services
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var result = JsonDocument.Parse(responseContent);
                 var generatedText = result.RootElement[0].GetProperty("generated_text").GetString();
-                return generatedText;
+                if (generatedText != null) return generatedText;
             }
-            else
-            {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Błąd podczas generowania tekstu: {errorContent}");
-            }
+
+            var errorContent = await response.Content.ReadAsStringAsync();
+            throw new Exception($"Błąd podczas generowania tekstu: {errorContent}");
         }
 
         public async Task<Lesson> GenerateLessonAsync(string topic, string language, int difficultyLevel)
@@ -120,13 +113,11 @@ namespace LanguageLearningAI.Service.Services
                 var responseData = await response.Content.ReadAsStringAsync();
                 var quizData = JsonSerializer.Deserialize<Quiz>(responseData);
 
-                // quizData.Phrase.LessonId = lessonId;
                 quizData.PhraseId = phrase.Id;
 
                 quizzes.Add(quizData);
             }
 
-            // await _quizRepository.AddRangeAsync(quizzes);
             return quizzes;
         }
     }
