@@ -1,4 +1,4 @@
-﻿using LanguageLearningAI.Core.Services;
+﻿using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageLearningAI.API.Controllers
@@ -7,9 +7,9 @@ namespace LanguageLearningAI.API.Controllers
     [Route("api/[controller]")]
     public class AIController : ControllerBase
     {
-        private readonly IAIService _aiService;
+        private readonly OpenAIService _aiService;
 
-        public AIController(IAIService aiService)
+        public AIController(OpenAIService aiService)
         {
             _aiService = aiService;
         }

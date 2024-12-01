@@ -1,10 +1,9 @@
-﻿using LanguageLearningAI.Core.Repositories;
-using LanguageLearningAI.Domain.Entities;
+﻿using LanguageLearningAI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LanguageLearningAI.Service.Repositories
 {
-    public class PhraseRepository : IPhraseRepository
+    public class PhraseRepository
     {
         private readonly ApplicationDbContext _context;
 

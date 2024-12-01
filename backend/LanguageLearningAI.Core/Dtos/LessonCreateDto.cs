@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents the data transfer object for creating a lesson.
     /// </summary>
-    public class CreateLessonDto
+    public class LessonCreateDto
     {
         /// <summary>
         /// Gets or sets the topic of the lesson.
@@ -22,5 +22,11 @@
         /// </summary>
         /// <example>en</example>
         public string LearningLanguage { get; set; }
+
+        /// <summary>
+        /// Gets or sets id of the user assigned to lesson.
+        /// </summary>
+        /// <example>1</example>
+        public string UserId { get; set; }
     }
 }

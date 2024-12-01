@@ -1,10 +1,9 @@
-﻿using LanguageLearningAI.Core.Repositories;
-using LanguageLearningAI.Domain.Entities;
+﻿using LanguageLearningAI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LanguageLearningAI.Service.Repositories
 {
-    public class LessonRepository : ILessonRepository
+    public class LessonRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -13,11 +12,9 @@ namespace LanguageLearningAI.Service.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Lesson>> GetAllAsync() => await _context.Lessons.ToListAsync();
-
         public async Task<IEnumerable<Lesson>> GetLessonsByUserAsync(string userId) => await _context.Lessons.Where(l => l.UserId == userId).ToListAsync();
 
-        public async Task<Lesson> GetByIdAsync(int id) => await _context.Lessons.FindAsync(id);
+        public async Task<Lesson> GetByIdAsync(int id) => await _context.Lessons.FindAsync(id) ?? throw new ArgumentNullException("Lesson with given id not found");
 
         public async Task AddAsync(Lesson lesson)
         {

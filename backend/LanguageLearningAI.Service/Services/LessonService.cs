@@ -1,30 +1,21 @@
 ﻿using LanguageLearningAI.Core.Dtos;
-using LanguageLearningAI.Core.Repositories;
-using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Domain.Entities;
 using LanguageLearningAI.Domain.Enums;
+using LanguageLearningAI.Service.Repositories;
 
 namespace LanguageLearningAI.Service.Services
 {
-    public class LessonService : ILessonService
+    public class LessonService
     {
-        private readonly ILessonRepository _lessonRepository;
+        private readonly LessonRepository _lessonRepository;
+        private readonly QuizRepository _quizRepository;
 
-        public LessonService(ILessonRepository lessonRepository)
+        public LessonService(
+            LessonRepository lessonRepository,
+            QuizRepository quizRepository)
         {
             _lessonRepository = lessonRepository;
-        }
-
-        public async Task<IEnumerable<LessonDto>> GetAllLessonsAsync()
-        {
-            var lessons = await _lessonRepository.GetAllAsync();
-            return lessons.Select(lesson => new LessonDto
-            {
-                Id = lesson.Id,
-                Topic = lesson.Topic,
-                DifficultyLevel = (int)lesson.DifficultyLevel,
-                LearningLanguage = lesson.LearningLanguage
-            });
+            _quizRepository = quizRepository;
         }
 
         public async Task<IEnumerable<LessonDto>> GetLessonsByUserAsync(string userId)
@@ -43,8 +34,6 @@ namespace LanguageLearningAI.Service.Services
         public async Task<LessonDto> GetLessonByIdAsync(int id)
         {
             var lesson = await _lessonRepository.GetByIdAsync(id);
-            if (lesson == null)
-                return null;
 
             return new LessonDto
             {
@@ -55,23 +44,21 @@ namespace LanguageLearningAI.Service.Services
             };
         }
 
-        public async Task AddLessonAsync(CreateLessonDto createLessonDto)
+        public async Task AddLessonAsync(LessonCreateDto createLessonDto)
         {
             var lesson = new Lesson
             {
                 Topic = createLessonDto.Topic,
                 DifficultyLevel = (DifficultyLevel)createLessonDto.DifficultyLevel,
-                LearningLanguage = createLessonDto.LearningLanguage
+                LearningLanguage = createLessonDto.LearningLanguage,
+                UserId = createLessonDto.UserId
             };
             await _lessonRepository.AddAsync(lesson);
         }
 
-        public async Task UpdateLessonAsync(int id, LessonDto lessonDto)
+        public async Task UpdateLessonAsync(int id, LessonCreateDto lessonDto)
         {
-            var lesson = await _lessonRepository.GetByIdAsync(id);
-            if (lesson == null)
-                throw new KeyNotFoundException("Lesson not found");
-
+            var lesson = await _lessonRepository.GetByIdAsync(id) ?? throw new KeyNotFoundException("Lesson not found");
             lesson.Topic = lessonDto.Topic;
             lesson.DifficultyLevel = (DifficultyLevel)lessonDto.DifficultyLevel;
             lesson.LearningLanguage = lessonDto.LearningLanguage;

@@ -34,5 +34,10 @@
         /// </summary>
         /// <example>1</example>
         public string UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets quizzes associated with the lesson.
+        /// </summary>
+        public ICollection<QuizDto> Quizzes { get; set; } = new List<QuizDto>();
     }
 }

@@ -1,15 +1,14 @@
 ﻿using LanguageLearningAI.Core.Dtos;
-using LanguageLearningAI.Core.Repositories;
-using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Domain.Entities;
+using LanguageLearningAI.Service.Repositories;
 
 namespace LanguageLearningAI.Service.Services
 {
-    public class PhraseService : IPhraseService
+    public class PhraseService
     {
-        private readonly IPhraseRepository _phraseRepository;
+        private readonly PhraseRepository _phraseRepository;
 
-        public PhraseService(IPhraseRepository phraseRepository)
+        public PhraseService(PhraseRepository phraseRepository)
         {
             _phraseRepository = phraseRepository;
         }

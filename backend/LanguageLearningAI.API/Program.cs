@@ -1,5 +1,3 @@
-using LanguageLearningAI.Core.Repositories;
-using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Domain.Entities;
 using LanguageLearningAI.Service;
 using LanguageLearningAI.Service.Repositories;
@@ -17,15 +15,16 @@ namespace LanguageLearningAI.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Register repositories
-            builder.Services.AddScoped<IPhraseRepository, PhraseRepository>();
-            builder.Services.AddScoped<ILessonRepository, LessonRepository>();
-            builder.Services.AddScoped<IQuizRepository, QuizRepository>();
+            builder.Services.AddScoped<PhraseRepository>();
+            builder.Services.AddScoped<LessonRepository>();
+            builder.Services.AddScoped<QuizRepository>();
 
             // Register services
             builder.Services.AddHttpClient();
-            builder.Services.AddScoped<IAuthService, AuthService>();
-            builder.Services.AddScoped<IPhraseService, PhraseService>();
-            builder.Services.AddScoped<IAIService, HuggingFaceAIService>();
+            builder.Services.AddScoped<AuthService>();
+            builder.Services.AddScoped<PhraseService>();
+            builder.Services.AddScoped<LessonRepository>();
+            builder.Services.AddScoped<QuizRepository>();
 
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>

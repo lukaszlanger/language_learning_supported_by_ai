@@ -1,5 +1,5 @@
 ﻿using LanguageLearningAI.Core.Dtos;
-using LanguageLearningAI.Core.Services;
+using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageLearningAI.API.Controllers
@@ -8,9 +8,9 @@ namespace LanguageLearningAI.API.Controllers
     [Route("api/phrases")]
     public class PhraseController : ControllerBase
     {
-        private readonly IPhraseService _phraseService;
+        private readonly PhraseService _phraseService;
 
-        public PhraseController(IPhraseService phraseService)
+        public PhraseController(PhraseService phraseService)
         {
             _phraseService = phraseService;
         }

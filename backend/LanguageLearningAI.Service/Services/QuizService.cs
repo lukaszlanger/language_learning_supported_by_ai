@@ -1,13 +1,12 @@
-﻿using LanguageLearningAI.Core.Repositories;
-using LanguageLearningAI.Core.Services;
+﻿using LanguageLearningAI.Service.Repositories;
 
 namespace LanguageLearningAI.Service.Services
 {
-    public class QuizService : IQuizService
+    public class QuizService
     {
-        private readonly IQuizRepository _quizRepository;
+        private readonly QuizRepository _quizRepository;
 
-        public QuizService(IQuizRepository quizRepository)
+        public QuizService(QuizRepository quizRepository)
         {
             _quizRepository = quizRepository;
         }

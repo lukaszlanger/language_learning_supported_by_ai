@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Core.Dtos;
+using LanguageLearningAI.Service.Services;
 
 namespace LanguageLearningAI.API.Controllers
 {
@@ -8,9 +8,9 @@ namespace LanguageLearningAI.API.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly AuthService _authService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(AuthService authService)
         {
             _authService = authService;
         }

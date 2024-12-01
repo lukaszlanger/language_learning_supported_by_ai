@@ -1,10 +1,9 @@
-﻿using LanguageLearningAI.Core.Repositories;
-using LanguageLearningAI.Domain.Entities;
+﻿using LanguageLearningAI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace LanguageLearningAI.Service.Repositories
 {
-    public class QuizRepository : IQuizRepository
+    public class QuizRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -28,6 +27,13 @@ namespace LanguageLearningAI.Service.Repositories
             return await _context.Quizzes
                 .Where(q => q.LessonId == lessonId)
                 .ToListAsync();
+        }
+
+        public async Task<Quiz> GetQuizByLessonAsync(int lessonId)
+        {
+            return await _context.Quizzes
+                .Where(q => q.LessonId == lessonId)
+                .FirstOrDefaultAsync();
         }
 
         public async Task AddQuizAsync(Quiz quiz)

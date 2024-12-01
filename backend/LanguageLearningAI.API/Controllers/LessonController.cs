@@ -1,5 +1,5 @@
 ﻿using LanguageLearningAI.Core.Dtos;
-using LanguageLearningAI.Core.Services;
+using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageLearningAI.API.Controllers
@@ -8,18 +8,11 @@ namespace LanguageLearningAI.API.Controllers
     [ApiController]
     public class LessonController : ControllerBase
     {
-        private readonly ILessonService _lessonService;
+        private readonly LessonService _lessonService;
 
-        public LessonController(ILessonService lessonService)
+        public LessonController(LessonService lessonService)
         {
             _lessonService = lessonService;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllLessons()
-        {
-            var lessons = await _lessonService.GetAllLessonsAsync();
-            return Ok(lessons);
         }
 
         [HttpGet("byUser/{id}")]
@@ -40,24 +33,10 @@ namespace LanguageLearningAI.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateLesson([FromBody] CreateLessonDto createLessonDto)
+        public async Task<IActionResult> CreateLesson([FromBody] LessonCreateDto createLessonDto)
         {
             await _lessonService.AddLessonAsync(createLessonDto);
             return CreatedAtAction(nameof(GetLessonById), new { id = createLessonDto.Topic }, createLessonDto);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateLesson(int id, [FromBody] LessonDto lessonDto)
-        {
-            try
-            {
-                await _lessonService.UpdateLessonAsync(id, lessonDto);
-                return NoContent();
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound();
-            }
         }
     }
 }

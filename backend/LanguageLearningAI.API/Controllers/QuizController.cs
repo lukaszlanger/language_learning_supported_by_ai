@@ -1,4 +1,4 @@
-﻿using LanguageLearningAI.Core.Services;
+﻿using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageLearningAI.API.Controllers
@@ -7,9 +7,9 @@ namespace LanguageLearningAI.API.Controllers
     [Route("api/quizzes")]
     public class QuizController : ControllerBase
     {
-        private readonly IQuizService _quizService;
+        private readonly QuizService _quizService;
 
-        public QuizController(IQuizService quizService)
+        public QuizController(QuizService quizService)
         {
             _quizService = quizService;
         }

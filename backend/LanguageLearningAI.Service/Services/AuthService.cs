@@ -1,11 +1,10 @@
 ﻿using LanguageLearningAI.Core.Dtos;
-using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace LanguageLearningAI.Service.Services
 {
-    public class AuthService : IAuthService
+    public class AuthService
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;

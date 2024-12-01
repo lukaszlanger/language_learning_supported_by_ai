@@ -1,12 +1,11 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using LanguageLearningAI.Core.Services;
 using LanguageLearningAI.Domain.Enums;
 
 namespace LanguageLearningAI.Service.Services
 {
-    public class OpenAIService : IOpenAIService
+    public class OpenAIService
     {
         private readonly IConfiguration _configuration;
         private readonly string _apiKey;
