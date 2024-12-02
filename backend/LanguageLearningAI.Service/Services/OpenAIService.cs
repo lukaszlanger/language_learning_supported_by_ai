@@ -49,7 +49,6 @@ namespace LanguageLearningAI.Service.Services
             }
 
             var responseString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"Response from OpenAI: {responseString}");
 
             return DeserializeResponse(responseString);
         }
@@ -66,7 +65,7 @@ namespace LanguageLearningAI.Service.Services
             {{
                 ""question"": ""string"",
                 ""answers"": [""string"", ""string"", ""string"", ""string""],
-                ""correct_answer"": ""string""
+                ""correctAnswer"": ""string""
             }}";
         }
 
@@ -74,25 +73,32 @@ namespace LanguageLearningAI.Service.Services
         {
             try
             {
-                // Parsowanie odpowiedzi JSON
                 var root = JsonDocument.Parse(responseString).RootElement;
 
-                // Pobierz zawartość "content" z odpowiedzi
                 var content = root
                     .GetProperty("choices")[0]
                     .GetProperty("message")
                     .GetProperty("content")
                     .GetString();
 
-                // Usuń oznaczenia bloków kodu (```json)
                 if (content.StartsWith("```json"))
                 {
                     content = content.Replace("```json", "").Replace("```", "").Trim();
                 }
 
-                // Deserializuj oczyszczony JSON do listy QuizQuestionDto
-                return JsonSerializer.Deserialize<List<QuizQuestionDto>>(content) ??
-                       throw new JsonException("Failed to deserialize OpenAI response content");
+                Console.WriteLine($"Cleaned content: {content}");
+
+                var deserialized = JsonSerializer.Deserialize<List<QuizQuestionDto>>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (deserialized == null || deserialized.Count == 0)
+                {
+                    throw new JsonException("Deserialized content is empty or null.");
+                }
+
+                return deserialized;
             }
             catch (Exception ex)
             {
@@ -100,6 +106,5 @@ namespace LanguageLearningAI.Service.Services
                 throw new InvalidOperationException("Error processing OpenAI response", ex);
             }
         }
-
     }
 }
