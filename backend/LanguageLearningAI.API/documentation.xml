@@ -4,29 +4,6 @@
         <name>LanguageLearningAI.Core</name>
     </assembly>
     <members>
-        <member name="T:LanguageLearningAI.Core.Dtos.CreateLessonDto">
-            <summary>
-            Represents the data transfer object for creating a lesson.
-            </summary>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreateLessonDto.Topic">
-            <summary>
-            Gets or sets the topic of the lesson.
-            </summary>
-            <example>Grocery store</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreateLessonDto.DifficultyLevel">
-            <summary>
-            Gets or sets the difficulty level of the lesson.
-            </summary>
-            <example>2</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreateLessonDto.LearningLanguage">
-            <summary>
-            Gets or sets the learning language of the lesson.
-            </summary>
-            <example>en</example>
-        </member>
         <member name="T:LanguageLearningAI.Core.Dtos.CreatePhraseDto">
             <summary>
             Represents the data transfer object for creating a phrase.
@@ -50,28 +27,34 @@
             </summary>
             <example>1</example>
         </member>
-        <member name="T:LanguageLearningAI.Core.Dtos.CreateQuizDto">
+        <member name="T:LanguageLearningAI.Core.Dtos.LessonCreateDto">
             <summary>
-            Represents the data transfer object for creating a quiz.
+            Represents the data transfer object for creating a lesson.
             </summary>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreateQuizDto.PhraseId">
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonCreateDto.Topic">
             <summary>
-            Gets or sets the ID of the phrase associated with the quiz.
+            Gets or sets the topic of the lesson.
+            </summary>
+            <example>Grocery store</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonCreateDto.DifficultyLevel">
+            <summary>
+            Gets or sets the difficulty level of the lesson.
+            </summary>
+            <example>2</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonCreateDto.LearningLanguage">
+            <summary>
+            Gets or sets the learning language of the lesson.
+            </summary>
+            <example>en</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonCreateDto.UserId">
+            <summary>
+            Gets or sets id of the user assigned to lesson.
             </summary>
             <example>1</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreateQuizDto.QuestionText">
-            <summary>
-            Gets or sets the text of the quiz question.
-            </summary>
-            <example>What's the translation of 'Chocolate'?</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreateQuizDto.CorrectAnswer">
-            <summary>
-            Gets or sets the correct answer for the quiz question.
-            </summary>
-            <example>Czekolada</example>
         </member>
         <member name="T:LanguageLearningAI.Core.Dtos.LessonDto">
             <summary>
@@ -107,6 +90,11 @@
             Gets or sets id of the user assigned to lesson.
             </summary>
             <example>1</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonDto.Quizzes">
+            <summary>
+            Gets or sets quizzes associated with the lesson.
+            </summary>
         </member>
         <member name="T:LanguageLearningAI.Core.Dtos.LoginDto">
             <summary>
@@ -148,6 +136,41 @@
             </summary>
             <example>Jabłko</example>
         </member>
+        <member name="T:LanguageLearningAI.Core.Dtos.QuizCreateDto">
+            <summary>
+            Represents the data transfer object for creating a quiz.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizCreateDto.Topic">
+            <summary>
+            Gets or sets the topic of the lesson.
+            </summary>
+            <example>Grocery store</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizCreateDto.DifficultyLevel">
+            <summary>
+            Gets or sets the difficulty level of the lesson.
+            </summary>
+            <example>2</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizCreateDto.LearningLanguage">
+            <summary>
+            Gets or sets the learning language of the lesson.
+            </summary>
+            <example>en</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizCreateDto.LessonId">
+            <summary>
+            Gets or sets the ID of the lesson associated with the quiz.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizCreateDto.UserId">
+            <summary>
+            Gets or sets id of the user assigned to quiz.
+            </summary>
+            <example>1</example>
+        </member>
         <member name="T:LanguageLearningAI.Core.Dtos.QuizDto">
             <summary>
             Represents a quiz data transfer object.
@@ -159,41 +182,108 @@
             </summary>
             <example>1</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.PhraseId">
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.LessonId">
             <summary>
-            Gets or sets the ID of the phrase associated with the quiz.
+            Gets or sets the ID of the lesson associated with the quiz.
             </summary>
             <example>1</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.QuestionText">
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.UserId">
             <summary>
-            Gets or sets the text of the quiz question.
+            Gets or sets the ID of the user associated with the quiz.
             </summary>
-            <example>What's the translation of 'Chocolate'?</example>
+            <example>1</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.CorrectAnswer">
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.Questions">
             <summary>
-            Gets or sets the correct answer for the quiz question.
+            Gets or sets the list of quiz questions.
             </summary>
-            <example>Czekolada</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.UserAnswer">
+        <member name="T:LanguageLearningAI.Core.Dtos.QuizQuestionCreateDto">
             <summary>
-            Gets or sets the user's answer for the quiz question.
+            Represents a quiz data transfer object.
             </summary>
-            <example>Czekolada</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.IsCorrect">
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionCreateDto.QuizId">
+            <summary>
+            Gets or sets the ID of the quiz associated with the question.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionCreateDto.Question">
+            <summary>
+            Gets or sets the question text.
+            </summary>
+            <example>What is the capital of France?</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionCreateDto.Answers">
+            <summary>
+            Gets or sets the list of possible answers.
+            </summary>
+            <example>["Paris", "London", "Berlin"]</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionCreateDto.CorrectAnswer">
+            <summary>
+            Gets or sets the correct answer.
+            </summary>
+            <example>Paris</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionCreateDto.UserAnswer">
+            <summary>
+            Gets or sets the user's answer.
+            </summary>
+            <example>London</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionCreateDto.IsCorrect">
             <summary>
             Gets or sets a value indicating whether the user's answer is correct.
             </summary>
-            <example>true</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.Attempts">
+        <member name="T:LanguageLearningAI.Core.Dtos.QuizQuestionDto">
             <summary>
-            Gets or sets the number of attempts made for the quiz question.
+            Represents a quiz data transfer object.
             </summary>
-            <example>2</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionDto.Id">
+            <summary>
+            Gets or sets the ID of the quiz.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionDto.QuizId">
+            <summary>
+            Gets or sets the ID of the quiz associated with the question.
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionDto.Question">
+            <summary>
+            Gets or sets the question text.
+            </summary>
+            <example>What is the capital of France?</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionDto.Answers">
+            <summary>
+            Gets or sets the list of possible answers.
+            </summary>
+            <example>["Paris", "London", "Berlin"]</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionDto.CorrectAnswer">
+            <summary>
+            Gets or sets the correct answer.
+            </summary>
+            <example>Paris</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionDto.UserAnswer">
+            <summary>
+            Gets or sets the user's answer.
+            </summary>
+            <example>London</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.QuizQuestionDto.IsCorrect">
+            <summary>
+            Gets or sets a value indicating whether the user's answer is correct.
+            </summary>
         </member>
         <member name="T:LanguageLearningAI.Core.Dtos.RegisterDto">
             <summary>

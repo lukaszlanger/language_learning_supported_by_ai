@@ -11,7 +11,6 @@ namespace LanguageLearningAI.Service
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Phrase> Phrases { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
@@ -30,10 +29,10 @@ namespace LanguageLearningAI.Service
                 .HasForeignKey(q => q.LessonId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<QuizQuestion>()
-                .HasOne(qq => qq.Quiz)
-                .WithMany(q => q.Questions)
-                .HasForeignKey(qq => qq.QuizId)
+            builder.Entity<Quiz>()
+                .HasMany(q => q.Questions)
+                .WithOne(q => q.Quiz)
+                .HasForeignKey(q => q.QuizId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<QuizQuestion>()

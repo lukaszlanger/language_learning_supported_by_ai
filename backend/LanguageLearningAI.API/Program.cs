@@ -23,8 +23,14 @@ namespace LanguageLearningAI.API
             builder.Services.AddHttpClient();
             builder.Services.AddScoped<AuthService>();
             builder.Services.AddScoped<PhraseService>();
-            builder.Services.AddScoped<LessonRepository>();
-            builder.Services.AddScoped<QuizRepository>();
+            builder.Services.AddScoped<LessonService>();
+            builder.Services.AddScoped<QuizService>();
+            builder.Services.AddScoped(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var httpClient = provider.GetRequiredService<HttpClient>();
+                return new OpenAIService(configuration, httpClient);
+            });
 
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>

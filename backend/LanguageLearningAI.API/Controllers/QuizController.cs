@@ -1,4 +1,5 @@
-﻿using LanguageLearningAI.Service.Services;
+﻿using LanguageLearningAI.Core.Dtos;
+using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageLearningAI.API.Controllers
@@ -14,54 +15,26 @@ namespace LanguageLearningAI.API.Controllers
             _quizService = quizService;
         }
 
-        /*
-        [HttpGet]
-        public async Task<IActionResult> GetAllQuizzes()
+        [HttpGet("byLesson/{lessonId}")]
+        public async Task<IActionResult> GetAllQuizzesByLesson(int lessonId)
         {
-            var quizzes = await _quizService.GetAllQuizzesAsync();
+            var quizzes = await _quizService.GetAllQuizzesByLessonAsync(lessonId);
             return Ok(quizzes);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetQuizById(int id)
+        [HttpPost("generate")]
+        public async Task<IActionResult> GenerateQuiz([FromBody] QuizCreateDto quizCreateDto)
         {
-            var quiz = await _quizService.GetQuizByIdAsync(id);
-            if (quiz == null)
-                return NotFound();
+            var quiz = await _quizService.GenerateAndSaveQuizAsync(
+                quizCreateDto.Topic,
+                quizCreateDto.LearningLanguage,
+                quizCreateDto.DifficultyLevel,
+                quizCreateDto.LessonId,
+                quizCreateDto.UserId
+            );
+
             return Ok(quiz);
         }
-
-        [HttpGet("byLesson")]
-        public async Task<IActionResult> GetQuizResultsByUserAndPhrase(int lessonId)
-        {
-            var results = await _quizService.GetQuizzesByLessonAsync(lessonId);
-            return Ok(results);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizDto createQuizDto)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            await _quizService.CreateQuizAsync(createQuizDto);
-            return CreatedAtAction(nameof(GetAllQuizzes), new { });
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> UpdateQuiz([FromBody] QuizDto quizDto)
-        {
-            try
-            {
-                await _quizService.UpdateQuizAsync(quizDto);
-                return NoContent();
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound(new { message = "Quiz not found" });
-            }
-        }
-        */
     }
 
 }
