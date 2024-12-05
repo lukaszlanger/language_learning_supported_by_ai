@@ -29,7 +29,7 @@ namespace LanguageLearningAI.API.Controllers
             return Ok(quiz);
         }
 
-        [HttpGet("quizzesByLesson/{lessonId}")]
+        [HttpGet("allByLesson/{lessonId}")]
         public async Task<IActionResult> GetAllQuizzesByLesson(int lessonId)
         {
             var quizzes = await _quizService.GetAllQuizzesByLessonAsync(lessonId);
