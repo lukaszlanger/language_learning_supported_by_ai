@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LanguageLearningAI.API.Controllers
 {
     [ApiController]
-    [Route("api/quizzes")]
+    [Route("api/quiz")]
     public class QuizController : ControllerBase
     {
         private readonly QuizService _quizService;
@@ -13,13 +13,6 @@ namespace LanguageLearningAI.API.Controllers
         public QuizController(QuizService quizService)
         {
             _quizService = quizService;
-        }
-
-        [HttpGet("byLesson/{lessonId}")]
-        public async Task<IActionResult> GetAllQuizzesByLesson(int lessonId)
-        {
-            var quizzes = await _quizService.GetAllQuizzesByLessonAsync(lessonId);
-            return Ok(quizzes);
         }
 
         [HttpPost("generate")]
@@ -34,6 +27,13 @@ namespace LanguageLearningAI.API.Controllers
             );
 
             return Ok(quiz);
+        }
+
+        [HttpGet("quizzesByLesson/{lessonId}")]
+        public async Task<IActionResult> GetAllQuizzesByLesson(int lessonId)
+        {
+            var quizzes = await _quizService.GetAllQuizzesByLessonAsync(lessonId);
+            return Ok(quizzes);
         }
     }
 
