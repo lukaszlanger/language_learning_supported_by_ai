@@ -76,7 +76,22 @@
   gap: 20px;
   font-size: 14px;
   color: var(--text-color);
-  ion-text {
-    cursor: pointer;
-  }
+  width: 100%;
+  justify-content: center;
+}
+
+.footer-links ion-text a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links ion-text a:hover {
+  color: var(--ion-color-primary);
+}
+
+.login-form {
+  max-width: 400px;
+  margin: auto;
+  margin-bottom: 20px;
 }

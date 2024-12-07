@@ -19,13 +19,30 @@
   <div class="welcome-text">Witaj, Łukasz</div>
   <div class="language-info">Uczysz się języka angielskiego 🇬🇧</div>
 
+  <form class="login-form">
+    <ion-item>
+      <ion-input type="text" labelPlacement="stacked"  placeholder="Wprowadź login" label="Email"></ion-input>
+    </ion-item>
+
+    <ion-list>
+      <ion-item> 
+        <ion-input type="password" labelPlacement="stacked" label="Hasło" placeholder="Wprowadź hasło">
+        </ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+
   <ion-button shape="round" class="next-button" (click)="navigateToNextPage()">
-    &gt;
+    <ion-icon name="arrow-forward-outline"></ion-icon>
   </ion-button>
 
-  <div class="footer-links" style="width: 100%; display: flex; justify-content: center;">
-    <ion-text>Zmień język nauki</ion-text>
+  <div class="footer-links">
+    <ion-text>
+      <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Zmień język nauki</a>
+    </ion-text>
     <ion-text>|</ion-text>
-    <ion-text>Wyloguj się</ion-text>
+    <ion-text>
+      <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Wyloguj się</a>
+    </ion-text>
   </div>
 </ion-content>
