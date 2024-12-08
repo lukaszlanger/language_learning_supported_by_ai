@@ -12,37 +12,43 @@
 <ion-content class="ion-padding" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
   <div class="avatar-container">
     <ion-avatar class="avatar">
-      <div class="avatar-text">Ł</div>
+      <div class="avatar-text">{{ avatarSymbol }}</div>
     </ion-avatar>
   </div>
 
-  <div class="welcome-text">Witaj, Łukasz</div>
-  <div class="language-info">Uczysz się języka angielskiego 🇬🇧</div>
+  <div class="welcome-text">{{ welcomeMessage }}</div>
+  <div class="welcome-text-smaller">Miło Cię widzieć</div>
 
-  <form class="login-form">
+  <form *ngIf="!isLoggedIn()" [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-input type="text" labelPlacement="stacked"  placeholder="Wprowadź login" label="Email"></ion-input>
+      <ion-input formControlName="email" type="text" labelPlacement="stacked" placeholder="Wprowadź login" label="Email"></ion-input>
     </ion-item>
 
-    <ion-list>
-      <ion-item> 
-        <ion-input type="password" labelPlacement="stacked" label="Hasło" placeholder="Wprowadź hasło">
-        </ion-input>
-      </ion-item>
-    </ion-list>
+    <ion-item> 
+      <ion-input formControlName="password" type="password" labelPlacement="stacked" label="Hasło" placeholder="Wprowadź hasło"></ion-input>
+    </ion-item>
+
+    <div class="error-text">{{ errorMessage }}</div>
+
+    <ion-button shape="round" class="next-button" (click)="onSubmit()">
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-button>
   </form>
 
-  <ion-button shape="round" class="next-button" (click)="navigateToNextPage()">
-    <ion-icon name="arrow-forward-outline"></ion-icon>
-  </ion-button>
-
   <div class="footer-links">
-    <ion-text>
-      <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Zmień język nauki</a>
-    </ion-text>
-    <ion-text>|</ion-text>
-    <ion-text>
-      <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Wyloguj się</a>
-    </ion-text>
+    <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
+      <ion-text>
+        <a href="#">Wyloguj się</a>
+      </ion-text>
+    </ng-container>
+    <ng-template #notLoggedIn>
+      <ion-text>
+        <a href="#">Rejestracja</a>
+      </ion-text>
+      <ion-text>|</ion-text>
+      <ion-text>
+        <a href="#">Przypomnij hasło</a>
+      </ion-text>
+    </ng-template>
   </div>
 </ion-content>

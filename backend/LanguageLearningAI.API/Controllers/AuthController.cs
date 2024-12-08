@@ -16,9 +16,9 @@ namespace LanguageLearningAI.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto registerDto)
         {
-            var result = await _authService.RegisterUser(registerDto);
+            var result = await _authService.RegisterUserAsync(registerDto);
             if (result.Succeeded)
             {
                 return Ok("User registered successfully.");
@@ -28,14 +28,20 @@ namespace LanguageLearningAI.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
         {
-            var result = await _authService.LoginUser(loginDto);
+            var result = await _authService.LoginUserAsync(loginDto);
             if (result.Succeeded)
             {
                 return Ok("Login successful.");
             }
             return Unauthorized("Invalid login attempt.");
+        }
+
+        [HttpGet("getUser/{email}")]
+        public async Task<UserDto> GetUserAsync(string email)
+        {
+            return await _authService.GetUserAsync(email) ?? throw new Exception("User not found");
         }
     }
 }

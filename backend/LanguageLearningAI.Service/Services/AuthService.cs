@@ -17,7 +17,7 @@ namespace LanguageLearningAI.Service.Services
             _userManager = userManager;
         }
 
-        public async Task<IdentityResult> RegisterUser(RegisterDto registerDto)
+        public async Task<IdentityResult> RegisterUserAsync(RegisterDto registerDto)
         {
             var existingUser = await _userManager.FindByEmailAsync(registerDto.Email);
             if (existingUser != null)
@@ -38,11 +38,24 @@ namespace LanguageLearningAI.Service.Services
             return result;
         }
 
-        public async Task<SignInResult> LoginUser(LoginDto loginDto)
+        public async Task<SignInResult> LoginUserAsync(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null) return SignInResult.Failed;
             return await _signInManager.PasswordSignInAsync(user, loginDto.Password, isPersistent: false, lockoutOnFailure: false);
+        }
+
+        public async Task<UserDto> GetUserAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            return new UserDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                NativeLanguage = user.NativeLanguage
+            };
         }
     }
 }

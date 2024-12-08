@@ -1,23 +1,53 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { IonIcon, IonInput, IonButton, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar } from '@ionic/angular/standalone';
+import { IonIcon, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { arrowForwardOutline, eye } from 'ionicons/icons';
+import { AuthService } from '../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  imports: [IonicModule, FormsModule, IonIcon, ReactiveFormsModule, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar]
+  imports: [CommonModule, IonicModule, FormsModule, IonIcon, ReactiveFormsModule, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar]
 })
 export class LoginPage {
-  constructor(private router: Router) {
-    addIcons({ arrowForwardOutline, eye });
+  loginForm: FormGroup;
+  errorMessage: string | null = null;
+  avatarSymbol: string = ':)';
+  welcomeMessage: string = 'Zaloguj się!';
+
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private formBuilder: FormBuilder) {
+      addIcons({ arrowForwardOutline, eye });
+      this.loginForm = this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+      });
   }
 
-  navigateToNextPage() {
-    this.router.navigate(['x/tabs/tab1']);
+  async onSubmit() {
+    this.errorMessage = null;
+    if (this.loginForm.valid) {
+      try {
+        await this.authService.loginAndSetUser(this.loginForm.value);
+        this.welcomeMessage = `Witaj, ${this.authService.user?.firstName}!`;
+        this.avatarSymbol = this.authService.user?.firstName?.charAt(0) || this.avatarSymbol;
+        this.router.navigate(['x/tabs/tab1']);
+      } catch (error) {
+        this.errorMessage = 'Login failed. Please try again.';
+      }
+    } else {
+      this.errorMessage = 'Proszę wypełnić wszystkie pola poprawnie';
+    }
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
   }
 }

@@ -320,5 +320,40 @@
             </summary>
             <example>pl</example>
         </member>
+        <member name="T:LanguageLearningAI.Core.Dtos.UserDto">
+            <summary>
+            Represents the data transfer object for user registration.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.UserDto.UserName">
+            <summary>
+            Gets or sets the email of the user.
+            </summary>
+            <example>example@example.com</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.UserDto.Password">
+            <summary>
+            Gets or sets the password of the user.
+            </summary>
+            <example>Pa$$w0rd</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.UserDto.FirstName">
+            <summary>
+            Gets or sets the first name of the user.
+            </summary>
+            <example>Jan</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.UserDto.LastName">
+            <summary>
+            Gets or sets the last name of the user.
+            </summary>
+            <example>Kowalski</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.UserDto.NativeLanguage">
+            <summary>
+            Gets or sets the native language of the user.
+            </summary>
+            <example>pl</example>
+        </member>
     </members>
 </doc>
