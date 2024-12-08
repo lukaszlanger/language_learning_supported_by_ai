@@ -12,7 +12,20 @@ import { CommonModule } from '@angular/common';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  imports: [CommonModule, IonicModule, FormsModule, IonIcon, ReactiveFormsModule, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar]
+  imports: [
+    CommonModule,
+    IonicModule,
+    FormsModule,
+    IonIcon,
+    ReactiveFormsModule,
+    IonInput,
+    IonLabel,
+    IonRouterLink,
+    IonRouterOutlet,
+    IonList,
+    IonItem,
+    IonAvatar,
+  ],
 })
 export class LoginPage {
   loginForm: FormGroup;
@@ -23,27 +36,33 @@ export class LoginPage {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private formBuilder: FormBuilder) {
-      addIcons({ arrowForwardOutline, eye });
-      this.loginForm = this.formBuilder.group({
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-      });
+    private formBuilder: FormBuilder
+  ) {
+    addIcons({ arrowForwardOutline, eye });
+
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
   }
 
   async onSubmit() {
     this.errorMessage = null;
+
     if (this.loginForm.valid) {
       try {
         await this.authService.loginAndSetUser(this.loginForm.value);
+
         this.welcomeMessage = `Witaj, ${this.authService.user?.firstName}!`;
-        this.avatarSymbol = this.authService.user?.firstName?.charAt(0) || this.avatarSymbol;
+        this.avatarSymbol =
+          this.authService.user?.firstName?.charAt(0).toUpperCase() || this.avatarSymbol;
+
         this.router.navigate(['x/tabs/tab1']);
       } catch (error) {
-        this.errorMessage = 'Login failed. Please try again.';
+        this.errorMessage = 'Nie udało się zalogować. Spróbuj ponownie.';
       }
     } else {
-      this.errorMessage = 'Proszę wypełnić wszystkie pola poprawnie';
+      this.errorMessage = 'Proszę wypełnić wszystkie pola poprawnie.';
     }
   }
 
