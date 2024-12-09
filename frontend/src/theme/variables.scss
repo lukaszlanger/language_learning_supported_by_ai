@@ -8,7 +8,7 @@
   --ion-color-primary: #7a2e36;
   --ion-color-secondary: #5c1e24;
   --ion-text-color: #333333;
-  --ion-color-error: #ff6666;;
+  --ion-color-error: #ff6666;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,18 +25,4 @@
 ion-title {
   width: 100%; 
   text-align: center;
-}
-
-.toolbar {
-  font-size: 20px;
-  color: white;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-}
-
-.toolbar small {
-  display: block;
-  font-size: 12px;
-  opacity: 0.7;
-  margin-top: 4px;
 }

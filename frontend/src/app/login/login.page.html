@@ -1,13 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      <ion-text class="toolbar">
-        Language Learning
-        <small>powered by AI</small>
-      </ion-text>
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
 <ion-content class="ion-padding" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
   <div class="avatar-container">
@@ -30,8 +21,8 @@
 
     <div class="error-text">{{ errorMessage }}</div>
 
-    <ion-button shape="round" class="next-button" (click)="onSubmit()">
-      <ion-icon name="arrow-forward-outline"></ion-icon>
+    <ion-button shape="round" class="next-button" (click)="nextTest()">
+      <ion-icon slot="icon-only" name="arrow-forward-outline"></ion-icon>
     </ion-button>
   </form>
 
