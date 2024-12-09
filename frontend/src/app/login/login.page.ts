@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { IonIcon, IonButton, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar } from '@ionic/angular/standalone';
+import { IonIcon, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { arrowForwardOutline, eye } from 'ionicons/icons';
 import { AuthService } from '../services/auth.service';
@@ -49,7 +49,7 @@ export class LoginPage {
   }
 
   nextTest() {
-    this.router.navigate(['home']);
+    this.router.navigate(['lesson']);
   }
 
   async onSubmit() {
