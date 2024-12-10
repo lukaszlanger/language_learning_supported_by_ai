@@ -37,8 +37,22 @@
   font-style: normal;
 }
 
-
 ion-title {
   width: 100%; 
   text-align: center;
+}
+
+.page-title {
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+.page-title h1 {
+  font-family: 'SF Pro Display', Arial, sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  display: inline-block;
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowForwardOutline, eye } from 'ionicons/icons';
+import { arrowForward } from 'ionicons/icons';
 import { IonicModule } from '@ionic/angular';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { Router } from '@angular/router';
@@ -24,7 +24,7 @@ export class HomePage{
   ];
 
   constructor(private router: Router) {
-    addIcons({ arrowForwardOutline });
+    addIcons({ arrowForward });
   }
 
   navigateToLesson() {

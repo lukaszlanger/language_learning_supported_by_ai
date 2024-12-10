@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { addCircleOutline, settingsOutline } from 'ionicons/icons';
+import { addCircle, addCircleOutline, settings, settingsOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-toolbar',
@@ -15,6 +15,6 @@ export class ToolbarComponent {
   @Input() page: string = '';
 
   constructor() {
-    addIcons({ addCircleOutline, settingsOutline });
+    addIcons({ addCircleOutline, addCircle, settingsOutline, settings });
   }
 }

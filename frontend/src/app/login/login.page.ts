@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { IonicModule } from '@ionic/angular';
 import { IonIcon, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowForwardOutline, eye } from 'ionicons/icons';
+import { arrowForward } from 'ionicons/icons';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
@@ -40,7 +40,7 @@ export class LoginPage {
     private authService: AuthService,
     private formBuilder: FormBuilder
   ) {
-    addIcons({ arrowForwardOutline, eye });
+    addIcons({ arrowForward });
 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
