@@ -26,7 +26,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
     IonList,
     IonItem,
     IonAvatar,
-    ToolbarComponent
+    ToolbarComponent,
   ],
 })
 export class LoginPage {
@@ -34,6 +34,7 @@ export class LoginPage {
   errorMessage: string | null = null;
   avatarSymbol: string = ':)';
   welcomeMessage: string = 'Zaloguj się!';
+  isLoading = false;
 
   constructor(
     private router: Router,
@@ -56,6 +57,8 @@ export class LoginPage {
     this.errorMessage = null;
 
     if (this.loginForm.valid) {
+      
+      this.isLoading = true;
       try {
         await this.authService.loginAndSetUser(this.loginForm.value);
 
@@ -65,6 +68,8 @@ export class LoginPage {
         this.router.navigate(['home']);
       } catch (error) {
         this.errorMessage = 'Nie udało się zalogować. Spróbuj ponownie.';
+      } finally {
+        this.isLoading = false;
       }
     } else {
       this.errorMessage = 'Proszę wypełnić wszystkie pola poprawnie.';

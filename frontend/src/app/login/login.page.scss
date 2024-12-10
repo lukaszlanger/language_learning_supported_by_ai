@@ -44,7 +44,7 @@
   color: var(--ion-color-error);
 }
 
-.next-button {
+.submit-button {
   width: 60px;
   height: 60px;
   --background: var(--gradient);
@@ -61,18 +61,9 @@
   margin-top: 20px;
 }
 
-.next-button:hover {
+.submit-button:hover {
   transform: scale(1.1);
   box-shadow: 0 8px 16px var(--button-shadow, rgba(0, 0, 0, 0.2)) !important;
-}
-
-.logout {
-  cursor: pointer;
-  position: absolute;
-  bottom: 20px;
-  text-align: center;
-  width: 100%;
-  color: #e0e0e0;
 }
 
 .footer-links {

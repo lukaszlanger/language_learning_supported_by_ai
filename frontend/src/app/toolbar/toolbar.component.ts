@@ -13,6 +13,8 @@ import { addCircle, addCircleOutline, settings, settingsOutline } from 'ionicons
 })
 export class ToolbarComponent {
   @Input() page: string = '';
+  @Input() title: string = 'Language Learning';
+  @Input() titleSmall: string = 'powered by AI';
 
   constructor() {
     addIcons({ addCircleOutline, addCircle, settingsOutline, settings });

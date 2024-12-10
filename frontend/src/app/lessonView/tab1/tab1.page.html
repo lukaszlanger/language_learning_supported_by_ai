@@ -1,8 +1,11 @@
-<app-toolbar></app-toolbar>
+<app-toolbar title="Temat lekcji" titleSmall="Fiszki"></app-toolbar>
 
 <ion-content [fullscreen]="true">
-  <div class="page-title">
-    <h1>Fiszki</h1>
-    <ion-text class="lesson-topic">Temat lekcji</ion-text>
+  <div class="flashcards">
+    <ion-card *ngFor="let flashcard of flashcards" class="flashcard">
+      <ion-card-content>
+        {{ flashcard.word }}
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>

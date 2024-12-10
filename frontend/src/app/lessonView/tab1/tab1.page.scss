@@ -1,4 +1,34 @@
-.lesson-topic {
-    display: block;
-    font-size: 18px;
+.flashcards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px; /* Adjust the gap between flashcards */
+  padding: 16px;
+}
+
+.flashcard {
+  width: calc(12.5% - 8px); /* Adjust width to fit more cards in a row */
+  height: 60px; /* Set a smaller fixed height for the flashcards */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'SF Pro Text', Arial, sans-serif;
+  background-color: var(--ion-card-background);
+  color: var(--ion-text-color);
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+}
+
+.flashcard ion-card-content {
+  padding: 0; /* Remove padding from card content */
+  margin: 0; /* Remove margin from card content */
+}
+
+@media (max-width: 768px) {
+  .flashcard {
+    width: calc(25% - 8px); /* Adjust width to fit more cards in a row for mobile view */
   }
+}
