@@ -9,6 +9,7 @@
   --ion-color-secondary: #5c1e24;
   --ion-text-color: #333333;
   --ion-color-error: #ff6666;
+  --ion-font-family: 'SF Pro Text', Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,6 +22,21 @@
     --ion-text-color: #d6d1d1;
   }
 }
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('/assets/fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('/assets/fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 ion-title {
   width: 100%; 
