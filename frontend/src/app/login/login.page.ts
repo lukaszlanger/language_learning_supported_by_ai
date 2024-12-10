@@ -49,7 +49,7 @@ export class LoginPage {
   }
 
   nextTest() {
-    this.router.navigate(['lesson']);
+    this.router.navigate(['home']);
   }
 
   async onSubmit() {
@@ -60,10 +60,9 @@ export class LoginPage {
         await this.authService.loginAndSetUser(this.loginForm.value);
 
         this.welcomeMessage = `Witaj, ${this.authService.user?.firstName}!`;
-        this.avatarSymbol =
-          this.authService.user?.firstName?.charAt(0).toUpperCase() || this.avatarSymbol;
+        this.avatarSymbol = this.authService.user?.firstName?.charAt(0).toUpperCase() || this.avatarSymbol;
 
-        this.router.navigate(['x/tabs/tab1']);
+        this.router.navigate(['home']);
       } catch (error) {
         this.errorMessage = 'Nie udało się zalogować. Spróbuj ponownie.';
       }

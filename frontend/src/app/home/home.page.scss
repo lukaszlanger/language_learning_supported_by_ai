@@ -1,0 +1,120 @@
+.page-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px; /* Add bottom margin */
+    text-align: center; /* Center the title */
+    width: 100%;
+  }
+  
+  .page-title h1 {
+    font-family: 'SF Pro Display', Arial, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    display: inline-block; /* Inline-block to allow centering */
+  }
+  
+  .test {
+    font-family: "SF Pro Text", Arial, sans-serif;
+  }
+  
+  .lesson-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px; /* Default gap for larger screens */
+    padding: 16px;
+  }
+  
+  .lesson-card {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--ion-card-background);
+    color: var(--ion-text-color);
+    margin: 16px;
+    padding: 16px;
+  }
+  
+  .lesson-card ion-card-title {
+    font-family: 'SF Pro Display', Arial, sans-serif;
+    font-size: 24px; /* Increase the font size for the lesson title */
+    font-weight: bold;
+    margin-bottom: 8px; /* Add spacing below the lesson title */
+    display: block;
+  }
+  
+  .lesson-card .lesson-details {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .lesson-card .lesson-info {
+    display: flex;
+    align-items: center;
+    margin-right: 12px; /* Increase space between the lesson info items */
+  }
+  
+  .lesson-card .lesson-number {
+    font-family: 'SF Pro Display', Arial, sans-serif;
+    font-size: 24px; /* Same font size as the lesson title */
+    font-weight: bold;
+    margin-right: 4px; /* Add some space between the number and the text */
+  }
+  
+  .lesson-card .lesson-info {
+    color: rgba(0, 0, 0, 0.7); /* Reduce the intensity of the text color */
+  }
+  
+  .lesson-card ion-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .lesson-card ion-button {
+    --background: var(--gradient);
+    border-radius: 50%;
+    color: white;
+    --font-size: 2rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+  }
+  
+  .lesson-card ion-button:hover {
+    transform: scale(1.1);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .lesson-card {
+      background-color: #333;
+      color: #fff;
+    }
+  
+    .lesson-card .lesson-info {
+      color: rgba(255, 255, 255, 0.7); /* Reduce the intensity of the text color for dark mode */
+    }
+  }
+  
+  @media (prefers-color-scheme: light) {
+    .lesson-card {
+      background-color: #fff;
+      color: #000;
+    }
+  
+    .lesson-card .lesson-info {
+      color: rgba(0, 0, 0, 0.7); /* Reduce the intensity of the text color for light mode */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .lesson-cards {
+      gap: 0; /* Reduced gap for mobile view */
+    }
+  }
