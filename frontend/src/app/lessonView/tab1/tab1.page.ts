@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { ExploreContainerComponent } from '../../explore-container/explore-container.component';
 import { CommonModule } from '@angular/common';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { ToolbarComponent } from '../../toolbar/toolbar.component';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
