@@ -33,9 +33,9 @@ namespace LanguageLearningAI.API.Controllers
             var result = await _authService.LoginUserAsync(loginDto);
             if (result.Succeeded)
             {
-                return Ok("Login successful.");
+                return Ok(new { message = "Login successful." });
             }
-            return Unauthorized("Invalid login attempt.");
+            return Unauthorized(new { message = "Invalid login attempt." });
         }
 
         [HttpGet("getUser/{email}")]

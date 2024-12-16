@@ -14,6 +14,19 @@ namespace LanguageLearningAI.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend",
+                    policy =>
+                    {
+                        policy
+                            .WithOrigins("http://localhost:8100")
+                            .WithOrigins("http://localhost:8101")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
+
             // Register repositories
             builder.Services.AddScoped<PhraseRepository>();
             builder.Services.AddScoped<LessonRepository>();
@@ -63,6 +76,8 @@ namespace LanguageLearningAI.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors("AllowFrontend");
 
             app.UseHttpsRedirection();
 
