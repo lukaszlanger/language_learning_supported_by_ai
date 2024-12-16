@@ -6,28 +6,28 @@
     public class FlashcardCreateDto
     {
         /// <summary>
-        /// Gets or sets the term of the flashcard.
+        /// Gets or sets the topic of the lesson.
         /// </summary>
-        /// <example>Apple</example>
-        public string Term { get; set; }
+        /// <example>Grocery store</example>
+        public string Topic { get; set; }
 
         /// <summary>
-        /// Gets or sets the details of the term.
+        /// Gets or sets the difficulty level of the lesson.
         /// </summary>
-        /// <example>Fruit</example>
-        public string Details { get; set; }
+        /// <example>2</example>
+        public int DifficultyLevel { get; set; }
 
         /// <summary>
-        /// Gets or sets the translation of the term.
+        /// Gets or sets the learning language of the lesson.
         /// </summary>
-        /// <example>Jabłko</example>
-        public string Translation { get; set; }
+        /// <example>English</example>
+        public string LearningLanguage { get; set; }
 
         /// <summary>
-        /// Gets or sets the example usage of the term in a sentence.
+        /// Gets or sets the native language of the user.
         /// </summary>
-        /// <example>Apple is a fruit</example>
-        public string Usage { get; set; }
+        /// <example>Polish</example>
+        public string NativeLanguage { get; set; }
 
         /// <summary>
         /// Gets or sets the lesson associated with the flashcard.

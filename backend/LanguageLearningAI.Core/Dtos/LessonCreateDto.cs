@@ -20,7 +20,7 @@
         /// <summary>
         /// Gets or sets the learning language of the lesson.
         /// </summary>
-        /// <example>en</example>
+        /// <example>English</example>
         public string LearningLanguage { get; set; }
 
         /// <summary>

@@ -14,7 +14,11 @@ namespace LanguageLearningAI.Service.Repositories
 
         public async Task<IEnumerable<Lesson>> GetLessonsByUserAsync(string userId) => await _context.Lessons.Where(l => l.UserId == userId).ToListAsync();
 
-        public async Task<Lesson> GetByIdAsync(int id) => await _context.Lessons.FindAsync(id) ?? throw new ArgumentNullException("Lesson with given id not found");
+        public async Task<Lesson> GetByIdAsync(int id)
+        {
+            var lesson = await _context.Lessons.FindAsync(id) ?? throw new ArgumentNullException(nameof(Lesson));
+            return lesson;
+        }
 
         public async Task<int> AddAsync(Lesson lesson)
         {

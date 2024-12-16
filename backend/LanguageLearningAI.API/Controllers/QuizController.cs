@@ -15,7 +15,7 @@ namespace LanguageLearningAI.API.Controllers
             _quizService = quizService;
         }
 
-        [HttpPost("generate")]
+        [HttpPost("generateWithAI")]
         public async Task<IActionResult> GenerateQuiz([FromBody] QuizCreateDto quizCreateDto)
         {
             var quiz = await _quizService.GenerateAndSaveQuizAsync(

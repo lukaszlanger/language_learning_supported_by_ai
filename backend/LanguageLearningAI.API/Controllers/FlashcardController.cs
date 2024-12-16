@@ -30,11 +30,18 @@ namespace LanguageLearningAI.API.Controllers
             return Ok(phrase);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<FlashcardDto>> AddPhrase([FromBody] FlashcardCreateDto flashcardCreateDto)
+        [HttpPost("generateWithAI")]
+        public async Task<IActionResult> GenerateFlashcards([FromBody] FlashcardCreateDto flashcardCreateDto)
         {
-            var flashcard = await _flashcardService.AddFlashcardAsync(flashcardCreateDto);
-            return Ok(flashcard);
+            var quiz = await _flashcardService.GenerateAndSaveFlashcardsAsync(
+                flashcardCreateDto.Topic,
+                flashcardCreateDto.LearningLanguage,
+                flashcardCreateDto.NativeLanguage,
+                flashcardCreateDto.DifficultyLevel,
+                flashcardCreateDto.LessonId
+            );
+
+            return Ok(quiz);
         }
     }
 }
