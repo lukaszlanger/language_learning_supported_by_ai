@@ -52,7 +52,7 @@ namespace LanguageLearningAI.Service.Migrations
                     b.ToTable("Lessons");
                 });
 
-            modelBuilder.Entity("LanguageLearningAI.Domain.Entities.Phrase", b =>
+            modelBuilder.Entity("LanguageLearningAI.Domain.Entities.Flashcard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -358,7 +358,7 @@ namespace LanguageLearningAI.Service.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LanguageLearningAI.Domain.Entities.Phrase", b =>
+            modelBuilder.Entity("LanguageLearningAI.Domain.Entities.Flashcard", b =>
                 {
                     b.HasOne("LanguageLearningAI.Domain.Entities.Lesson", "Lesson")
                         .WithMany("Phrases")

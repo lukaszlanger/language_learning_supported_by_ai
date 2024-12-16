@@ -1,5 +1,5 @@
 ﻿using LanguageLearningAI.Core.Dtos;
-using LanguageLearningAI.Domain.Entities;
+using LanguageLearningAI.Core.Mapping;
 using LanguageLearningAI.Domain.Enums;
 using LanguageLearningAI.Service.Repositories;
 
@@ -8,52 +8,29 @@ namespace LanguageLearningAI.Service.Services
     public class LessonService
     {
         private readonly LessonRepository _lessonRepository;
-        private readonly QuizRepository _quizRepository;
 
         public LessonService(
-            LessonRepository lessonRepository,
-            QuizRepository quizRepository)
+            LessonRepository lessonRepository)
         {
             _lessonRepository = lessonRepository;
-            _quizRepository = quizRepository;
         }
 
         public async Task<IEnumerable<LessonDto>> GetLessonsByUserAsync(string userId)
         {
             var lessons = await _lessonRepository.GetLessonsByUserAsync(userId);
-            return lessons.Select(lesson => new LessonDto
-            {
-                Id = lesson.Id,
-                Topic = lesson.Topic,
-                DifficultyLevel = (int)lesson.DifficultyLevel,
-                LearningLanguage = lesson.LearningLanguage,
-                UserId = lesson.UserId
-            });
+            return lessons.Select(EntityMapper.Map);
         }
 
         public async Task<LessonDto> GetLessonByIdAsync(int id)
         {
             var lesson = await _lessonRepository.GetByIdAsync(id);
 
-            return new LessonDto
-            {
-                Id = lesson.Id,
-                Topic = lesson.Topic,
-                DifficultyLevel = (int)lesson.DifficultyLevel,
-                LearningLanguage = lesson.LearningLanguage
-            };
+            return EntityMapper.Map(lesson);
         }
 
         public async Task AddLessonAsync(LessonCreateDto createLessonDto)
         {
-            var lesson = new Lesson
-            {
-                Topic = createLessonDto.Topic,
-                DifficultyLevel = (DifficultyLevel)createLessonDto.DifficultyLevel,
-                LearningLanguage = createLessonDto.LearningLanguage,
-                UserId = createLessonDto.UserId
-            };
-            await _lessonRepository.AddAsync(lesson);
+            await _lessonRepository.AddAsync(EntityMapper.Map(createLessonDto));
         }
 
         public async Task UpdateLessonAsync(int id, LessonCreateDto lessonDto)

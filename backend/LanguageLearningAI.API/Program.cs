@@ -28,14 +28,14 @@ namespace LanguageLearningAI.API
             });
 
             // Register repositories
-            builder.Services.AddScoped<PhraseRepository>();
+            builder.Services.AddScoped<FlashcardRepository>();
             builder.Services.AddScoped<LessonRepository>();
             builder.Services.AddScoped<QuizRepository>();
 
             // Register services
             builder.Services.AddHttpClient();
             builder.Services.AddScoped<AuthService>();
-            builder.Services.AddScoped<PhraseService>();
+            builder.Services.AddScoped<FlashcardService>();
             builder.Services.AddScoped<LessonService>();
             builder.Services.AddScoped<QuizService>();
             builder.Services.AddScoped(provider =>

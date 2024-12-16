@@ -4,26 +4,26 @@
         <name>LanguageLearningAI.Core</name>
     </assembly>
     <members>
-        <member name="T:LanguageLearningAI.Core.Dtos.CreatePhraseDto">
+        <member name="T:LanguageLearningAI.Core.Dtos.FlashcardCreateDto">
             <summary>
-            Represents the data transfer object for creating a phrase.
+            Represents the data transfer object for creating a flashcard.
             </summary>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreatePhraseDto.Text">
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.Text">
             <summary>
-            Gets or sets the text of the phrase.
+            Gets or sets the text of the flashcard.
             </summary>
             <example>Apple</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreatePhraseDto.Translation">
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.Translation">
             <summary>
-            Gets or sets the translation of the phrase.
+            Gets or sets the translation of the flashcard.
             </summary>
             <example>Jabłko</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.CreatePhraseDto.LessonId">
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.LessonId">
             <summary>
-            Gets or sets the lesson ID of the phrase.
+            Gets or sets the lesson ID of the flashcard.
             </summary>
             <example>1</example>
         </member>
@@ -113,26 +113,26 @@
             </summary>
             <example>password123</example>
         </member>
-        <member name="T:LanguageLearningAI.Core.Dtos.PhraseDto">
+        <member name="T:LanguageLearningAI.Core.Dtos.FlashcardDto">
             <summary>
-            Represents a phrase data transfer object.
+            Represents a flashcard data transfer object.
             </summary>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.PhraseDto.Id">
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardDto.Id">
             <summary>
-            Gets or sets the ID of the phrase.
+            Gets or sets the ID of the flashcard.
             </summary>
             <example>1</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.PhraseDto.Text">
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardDto.Text">
             <summary>
-            Gets or sets the text of the phrase.
+            Gets or sets the text of the flashcard.
             </summary>
             <example>Apple</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.PhraseDto.Translation">
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardDto.Translation">
             <summary>
-            Gets or sets the translation of the phrase.
+            Gets or sets the translation of the flashcard.
             </summary>
             <example>Jabłko</example>
         </member>

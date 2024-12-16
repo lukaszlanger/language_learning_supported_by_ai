@@ -12,7 +12,7 @@ namespace LanguageLearningAI.Service
         }
 
         public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<Phrase> Phrases { get; set; }
+        public DbSet<Flashcard> Flashcards { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<QuizQuestion> QuizQuestions { get; set; }
 
@@ -20,7 +20,7 @@ namespace LanguageLearningAI.Service
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Phrase>()
+            builder.Entity<Flashcard>()
                 .HasIndex(p => p.LessonId);
 
             builder.Entity<Quiz>()
