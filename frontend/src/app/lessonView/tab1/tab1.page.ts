@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonModal } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../toolbar/toolbar.component';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { addCircle, addCircleOutline, bookmark, bookmarks, personCircle, personCircleOutline, settings, settingsOutline } from 'ionicons/icons';
+import { addCircle, addCircleOutline, bookmark, close, bookmarks, personCircle, personCircleOutline, settings, settingsOutline } from 'ionicons/icons';
 
 @Component({
     selector: 'app-tab1',
@@ -33,20 +33,19 @@ export class Tab1Page {
   selectedFlashcard: any = null;
 
   constructor(private modalController: ModalController) {
-    addIcons({ bookmark });
+    addIcons({ bookmark, close});
   }
 
   openModal(flashcard: any) {
+    console.log('Opening modal with:', flashcard); // Debugowanie
     this.selectedFlashcard = flashcard;
     this.isModalOpen = true;
   }
-
+  
   closeModal() {
+    console.log('Closing modal'); // Debugowanie
     this.isModalOpen = false;
     this.selectedFlashcard = null;
   }
-
-  testClick() {
-    console.log('Chip clicked!');
-  }
+  
 }

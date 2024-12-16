@@ -6,6 +6,11 @@
   padding: 32px;
 }
 
+.flashcards ion-chip {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
 .flashcard {
   pointer-events: auto;
   display: flex;
@@ -26,11 +31,8 @@
   gap: 8px;
 }
 
-.flashcard ion-chip {
-  pointer-events: auto;
-}
-
 .flashcard ion-label {
+  font-family: 'SF Pro Text', Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -40,7 +42,6 @@
   margin-right: 8px;
 }
 
-/* Styl dla widoków mobilnych */
 @media (max-width: 600px) {
   .flashcards {
     gap: 8px;
@@ -59,4 +60,64 @@
     font-size: 16px;
     margin-right: 4px;
   }
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.modal-details {
+  font-size: 16px;
+  color: var(--ion-text-color, #666);
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+ion-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ion-button {
+  margin-right: 8px;
+  --background: none;
+  --box-shadow: none;
+  --border-width: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  color: white;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 0 16px;
+  padding: 0;
+  text-align: left;
+}
+
+ion-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
