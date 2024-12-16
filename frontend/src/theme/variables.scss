@@ -10,6 +10,7 @@
   --ion-text-color: #333333;
   --ion-color-error: #ff6666;
   --ion-font-family: 'SF Pro Text', Arial, sans-serif;
+  --ion-card-background: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +21,7 @@
     --ion-background-color: #1c1c1c;
     --ion-text-color: #c2c2c2;
     --ion-toolbar-background: var(--gradient);
+    --ion-card-background: #252525
   }
 }
 

@@ -1,10 +1,6 @@
-<app-toolbar page="home"></app-toolbar>
+<app-toolbar title="Twoje lekcje" titleSmall="" page="home" addButtonItemName="lekcję"></app-toolbar>
 
 <ion-content [fullscreen]="true">
-  <div class="page-title">
-    <h1>Twoje lekcje</h1>
-  </div>
-
   <div class="lesson-cards">
     <ion-card *ngFor="let lesson of lessons" class="lesson-card">
       <ion-card-header>

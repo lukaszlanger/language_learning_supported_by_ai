@@ -1,11 +1,32 @@
-<app-toolbar title="Temat lekcji" titleSmall="Fiszki"></app-toolbar>
+<app-toolbar title="Temat lekcji" titleSmall="Fiszki" page="flashcards" addButtonItemName="fiszkę"></app-toolbar>
 
 <ion-content [fullscreen]="true">
   <div class="flashcards">
-    <ion-card *ngFor="let flashcard of flashcards" class="flashcard">
-      <ion-card-content>
-        {{ flashcard.word }}
-      </ion-card-content>
-    </ion-card>
+    <ion-chip *ngFor="let flashcard of flashcards" class="flashcard" button (click)="openModal(flashcard)">
+      <ion-icon slot="icon-only" name="bookmark"></ion-icon>
+      <ion-label>{{ flashcard.word }}</ion-label>
+    </ion-chip>
+
+    <ion-chip button (click)="testClick()">
+      <ion-label>Test Click</ion-label>
+    </ion-chip>
   </div>
+
+  
+
+  <ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModal()">
+    <ng-container *ngIf="selectedFlashcard">
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ selectedFlashcard.word }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <p>Szczegóły fiszki: </p>
+      </ion-content>
+    </ng-container>
+  </ion-modal>
 </ion-content>

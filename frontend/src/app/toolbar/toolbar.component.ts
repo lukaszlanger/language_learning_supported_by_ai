@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { addCircle, addCircleOutline, settings, settingsOutline } from 'ionicons/icons';
+import { addCircle, addCircleOutline, personCircle, personCircleOutline, settings, settingsOutline } from 'ionicons/icons';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -15,8 +16,15 @@ export class ToolbarComponent {
   @Input() page: string = '';
   @Input() title: string = 'Language Learning';
   @Input() titleSmall: string = 'powered by AI';
+  @Input() addButtonItemName: string = '';
 
-  constructor() {
-    addIcons({ addCircleOutline, addCircle, settingsOutline, settings });
+  constructor(
+    private authService: AuthService
+  ) {
+    addIcons({ addCircleOutline, addCircle, settingsOutline, settings, personCircle });
+  }
+
+  getUserFirstName() {
+    return this.authService.user?.firstName ?? 'Użytkownik';
   }
 }

@@ -2,33 +2,61 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px; /* Adjust the gap between flashcards */
-  padding: 16px;
+  gap: 16px;
+  padding: 32px;
 }
 
 .flashcard {
-  width: calc(12.5% - 8px); /* Adjust width to fit more cards in a row */
-  height: 60px; /* Set a smaller fixed height for the flashcards */
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  pointer-events: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
   font-family: 'SF Pro Text', Arial, sans-serif;
   background-color: var(--ion-card-background);
   color: var(--ion-text-color);
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
+  border-radius: 32px;
+  padding: 16px 24px;
+  font-size: 18px;
+  line-height: 1;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  height: auto;
+  width: auto;
+  margin: 0;
+  gap: 8px;
 }
 
-.flashcard ion-card-content {
-  padding: 0; /* Remove padding from card content */
-  margin: 0; /* Remove margin from card content */
+.flashcard ion-chip {
+  pointer-events: auto;
 }
 
-@media (max-width: 768px) {
+.flashcard ion-label {
+  margin: 0;
+  padding: 0;
+}
+
+.flashcard ion-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+/* Styl dla widoków mobilnych */
+@media (max-width: 600px) {
+  .flashcards {
+    gap: 8px;
+    padding: 16px;
+  }
+
   .flashcard {
-    width: calc(25% - 8px); /* Adjust width to fit more cards in a row for mobile view */
+    border-radius: 24px;
+    padding: 8px 16px;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 4px;
+  }
+
+  .flashcard ion-icon {
+    font-size: 16px;
+    margin-right: 4px;
   }
 }

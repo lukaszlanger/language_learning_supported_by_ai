@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonModal } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../toolbar/toolbar.component';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { addCircle, addCircleOutline, bookmark, bookmarks, personCircle, personCircleOutline, settings, settingsOutline } from 'ionicons/icons';
 
 @Component({
     selector: 'app-tab1',
     templateUrl: 'tab1.page.html',
     styleUrls: ['tab1.page.scss'],
-    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule]
+    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal]
 })
 export class Tab1Page {
   flashcards = [
@@ -25,8 +27,26 @@ export class Tab1Page {
     { word: 'Cherry' },
     { word: 'Date' },
     { word: 'Elderberry' },
-    // Add more flashcards as needed
   ];
 
-  constructor() {}
+  isModalOpen = false;
+  selectedFlashcard: any = null;
+
+  constructor(private modalController: ModalController) {
+    addIcons({ bookmark });
+  }
+
+  openModal(flashcard: any) {
+    this.selectedFlashcard = flashcard;
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedFlashcard = null;
+  }
+
+  testClick() {
+    console.log('Chip clicked!');
+  }
 }

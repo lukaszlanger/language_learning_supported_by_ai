@@ -7,6 +7,7 @@ import { arrowForward } from 'ionicons/icons';
 import { IonicModule } from '@ionic/angular';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,9 @@ export class HomePage{
     { id: 4, title: 'Lekcja testowa', quizzes: 5, flashcards: 12 },
   ];
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router, 
+    private authService: AuthService) {
     addIcons({ arrowForward });
   }
 
