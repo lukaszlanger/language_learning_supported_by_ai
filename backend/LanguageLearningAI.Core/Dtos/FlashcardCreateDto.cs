@@ -14,7 +14,7 @@
         /// <summary>
         /// Gets or sets the details of the term.
         /// </summary>
-        /// <example>Jabłko</example>
+        /// <example>Fruit</example>
         public string Details { get; set; }
 
         /// <summary>
@@ -26,13 +26,13 @@
         /// <summary>
         /// Gets or sets the example usage of the term in a sentence.
         /// </summary>
-        /// <example>Jabłko</example>
+        /// <example>Apple is a fruit</example>
         public string Usage { get; set; }
 
         /// <summary>
         /// Gets or sets the lesson associated with the flashcard.
         /// </summary>
-        /// <example>Jabłko</example>
+        /// <example>2</example>
         public int LessonId { get; set; }
     }
 }

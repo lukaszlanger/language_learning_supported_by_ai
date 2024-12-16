@@ -15,7 +15,7 @@ namespace LanguageLearningAI.API.Controllers
             _lessonService = lessonService;
         }
 
-        [HttpGet("byUser/{id}")]
+        [HttpGet("allLessonsByUser/{userId}")]
         public async Task<IActionResult> GetAllLessons(string userId)
         {
             var lessons = await _lessonService.GetLessonsByUserAsync(userId);
@@ -26,9 +26,6 @@ namespace LanguageLearningAI.API.Controllers
         public async Task<IActionResult> GetLessonById(int id)
         {
             var lesson = await _lessonService.GetLessonByIdAsync(id);
-            if (lesson == null)
-                return NotFound();
-
             return Ok(lesson);
         }
 

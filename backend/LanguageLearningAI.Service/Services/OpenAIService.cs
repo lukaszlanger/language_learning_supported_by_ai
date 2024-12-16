@@ -24,7 +24,7 @@ namespace LanguageLearningAI.Service.Services
 
         public async Task<List<QuizQuestionDto>> GenerateQuizQuestionsAsync(string topic, string learningLanguage, int difficultyLevel)
         {
-            var prompt = GeneratePrompt(topic, learningLanguage, difficultyLevel);
+            var prompt = GeneratePromptForQuizQuestions(topic, learningLanguage, difficultyLevel);
 
             var requestBody = new
             {
@@ -53,7 +53,23 @@ namespace LanguageLearningAI.Service.Services
             return DeserializeResponse(responseString);
         }
 
-        private string GeneratePrompt(string topic, string learningLanguage, int difficultyLevel)
+        private string GeneratePromptForQuizQuestions(string topic, string learningLanguage, int difficultyLevel)
+        {
+            var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel)
+                                 ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");
+
+            return $@"
+            Generate a JSON object with 10 quiz questions on the topic '{topic}' in '{learningLanguage}' language 
+            for '{difficultyName}' difficulty level. The questions should teach and practice new vocabulary in the context of learning a foreign language.
+            Each question should have the following structure:
+            {{
+                ""question"": ""string"",
+                ""answers"": [""string"", ""string"", ""string"", ""string""],
+                ""correctAnswer"": ""string""
+            }}";
+        }
+
+        private string GeneratePromptForFlashcards(string topic, string learningLanguage, int difficultyLevel)
         {
             var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel)
                                  ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");

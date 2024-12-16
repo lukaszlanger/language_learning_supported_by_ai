@@ -24,13 +24,13 @@ namespace LanguageLearningAI.Service.Services
         public async Task<LessonDto> GetLessonByIdAsync(int id)
         {
             var lesson = await _lessonRepository.GetByIdAsync(id);
-
             return EntityMapper.Map(lesson);
         }
 
-        public async Task AddLessonAsync(LessonCreateDto createLessonDto)
+        public async Task<LessonDto> AddLessonAsync(LessonCreateDto createLessonDto)
         {
-            await _lessonRepository.AddAsync(EntityMapper.Map(createLessonDto));
+            var lessonId = await _lessonRepository.AddAsync(EntityMapper.Map(createLessonDto));
+            return await GetLessonByIdAsync(lessonId);
         }
 
         public async Task UpdateLessonAsync(int id, LessonCreateDto lessonDto)

@@ -16,10 +16,11 @@ namespace LanguageLearningAI.Service.Repositories
 
         public async Task<Lesson> GetByIdAsync(int id) => await _context.Lessons.FindAsync(id) ?? throw new ArgumentNullException("Lesson with given id not found");
 
-        public async Task AddAsync(Lesson lesson)
+        public async Task<int> AddAsync(Lesson lesson)
         {
             await _context.Lessons.AddAsync(lesson);
             await _context.SaveChangesAsync();
+            return lesson.Id;
         }
 
         public async Task UpdateAsync(Lesson lesson)
