@@ -50,7 +50,7 @@ namespace LanguageLearningAI.Service.Services
 
             var responseString = await response.Content.ReadAsStringAsync();
 
-            return DeserializeResponseForQuizQuestions(responseString);
+            return DeserializeResponse<QuizQuestionDto>(responseString);
         }
 
         public async Task<List<FlashcardDto>> GenerateFlashcardsAsync(string topic, string learningLanguage, string nativeLanguage, int difficultyLevel)
@@ -81,7 +81,7 @@ namespace LanguageLearningAI.Service.Services
 
             var responseString = await response.Content.ReadAsStringAsync();
 
-            return DeserializeResponseForFlashcards(responseString);
+            return DeserializeResponse<FlashcardDto>(responseString);
         }
 
         private string GeneratePromptForQuizQuestions(string topic, string learningLanguage, int difficultyLevel)
@@ -117,7 +117,7 @@ namespace LanguageLearningAI.Service.Services
             }}, where term is a flashcard title/word/phrase, details is a short description of the phrase or word, translation is a term translated to '{nativeLanguage}'";
         }
 
-        private List<QuizQuestionDto> DeserializeResponseForQuizQuestions(string responseString)
+        private List<T> DeserializeResponse<T>(string responseString)
         {
             try
             {
@@ -129,50 +129,9 @@ namespace LanguageLearningAI.Service.Services
                     .GetProperty("content")
                     .GetString();
 
-                if (content.StartsWith("```json"))
+                if (!string.IsNullOrWhiteSpace(content) && content.StartsWith("```json"))
                 {
                     content = content.Replace("```json", "").Replace("```", "").Trim();
-                }
-
-                Console.WriteLine($"Cleaned content: {content}");
-
-                var deserialized = JsonSerializer.Deserialize<List<QuizQuestionDto>>(content, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-
-                if (deserialized == null || deserialized.Count == 0)
-                {
-                    throw new JsonException("Deserialized content is empty or null.");
-                }
-
-                return deserialized;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error parsing OpenAI response: {ex.Message}");
-                throw new InvalidOperationException("Error processing OpenAI response", ex);
-            }
-        }
-
-        private List<FlashcardDto> DeserializeResponseForFlashcards(string responseString)
-        {
-            try
-            {
-                var root = JsonDocument.Parse(responseString).RootElement;
-
-                var content = root
-                    .GetProperty("choices")[0]
-                    .GetProperty("message")
-                    .GetProperty("content")
-                    .GetString();
-
-                if (content != null && content.StartsWith("```json"))
-                {
-                    content = content
-                        .Replace("```json", "")
-                        .Replace("```", "")
-                        .Trim();
                 }
 
                 if (string.IsNullOrWhiteSpace(content))
@@ -180,9 +139,7 @@ namespace LanguageLearningAI.Service.Services
                     throw new JsonException("Content is empty after cleaning.");
                 }
 
-                Console.WriteLine($"Cleaned content: {content}");
-
-                var deserialized = JsonSerializer.Deserialize<List<FlashcardDto>>(content, new JsonSerializerOptions
+                var deserialized = JsonSerializer.Deserialize<List<T>>(content, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
