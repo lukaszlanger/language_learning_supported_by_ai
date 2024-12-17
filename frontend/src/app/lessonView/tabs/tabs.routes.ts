@@ -9,7 +9,7 @@ export const routes: Routes = [
       {
         path: 'flashcards',
         loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+          import('../flashcard/flashcard.page').then((m) => m.FlashcardPage),
       },
       {
         path: 'quiz',

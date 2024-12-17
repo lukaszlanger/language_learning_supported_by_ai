@@ -47,10 +47,12 @@ export class LoginPage {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
+    
+    this.setMessagesOnLogin();
   }
 
   nextTest() {
-    this.router.navigate(['home']);
+    this.router.navigate(['lessons']);
   }
 
   async onSubmit() {
@@ -61,11 +63,7 @@ export class LoginPage {
       this.isLoading = true;
       try {
         await this.authService.loginAndSetUser(this.loginForm.value);
-
-        this.welcomeMessage = `Witaj, ${this.authService.user?.firstName}!`;
-        this.avatarSymbol = this.authService.user?.firstName?.charAt(0).toUpperCase() || this.avatarSymbol;
-
-        this.router.navigate(['home']);
+        this.onLogin();
       } catch (error) {
         this.errorMessage = 'Nie udało się zalogować. Spróbuj ponownie.';
       } finally {
@@ -76,7 +74,21 @@ export class LoginPage {
     }
   }
 
+  onLogin() {
+    this.setMessagesOnLogin();
+    this.router.navigate(['lessons']);
+  }
+
+  setMessagesOnLogin() {
+    this.welcomeMessage = `Witaj, ${this.authService.user?.firstName}!`;
+    this.avatarSymbol = this.authService.user?.firstName?.charAt(0).toUpperCase() || this.avatarSymbol;
+  }
+
   isLoggedIn(): boolean {
     return this.authService.isLoggedIn();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

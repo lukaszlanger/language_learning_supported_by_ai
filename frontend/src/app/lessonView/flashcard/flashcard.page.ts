@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonModal } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../toolbar/toolbar.component';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { addCircle, addCircleOutline, bookmark, close, bookmarks, personCircle, personCircleOutline, settings, settingsOutline } from 'ionicons/icons';
+import { bookmark, close } from 'ionicons/icons';
 
 @Component({
-    selector: 'app-tab1',
-    templateUrl: 'tab1.page.html',
-    styleUrls: ['tab1.page.scss'],
+    selector: 'app-flashcard',
+    templateUrl: 'flashcard.page.html',
+    styleUrls: ['flashcard.page.scss'],
     imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal]
 })
-export class Tab1Page {
+export class FlashcardPage {
   flashcards = [
     { word: 'Apple' },
     { word: 'Banana' },
@@ -32,18 +32,16 @@ export class Tab1Page {
   isModalOpen = false;
   selectedFlashcard: any = null;
 
-  constructor(private modalController: ModalController) {
+  constructor() {
     addIcons({ bookmark, close});
   }
 
   openModal(flashcard: any) {
-    console.log('Opening modal with:', flashcard); // Debugowanie
     this.selectedFlashcard = flashcard;
     this.isModalOpen = true;
   }
   
   closeModal() {
-    console.log('Closing modal'); // Debugowanie
     this.isModalOpen = false;
     this.selectedFlashcard = null;
   }

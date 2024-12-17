@@ -24,7 +24,7 @@ namespace LanguageLearningAI.Service.Services
 
         public async Task<List<QuizQuestionDto>> GenerateQuizQuestionsAsync(string topic, string learningLanguage, int difficultyLevel)
         {
-            var prompt = GeneratePromptForQuizQuestions(topic, learningLanguage, difficultyLevel);
+            var prompt = GetPromptForQuizQuestions(topic, learningLanguage, difficultyLevel);
 
             var requestBody = new
             {
@@ -55,7 +55,7 @@ namespace LanguageLearningAI.Service.Services
 
         public async Task<List<FlashcardDto>> GenerateFlashcardsAsync(string topic, string learningLanguage, string nativeLanguage, int difficultyLevel)
         {
-            var prompt = GeneratePromptForFlashcards(topic, learningLanguage, nativeLanguage, difficultyLevel);
+            var prompt = GetPromptForFlashcards(topic, learningLanguage, nativeLanguage, difficultyLevel);
 
             var requestBody = new
             {
@@ -84,7 +84,7 @@ namespace LanguageLearningAI.Service.Services
             return DeserializeResponse<FlashcardDto>(responseString);
         }
 
-        private string GeneratePromptForQuizQuestions(string topic, string learningLanguage, int difficultyLevel)
+        private string GetPromptForQuizQuestions(string topic, string learningLanguage, int difficultyLevel)
         {
             var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel)
                                  ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");
@@ -100,7 +100,7 @@ namespace LanguageLearningAI.Service.Services
             }}";
         }
 
-        private string GeneratePromptForFlashcards(string topic, string learningLanguage, string nativeLanguage, int difficultyLevel)
+        private string GetPromptForFlashcards(string topic, string learningLanguage, string nativeLanguage, int difficultyLevel)
         {
             var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel)
                                  ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");

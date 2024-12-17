@@ -50,12 +50,26 @@ export class AuthService {
   loadUserFromStorage(): void {
     const user = localStorage.getItem('user');
     if (user) {
-      this.user = JSON.parse(user) as UserDto;
-      console.log('User loaded from storage.');
+      try {
+        this.user = JSON.parse(user) as UserDto;
+        console.log('User loaded from storage: ');
+      } catch (error) {
+        console.error('Failed to parse user from storage:', error);
+        localStorage.removeItem('user');
+      }
     }
   }
 
   isLoggedIn(): boolean {
+    if (!this.user) {
+      this.loadUserFromStorage();
+    }
     return !!this.user;
+  }
+
+  logout(): void {
+    this.user = undefined;
+    localStorage.removeItem('user');
+    console.log('User logged out.');
   }
 }

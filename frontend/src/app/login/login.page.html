@@ -26,10 +26,14 @@
     </ion-button>
   </form>
 
+  <ion-button *ngIf="isLoggedIn()" shape="round" class="submit-button" (click)="onLogin()">
+    <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+  </ion-button>
+
   <div class="footer-links">
     <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
       <ion-text>
-        <a href="#">Wyloguj się</a>
+        <a (click)="logout()">Wyloguj się</a>
       </ion-text>
     </ng-container>
     <ng-template #notLoggedIn>

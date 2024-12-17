@@ -10,13 +10,13 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-lessons',
+  templateUrl: './lessons.page.html',
+  styleUrls: ['./lessons.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonicModule, ToolbarComponent, IonIcon]
 })
-export class HomePage{
+export class LessonsPage{
   lessons = [
     { id: 1, title: 'Podstawy Angielskiego', quizzes: 5, flashcards: 20 },
     { id: 2, title: 'Czasowniki nieregularne', quizzes: 8, flashcards: 15 },
