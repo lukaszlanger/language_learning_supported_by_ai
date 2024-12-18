@@ -11,7 +11,7 @@ export const routes: Routes = [
   },
   {
     path: 'lesson/:id',
-    loadChildren: () => import('./lessonView/tabs/tabs.routes').then((m) => m.routes),
+    loadChildren: () => import('./lesson/tabs/tabs.routes').then((m) => m.routes),
   },
   {
     path: '**',
