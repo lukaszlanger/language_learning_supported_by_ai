@@ -36,8 +36,15 @@
         public string UserId { get; set; }
 
         /// <summary>
-        /// Gets or sets quizzes associated with the lesson.
+        /// Gets or sets count of flashcards created for the lesson.
         /// </summary>
-        public ICollection<QuizDto> Quizzes { get; set; } = new List<QuizDto>();
+        /// <example>10</example>
+        public int FlashcardsCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets count of quizzes associated with the lesson.
+        /// </summary>
+        /// <example>3</example>
+        public int QuizzesCount { get; set; }
     }
 }

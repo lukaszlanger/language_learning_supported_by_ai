@@ -46,5 +46,11 @@ namespace LanguageLearningAI.Service.Repositories
             _context.Quizzes.Update(quiz);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> GetQuizCountByLessonIdAsync(int lessonId)
+        {
+            return await _context.Quizzes.CountAsync(q => q.LessonId == lessonId);
+        }
+
     }
 }

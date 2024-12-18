@@ -8,18 +8,40 @@ namespace LanguageLearningAI.Service.Services
     public class LessonService
     {
         private readonly LessonRepository _lessonRepository;
+        private readonly FlashcardRepository _flashcardRepository;
+        private readonly QuizRepository _quizRepository;
 
         public LessonService(
-            LessonRepository lessonRepository)
+            LessonRepository lessonRepository,
+            FlashcardRepository flashcardRepository,
+            QuizRepository quizRepository)
         {
             _lessonRepository = lessonRepository;
+            _flashcardRepository = flashcardRepository;
+            _quizRepository = quizRepository;
         }
 
         public async Task<IEnumerable<LessonDto>> GetLessonsByUserAsync(string userId)
         {
             var lessons = await _lessonRepository.GetLessonsByUserAsync(userId);
-            return lessons.Select(EntityMapper.Map);
+
+            var lessonDtos = new List<LessonDto>();
+
+            foreach (var lesson in lessons)
+            {
+                var flashcardsCount = await _flashcardRepository.GetFlashcardCountByLessonIdAsync(lesson.Id);
+                var quizzesCount = await _quizRepository.GetQuizCountByLessonIdAsync(lesson.Id);
+
+                var lessonDto = EntityMapper.Map(lesson);
+                lessonDto.FlashcardsCount = flashcardsCount;
+                lessonDto.QuizzesCount = quizzesCount;
+
+                lessonDtos.Add(lessonDto);
+            }
+
+            return lessonDtos;
         }
+
 
         public async Task<LessonDto> GetLessonByIdAsync(int id)
         {

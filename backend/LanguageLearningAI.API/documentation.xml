@@ -144,10 +144,17 @@
             </summary>
             <example>1</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.LessonDto.Quizzes">
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonDto.FlashcardsCount">
             <summary>
-            Gets or sets quizzes associated with the lesson.
+            Gets or sets count of flashcards created for the lesson.
             </summary>
+            <example>10</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.LessonDto.QuizzesCount">
+            <summary>
+            Gets or sets count of quizzes associated with the lesson.
+            </summary>
+            <example>3</example>
         </member>
         <member name="T:LanguageLearningAI.Core.Dtos.LoginDto">
             <summary>

@@ -4,18 +4,18 @@
   <div class="lesson-cards">
     <ion-card *ngFor="let lesson of lessons" class="lesson-card">
       <ion-card-header>
-        <ion-card-title>{{ lesson.title }}</ion-card-title>
+        <ion-card-title>{{ lesson.topic }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div class="lesson-details">
           <div class="lesson-info">
-            <span class="lesson-number">{{ lesson.quizzes }}</span> quizów
+            <span class="lesson-number">{{ lesson.quizzesCount }}</span> quizów
           </div>
           <div class="lesson-info">
-            <span class="lesson-number">{{ lesson.flashcards }}</span> fiszek
+            <span class="lesson-number">{{ lesson.flashcardsCount }}</span> fiszek
           </div>
         </div>
-        <ion-button fill="clear" shape="round" (click)="navigateToLesson()">
+        <ion-button fill="clear" shape="round" (click)="navigateToLesson(lesson.id!)">
           <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
         </ion-button>
       </ion-card-content>

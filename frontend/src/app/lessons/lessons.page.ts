@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -8,6 +8,8 @@ import { IonicModule } from '@ionic/angular';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { LessonService } from '../services/lesson.service';
+import { LessonDto } from '../dtos/lesson.dto';
 
 @Component({
   selector: 'app-lessons',
@@ -16,21 +18,37 @@ import { AuthService } from '../services/auth.service';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonicModule, ToolbarComponent, IonIcon]
 })
-export class LessonsPage{
-  lessons = [
-    { id: 1, title: 'Podstawy Angielskiego', quizzes: 5, flashcards: 20 },
-    { id: 2, title: 'Czasowniki nieregularne', quizzes: 8, flashcards: 15 },
-    { id: 3, title: 'Wyrażenia codzienne', quizzes: 4, flashcards: 12 },
-    { id: 4, title: 'Lekcja testowa', quizzes: 5, flashcards: 12 },
-  ];
+export class LessonsPage implements OnInit {
+  lessons: LessonDto[] = [];
 
   constructor(
     private router: Router, 
-    private authService: AuthService) {
+    private authService: AuthService,
+    private lessonService: LessonService) {
     addIcons({ arrowForward });
   }
 
-  navigateToLesson() {
-    this.router.navigate(['/lesson']);
+  ngOnInit(): void {
+    const userId = this.authService.user?.id;
+  
+    if (!userId) {
+      console.error('Nie znaleziono ID użytkownika.');
+      return;
+    }
+  
+    this.lessonService.getAllByUserId(userId).subscribe({
+      next: (lessons) => {
+        this.lessons = lessons;
+      },
+      error: (err) => {
+        console.error('Błąd podczas pobierania lekcji dla użytkownika:', err);
+      }
+    });
+  }
+  
+  navigateToLesson(lessonId: number) {
+    this.router.navigate(['/lesson', lessonId]).catch((err) => {
+      console.error('Błąd podczas nawigacji:', err);
+    });
   }
 }

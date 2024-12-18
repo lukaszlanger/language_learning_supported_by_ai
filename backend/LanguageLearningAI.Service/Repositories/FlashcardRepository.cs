@@ -34,5 +34,11 @@ namespace LanguageLearningAI.Service.Repositories
 
             return flashcard.Id;
         }
+
+        public async Task<int> GetFlashcardCountByLessonIdAsync(int lessonId)
+        {
+            return await _context.Flashcards.CountAsync(f => f.LessonId == lessonId);
+        }
+
     }
 }
