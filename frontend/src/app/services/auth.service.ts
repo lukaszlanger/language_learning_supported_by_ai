@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { LoginDto } from '../dtos/login.dto';
 import { UserDto } from '../dtos/user.dto';
+import { environment } from 'src/environments/environment.prod';
 
 interface LoginResponse {
   message: string;
@@ -12,7 +13,7 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:5046/api';
+  private baseUrl = environment.baseUrl;
   user: UserDto | undefined;
 
   constructor(private http: HttpClient) {
@@ -36,7 +37,7 @@ export class AuthService {
       if (user) {
         this.user = user;
         localStorage.setItem('user', JSON.stringify(user));
-        console.log('User found: ', user);
+        console.log('User found:', user);
       } else {
         throw new Error('User not found.');
       }
@@ -52,7 +53,7 @@ export class AuthService {
     if (user) {
       try {
         this.user = JSON.parse(user) as UserDto;
-        console.log('User loaded from storage: ');
+        console.log('User loaded from storage. User Id:', this.user.id);
       } catch (error) {
         console.error('Failed to parse user from storage:', error);
         localStorage.removeItem('user');

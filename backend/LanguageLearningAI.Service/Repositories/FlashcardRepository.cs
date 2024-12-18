@@ -17,6 +17,11 @@ namespace LanguageLearningAI.Service.Repositories
             return await _context.Flashcards.ToListAsync();
         }
 
+        public async Task<IEnumerable<Flashcard>> GetAllByLessonIdAsync(int id)
+        {
+            return await _context.Flashcards.Where(f => f.LessonId == id).ToListAsync();
+        }
+
         public async Task<Flashcard> GetByIdAsync(int id)
         {
             return await _context.Flashcards.FindAsync(id);

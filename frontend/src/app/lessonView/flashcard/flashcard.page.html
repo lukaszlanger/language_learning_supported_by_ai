@@ -4,7 +4,7 @@
   <div class="flashcards">
     <ion-chip *ngFor="let flashcard of flashcards" class="flashcard" button (click)="openModal(flashcard)">
       <ion-icon slot="icon-only" name="bookmark"></ion-icon>
-      <ion-label>{{ flashcard.word }}</ion-label>
+      <ion-label>{{ flashcard.term }}</ion-label>
     </ion-chip>
   </div>
 
@@ -12,7 +12,7 @@
     <ng-template>
       <ion-header>
         <ion-toolbar class="modal-toolbar">
-          <ion-title class="modal-title">{{ selectedFlashcard?.word }}</ion-title>
+          <ion-title class="modal-title">{{ selectedFlashcard?.term }}</ion-title>
             <ion-button slot="end" (click)="closeModal()" class="modal-button">
               <ion-icon slot="icon-only" name="close"></ion-icon>
             </ion-button>
@@ -21,15 +21,15 @@
       <ion-list lines="none" class="modal-list">
         <ion-item button="true" detail="false" (click)="closeModal()">
           <ion-icon name="person-circle"></ion-icon>
-          <ion-label>Item 1</ion-label>
+          <ion-label>{{ selectedFlashcard?.details }}</ion-label>
         </ion-item>
         <ion-item button="true" detail="false" (click)="closeModal()">
           <ion-icon name="person-circle"></ion-icon>
-          <ion-label>Item 2</ion-label>
+          <ion-label>{{ selectedFlashcard?.translation }}</ion-label>
         </ion-item>
         <ion-item button="true" detail="false" (click)="closeModal()">
           <ion-icon name="person-circle"></ion-icon>
-          <ion-label>Item 3</ion-label>
+          <ion-label>{{ selectedFlashcard?.usage }}</ion-label>
         </ion-item>
       </ion-list>
     </ng-template>

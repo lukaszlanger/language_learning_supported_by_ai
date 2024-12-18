@@ -38,11 +38,10 @@ namespace LanguageLearningAI.Service.Services
             return flashcards.Select(EntityMapper.Map);
         }
 
-        public async Task<FlashcardDto> GetFlashcardByIdAsync(int id)
+        public async Task<IEnumerable<FlashcardDto>> GetFlashcardsByLessonIdAsync(int id)
         {
-            var flashcard = await _flashcardRepository.GetByIdAsync(id);
-
-            return EntityMapper.Map(flashcard);
+            var flashcards = await _flashcardRepository.GetAllByLessonIdAsync(id);
+            return flashcards.Select(EntityMapper.Map);
         }
     }
 }

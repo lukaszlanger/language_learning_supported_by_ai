@@ -22,12 +22,12 @@ namespace LanguageLearningAI.API.Controllers
             return Ok(phrases);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<FlashcardDto>> GetFlashcardById(int id)
+        [HttpGet("getAllByLessonId/{lessonId}")]
+        public async Task<ActionResult<IEnumerable<FlashcardDto>>> GetFlashcardsByLessonId(int lessonId)
         {
-            var phrase = await _flashcardService.GetFlashcardByIdAsync(id);
+            var flashcards = await _flashcardService.GetFlashcardsByLessonIdAsync(lessonId);
 
-            return Ok(phrase);
+            return Ok(flashcards);
         }
 
         [HttpPost("generateWithAI")]
