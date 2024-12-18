@@ -7,6 +7,11 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: '',
+        redirectTo: 'flashcards',
+        pathMatch: 'full',
+      },
+      {
         path: 'flashcards',
         loadComponent: () =>
           import('../flashcard/flashcard.page').then((m) => m.FlashcardPage),
@@ -21,16 +26,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
-      {
-        path: '',
-        redirectTo: '/lesson/flashcards',
-        pathMatch: 'full',
-      },
     ],
-  },
-  {
-    path: '',
-    redirectTo: '/lesson/flashcards',
-    pathMatch: 'full',
   },
 ];
