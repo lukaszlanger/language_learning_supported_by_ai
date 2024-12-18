@@ -19,16 +19,16 @@
         </ion-toolbar>
       </ion-header>
       <ion-list lines="none" class="modal-list">
-        <ion-item button="true" detail="false" (click)="closeModal()">
-          <ion-icon name="person-circle"></ion-icon>
+        <ion-item detail="false">
+          <ion-icon name="information-circle"></ion-icon>
           <ion-label>{{ selectedFlashcard?.details }}</ion-label>
         </ion-item>
-        <ion-item button="true" detail="false" (click)="closeModal()">
-          <ion-icon name="person-circle"></ion-icon>
+        <ion-item detail="false">
+          <ion-icon name="language"></ion-icon>
           <ion-label>{{ selectedFlashcard?.translation }}</ion-label>
         </ion-item>
-        <ion-item button="true" detail="false" (click)="closeModal()">
-          <ion-icon name="person-circle"></ion-icon>
+        <ion-item detail="false">
+          <ion-icon name="chatbubbles"></ion-icon>
           <ion-label>{{ selectedFlashcard?.usage }}</ion-label>
         </ion-item>
       </ion-list>

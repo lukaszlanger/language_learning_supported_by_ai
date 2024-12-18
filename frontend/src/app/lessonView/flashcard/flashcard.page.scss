@@ -64,7 +64,7 @@
 
 .modal {
   --width: fit-content;
-  --min-width: 250px;
+  --min-width: 350px;
   --height: fit-content;
   --border-radius: 6px;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
@@ -99,8 +99,8 @@
 
 .modal-list ion-icon {
   margin-right: 6px;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   padding: 4px 0;
   color: #aaaaaa;
 }

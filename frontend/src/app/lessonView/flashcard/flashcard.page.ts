@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../toolbar/toolbar.component';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { bookmark, close } from 'ionicons/icons';
+import { bookmark, chatbubbles, informationCircle, close, language } from 'ionicons/icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlashcardService } from 'src/app/services/flashcard.service';
 import { FlashcardDto } from 'src/app/dtos/flashcard.dto';
@@ -26,7 +26,7 @@ export class FlashcardPage implements OnInit {
     private flashcardService: FlashcardService,
     private route: ActivatedRoute,
   ) {
-    addIcons({ bookmark, close});
+    addIcons({ bookmark, close, informationCircle, chatbubbles, language});
   }
 
   ngOnInit() {
