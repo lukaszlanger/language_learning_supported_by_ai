@@ -1,6 +1,10 @@
 <app-toolbar title="Twoje lekcje" titleSmall="" page="home" addButtonItemName="lekcję"></app-toolbar>
 
 <ion-content [fullscreen]="true">
+  <div class="page-info" *ngIf="loading && errorMessage === ''">
+    <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
+    <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+  </div>
   <div class="lesson-cards">
     <ion-card *ngFor="let lesson of lessons" class="lesson-card">
       <ion-card-header>

@@ -2,13 +2,23 @@ ion-icon {
     color: white;
 }
 
+ion-toolbar {
+    position: relative;
+}
+  
+ion-title {
+    text-align: center;
+    pointer-events: none;
+}
+
 .toolbar-title {
     font-size: 20px;
     color: white;
     margin: 0;
     font-family: 'SF Pro Display', Arial, sans-serif;
-  }
-  
+    line-height: normal;
+}
+
 .toolbar-title small {
     display: block;
     font-size: 12px;

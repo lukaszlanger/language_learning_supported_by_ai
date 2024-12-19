@@ -17,4 +17,8 @@ export class LessonService {
   getAllByUserId(id: string): Observable<LessonDto[]> {
     return this.http.get<LessonDto[]>(`${this.baseUrl}/lesson/allLessonsByUser/${id}`);
   }
+
+  getById(id: number): Observable<LessonDto> {
+    return this.http.get<LessonDto>(`${this.baseUrl}/lesson/${id}`);
+  }
 }

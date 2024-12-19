@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonHeader, IonTitle, IonToolbar, IonSpinner } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { arrowForward } from 'ionicons/icons';
 import { IonicModule } from '@ionic/angular';
@@ -15,11 +15,12 @@ import { LessonDto } from '../dtos/lesson.dto';
   selector: 'app-lessons',
   templateUrl: './lessons.page.html',
   styleUrls: ['./lessons.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonicModule, ToolbarComponent, IonIcon]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonicModule, ToolbarComponent, IonIcon, IonSpinner]
 })
 export class LessonsPage implements OnInit {
   lessons: LessonDto[] = [];
+  loading: boolean = false;
+  errorMessage: string = '';
 
   constructor(
     private router: Router, 
@@ -29,19 +30,22 @@ export class LessonsPage implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loading = true;
     const userId = this.authService.user?.id;
   
     if (!userId) {
-      console.error('Nie znaleziono ID użytkownika.');
+      this.errorMessage = 'Nie znaleziono ID użytkownika.';
       return;
     }
   
     this.lessonService.getAllByUserId(userId).subscribe({
       next: (lessons) => {
         this.lessons = lessons;
+        this.loading = false;
       },
       error: (err) => {
-        console.error('Błąd podczas pobierania lekcji dla użytkownika:', err);
+        this.errorMessage = 'Wystąpił błąd podczas pobierania lekcji.';
+        this.loading = false;
       }
     });
   }

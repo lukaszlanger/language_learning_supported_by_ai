@@ -1,40 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonModal } from '@ionic/angular/standalone';
+import { IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonModal, IonSpinner } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../toolbar/toolbar.component';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { bookmark, chatbubbles, informationCircle, close, language } from 'ionicons/icons';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FlashcardService } from 'src/app/services/flashcard.service';
 import { FlashcardDto } from 'src/app/dtos/flashcard.dto';
+import { LessonService } from 'src/app/services/lesson.service';
 
 @Component({
     selector: 'app-flashcard',
     templateUrl: 'flashcard.page.html',
     styleUrls: ['flashcard.page.scss'],
-    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal]
+    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal, IonSpinner]
 })
 export class FlashcardPage implements OnInit {
+  title: string = 'Lekcja';
   isModalOpen = false;
   selectedFlashcard: any = null;
   flashcards: FlashcardDto[] = [];
   lessonId: number | null = null;
+  loading: boolean = false;
+  errorMessage: string = '';
 
   constructor(
-    private router: Router,
     private flashcardService: FlashcardService,
+    private lessonService: LessonService,
     private route: ActivatedRoute,
   ) {
     addIcons({ bookmark, close, informationCircle, chatbubbles, language});
   }
 
   ngOnInit() {
+    this.loading = true;
     this.lessonId = this.getRouteParam('id');
     if (this.lessonId) {
       this.loadFlashcards(this.lessonId);
-    } else {
-      console.error("Błąd ładowania fiszek dla tej lekcji.");
+      this.lessonService.getById(this.lessonId).subscribe({
+        next: (lesson) => {
+          this.title = lesson.topic!;
+        },
+        error: (err) => {
+          this.errorMessage = 'Nie znaleziono lekcji.';
+        },
+      });
     }
   }
 
@@ -42,9 +53,11 @@ export class FlashcardPage implements OnInit {
     this.flashcardService.getAllByLessonId(lessonId).subscribe({
       next: (flashcards) => {
         this.flashcards = flashcards;
+        this.loading = false;
       },
       error: (err) => {
-        console.error('Nie znaleziono fiszek dla tej lekcji:', err);
+        this.errorMessage = 'Nie znaleziono fiszek dla tej lekcji.';
+        this.loading = false;
       },
     });
   }

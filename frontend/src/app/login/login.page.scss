@@ -1,3 +1,19 @@
+ion-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+  text-align: center;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .avatar-container {
   margin-bottom: 20px;
   display: flex;
@@ -69,12 +85,15 @@
 .footer-links {
   position: absolute;
   bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
   font-size: 14px;
   color: var(--text-color);
-  width: 100%;
-  justify-content: center;
+  width: fit-content;
 }
 
 .footer-links ion-text a {
@@ -85,6 +104,12 @@
 
 .footer-links ion-text a:hover {
   color: var(--ion-color-primary);
+}
+
+.auth-links {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .login-form {

@@ -1,49 +1,47 @@
 <app-toolbar></app-toolbar>
 
-<ion-content class="ion-padding" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center;">
-  <div class="avatar-container">
-    <ion-avatar class="avatar">
-      <div class="avatar-text">{{ avatarSymbol }}</div>
-    </ion-avatar>
-  </div>
+<ion-content>
+  <div class="main-content">
+    <div class="avatar-container">
+      <ion-avatar class="avatar">
+        <div class="avatar-text">{{ avatarSymbol }}</div>
+      </ion-avatar>
+    </div>
 
-  <div class="welcome-text">{{ welcomeMessage }}</div>
-  <div class="welcome-text-smaller">Miło Cię widzieć</div>
+    <div class="welcome-text">{{ welcomeMessage }}</div>
+    <div class="welcome-text-smaller">Miło Cię widzieć</div>
 
-  <form *ngIf="!isLoggedIn()" [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-input formControlName="email" type="text" labelPlacement="stacked" placeholder="Wprowadź login" label="Email"></ion-input>
-    </ion-item>
+    <form *ngIf="!isLoggedIn()" [formGroup]="loginForm" class="login-form" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-input formControlName="email" type="text" labelPlacement="stacked" placeholder="Wprowadź login" label="Email"></ion-input>
+      </ion-item>
 
-    <ion-item> 
-      <ion-input formControlName="password" type="password" labelPlacement="stacked" label="Hasło" placeholder="Wprowadź hasło"></ion-input>
-    </ion-item>
+      <ion-item> 
+        <ion-input formControlName="password" type="password" labelPlacement="stacked" label="Hasło" placeholder="Wprowadź hasło"></ion-input>
+      </ion-item>
 
-    <div class="error-text">{{ errorMessage }}</div>
+      <div class="error-text">{{ errorMessage }}</div>
 
-    <ion-button shape="round" class="submit-button" (click)="onSubmit()">
+      <ion-button shape="round" class="submit-button" (click)="onSubmit()">
+        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </form>
+
+    <ion-button *ngIf="isLoggedIn()" shape="round" class="submit-button" (click)="onLogin()">
       <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
     </ion-button>
-  </form>
-
-  <ion-button *ngIf="isLoggedIn()" shape="round" class="submit-button" (click)="onLogin()">
-    <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
-  </ion-button>
-
-  <div class="footer-links">
-    <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
-      <ion-text>
-        <a (click)="logout()">Wyloguj się</a>
-      </ion-text>
-    </ng-container>
-    <ng-template #notLoggedIn>
-      <ion-text>
-        <a href="#">Rejestracja</a>
-      </ion-text>
-      <ion-text>|</ion-text>
-      <ion-text>
-        <a href="#">Przypomnij hasło</a>
-      </ion-text>
-    </ng-template>
   </div>
+
+  <ion-footer>
+  <div class="footer-links">
+    <ion-text *ngIf="isLoggedIn()">
+      <a (click)="logout()">Wyloguj się</a>
+    </ion-text>
+  
+    <div *ngIf="!isLoggedIn()" class="auth-links">
+      <ion-text><a href="#">Rejestracja</a></ion-text>
+      <ion-text>|</ion-text>
+      <ion-text><a href="#">Przypomnij hasło</a></ion-text>
+    </div>
+  </div></ion-footer>
 </ion-content>
