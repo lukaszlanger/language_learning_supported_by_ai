@@ -19,7 +19,7 @@ import { LessonService } from 'src/app/services/lesson.service';
 export class FlashcardPage implements OnInit {
   title: string = 'Lekcja';
   isModalOpen = false;
-  selectedFlashcard: any = null;
+  selectedFlashcard: FlashcardDto | null = null;
   flashcards: FlashcardDto[] = [];
   lessonId: number | null = null;
   loading: boolean = false;
@@ -74,7 +74,7 @@ export class FlashcardPage implements OnInit {
     return null;
   }
 
-  openModal(flashcard: any) {
+  openModal(flashcard: FlashcardDto) {
     this.selectedFlashcard = flashcard;
     this.isModalOpen = true;
   }

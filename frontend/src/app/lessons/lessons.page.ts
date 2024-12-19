@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon, IonHeader, IonTitle, IonToolbar, IonSpinner } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowForward } from 'ionicons/icons';
+import { arrowForward, close } from 'ionicons/icons';
 import { IonicModule } from '@ionic/angular';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { Router } from '@angular/router';
@@ -21,12 +21,13 @@ export class LessonsPage implements OnInit {
   lessons: LessonDto[] = [];
   loading: boolean = false;
   errorMessage: string = '';
+  isModalOpen = false;
 
   constructor(
     private router: Router, 
     private authService: AuthService,
     private lessonService: LessonService) {
-    addIcons({ arrowForward });
+    addIcons({ arrowForward, close });
   }
 
   ngOnInit(): void {
@@ -54,5 +55,13 @@ export class LessonsPage implements OnInit {
     this.router.navigate(['/lesson', lessonId]).catch((err) => {
       console.error('Błąd podczas nawigacji:', err);
     });
+  }
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+  
+  closeModal() {
+    this.isModalOpen = false;
   }
 }

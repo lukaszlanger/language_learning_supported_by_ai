@@ -1,4 +1,11 @@
-<app-toolbar title="Twoje lekcje" titleSmall="" page="home" addButtonItemName="lekcję"></app-toolbar>
+<app-toolbar
+  title="Twoje lekcje"
+  titleSmall=""
+  page="lessons"
+  addButtonItemName="lekcję"
+  (leftButtonClicked)="openModal()"
+  (rightButtonClicked)="closeModal()">>
+</app-toolbar>
 
 <ion-content [fullscreen]="true">
   <div class="page-info" *ngIf="loading && errorMessage === ''">
@@ -25,4 +32,20 @@
       </ion-card-content>
     </ion-card>
   </div>
+
+  <ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModal()" class="modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar class="modal-toolbar">
+          <ion-title class="modal-title">Dodaj nową lekcję</ion-title>
+            <ion-button slot="end" (click)="closeModal()" class="modal-button">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        Tu będzie formularz
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

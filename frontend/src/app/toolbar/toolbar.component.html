@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-button slot="start" *ngIf="page === 'home' || page === 'flashcards'">
+    <ion-button slot="start" (click)="leftButtonClicked.emit()" *ngIf="page === 'lessons' || page === 'flashcards'">
       <ion-icon slot="icon-only" name="add-circle"></ion-icon>
       <span class="button-text">Dodaj {{ addButtonItemName }}</span>
     </ion-button>
@@ -12,7 +12,7 @@
       </ion-text>
     </ion-title>
 
-    <ion-button slot="end" *ngIf="page === 'home' || page === 'flashcards'">
+    <ion-button slot="end" (click)="rightButtonClicked.emit()" *ngIf="page === 'lessons' || page === 'flashcards'">
       <ion-icon slot="icon-only" name="person-circle"></ion-icon>
       <span class="button-text">{{ getUserFirstName() }}</span>
     </ion-button>

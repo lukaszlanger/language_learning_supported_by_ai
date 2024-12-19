@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { IonIcon, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -17,6 +17,8 @@ export class ToolbarComponent {
   @Input() title: string = 'Language Learning';
   @Input() titleSmall: string = 'powered by AI';
   @Input() addButtonItemName: string = '';
+  @Output() leftButtonClicked = new EventEmitter<void>();
+  @Output() rightButtonClicked = new EventEmitter<void>();
 
   constructor(
     private authService: AuthService
