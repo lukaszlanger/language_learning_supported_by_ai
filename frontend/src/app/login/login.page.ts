@@ -48,11 +48,7 @@ export class LoginPage {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
     
-    this.setMessagesOnLogin();
-  }
-
-  nextTest() {
-    this.router.navigate(['lessons']);
+    this.setMessages();
   }
 
   async onSubmit() {
@@ -75,12 +71,12 @@ export class LoginPage {
   }
 
   onLogin() {
-    this.setMessagesOnLogin();
+    this.setMessages();
     this.router.navigate(['lessons']);
   }
 
-  setMessagesOnLogin() {
-    this.welcomeMessage = `Witaj, ${this.authService.user?.firstName}!`;
+  setMessages() {
+    this.welcomeMessage = this.authService.user ? `Witaj, ${this.authService.user?.firstName}!` : 'Zaloguj się!';
     this.avatarSymbol = this.authService.user?.firstName?.charAt(0).toUpperCase() || this.avatarSymbol;
   }
 
@@ -90,5 +86,6 @@ export class LoginPage {
 
   logout() {
     this.authService.logout();
+    this.setMessages();
   }
 }
