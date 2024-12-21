@@ -21,21 +21,18 @@ namespace LanguageLearningAI.Service.Services
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
         }
 
-        // Generowanie quizów
         public async Task<List<QuizQuestionDto>> GenerateQuizQuestionsAsync(string topic, string learningLanguage, int difficultyLevel)
         {
             var prompt = GetPromptForQuizQuestions(topic, learningLanguage, difficultyLevel);
             return await SendRequestAsync<List<QuizQuestionDto>>(prompt, "You are an assistant generating quiz questions.");
         }
 
-        // Generowanie fiszek
         public async Task<List<FlashcardDto>> GenerateFlashcardsAsync(string topic, string learningLanguage, string nativeLanguage, int difficultyLevel)
         {
             var prompt = GetPromptForFlashcards(topic, learningLanguage, nativeLanguage, difficultyLevel);
             return await SendRequestAsync<List<FlashcardDto>>(prompt, "You are an assistant generating flashcard phrases or words.");
         }
 
-        // Generowanie szczegółów fiszki
         public async Task<Dictionary<string, string>> GenerateFlashcardDetailsAsync(
             string learningLanguage,
             string nativeLanguage,
@@ -47,7 +44,6 @@ namespace LanguageLearningAI.Service.Services
             return await SendRequestAsync<Dictionary<string, string>>(prompt, "You are an assistant generating short details (description) for a flashcard term.");
         }
 
-        // Wspólna metoda wysyłania żądania
         private async Task<T> SendRequestAsync<T>(string prompt, string systemMessage)
         {
             var requestBody = new
@@ -72,12 +68,11 @@ namespace LanguageLearningAI.Service.Services
             }
 
             var responseString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"Raw API Response: {responseString}"); // Logowanie odpowiedzi
+            Console.WriteLine($"Raw API Response: {responseString}");
 
             return DeserializeResponse<T>(responseString);
         }
 
-        // Metoda deserializacji
         private T DeserializeResponse<T>(string responseString)
         {
             try
@@ -119,7 +114,6 @@ namespace LanguageLearningAI.Service.Services
             }
         }
 
-        // Prompty
         private string GetPromptForQuizQuestions(string topic, string learningLanguage, int difficultyLevel)
         {
             var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel)

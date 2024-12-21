@@ -1,4 +1,9 @@
-<app-toolbar title="{{ title }}" titleSmall="{{ smallTitle }}" page="flashcards" addButtonItemName="fiszkę"></app-toolbar>
+<app-toolbar
+  title="{{ title }}"
+  titleSmall="{{ smallTitle }}"
+  page="flashcards"
+  leftButtonItemName="Generuj fiszki"
+  (leftButtonClicked)="openCreateModal()"></app-toolbar>
 
 <ion-content [fullscreen]="true">
   <div class="page-info" *ngIf="loading && errorMessage === ''">
@@ -7,18 +12,18 @@
   </div>
 
   <div class="flashcards">
-    <ion-chip *ngFor="let flashcard of flashcards" class="flashcard" button (click)="openModal(flashcard)">
+    <ion-chip *ngFor="let flashcard of flashcards" class="flashcard" button (click)="openFlashcardModal(flashcard)">
       <ion-icon slot="icon-only" name="bookmark"></ion-icon>
       <ion-label>{{ flashcard.term }}</ion-label>
     </ion-chip>
   </div>
 
-  <ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModal()" class="modal">
+  <ion-modal [isOpen]="isFlashcardModalOpen" (ionModalDidDismiss)="closeFlashcardModal()" class="modal modal-flashcard">
     <ng-template>
       <ion-header>
         <ion-toolbar class="modal-toolbar">
           <ion-title class="modal-title">{{ selectedFlashcard?.term }}</ion-title>
-            <ion-button slot="end" (click)="closeModal()" class="modal-button">
+            <ion-button slot="end" (click)="closeFlashcardModal()" class="modal-close-button">
               <ion-icon slot="icon-only" name="close"></ion-icon>
             </ion-button>
         </ion-toolbar>
@@ -40,45 +45,45 @@
     </ng-template>
   </ion-modal>
 
-  <ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeModal()" class="modal">
+  <ion-modal [isOpen]="isCreateModalOpen" (ionModalDidDismiss)="closeCreateModal()" class="modal">
     <ng-template>
       <ion-header>
         <ion-toolbar class="modal-toolbar">
-          <ion-title class="modal-title">Dodaj nową lekcję</ion-title>
-            <ion-button slot="end" (click)="closeModal()" class="modal-close-button">
+          <ion-title class="modal-title">Dodaj lub wygeneruj nowe fiszki</ion-title>
+            <ion-button slot="end" (click)="closeCreateModal()" class="modal-close-button">
               <ion-icon slot="icon-only" name="close"></ion-icon>
             </ion-button>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="">
+      <ion-text class="form-info-text">Możesz wygenerować 10 kolejnych fiszek przy pomocy sztucznej inteligencji przyciskiem na dole lub dodać swoją własną przy pomocy formularza poniżej.</ion-text>
+      <ion-content>
         <form [formGroup]="flashcardForm" (ngSubmit)="submitFlashcard()">
           <ion-list lines="full" class="modal-list">
             <ion-item>
-              <ion-label position="stacked">Temat lekcji</ion-label>
-              <ion-input formControlName="topic" type="text" placeholder="Podaj temat w języku nauki"></ion-input>
+              <ion-label position="stacked" required>Nazwa fiszki</ion-label>
+              <ion-input formControlName="term" type="text" placeholder="Podaj nową fiszkę w języku obcym"></ion-input>
             </ion-item>
-
             <ion-item>
-              <ion-label position="stacked">Poziom trudności</ion-label>
-              <ion-select formControlName="difficultyLevel" placeholder="Wybierz poziom">
-                <ion-select-option [value]="0">Początkujący</ion-select-option>
-                <ion-select-option [value]="1">Średniozaawansowany</ion-select-option>
-                <ion-select-option [value]="2">Zaawansowany</ion-select-option>
-              </ion-select>
+              <ion-label position="stacked">Tłumaczenie <small>(opcjonalne)</small></ion-label>
+              <ion-input formControlName="translation" type="text" placeholder="Możesz podać tłumaczenie, jeśli znasz"></ion-input>
             </ion-item>
-
             <ion-item>
-              <ion-label position="stacked">Język nauki</ion-label>
-              <ion-select formControlName="learningLanguage" placeholder="Wybierz język">
-                <ion-select-option *ngFor="let language of availableLanguages" [value]="language">
-                  {{ language }}
-                </ion-select-option>
-              </ion-select>
+              <ion-label position="stacked">Szczegóły <small>(opcjonalne)</small></ion-label>
+              <ion-input formControlName="details" type="text" placeholder="Możesz podać opis frazy w języku obcym"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Przykład użycia <small>(opcjonalne)</small></ion-label>
+              <ion-input formControlName="usage" type="text" placeholder="Możesz podać użycie nowej frazy w języku obcym"></ion-input>
             </ion-item>
           </ion-list>
 
           <div class="modal-submit-button">
-            <ion-button type="submit" shape="round" color="primary" [disabled]="lessonForm.invalid">
+            <ion-button shape="round">
+              <ion-icon slot="start" name="color-wand-outline"></ion-icon>
+              <ion-text class="button-text">Generuj 10 fiszek z AI</ion-text>
+            </ion-button>
+            
+            <ion-button type="submit" shape="round" [disabled]="flashcardForm.invalid">
               Dodaj lekcję
             </ion-button>
           </div>

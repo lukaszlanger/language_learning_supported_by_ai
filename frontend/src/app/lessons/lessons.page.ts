@@ -33,7 +33,6 @@ export class LessonsPage implements OnInit {
     Spanish: '🇪🇸',
     Italian: '🇮🇹'
   };
-  
 
   constructor(
     private router: Router, 

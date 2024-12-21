@@ -16,7 +16,7 @@ export class ToolbarComponent {
   @Input() page: string = '';
   @Input() title: string = 'Language Learning';
   @Input() titleSmall: string = 'powered by AI';
-  @Input() addButtonItemName: string = '';
+  @Input() leftButtonItemName: string = '';
   @Output() leftButtonClicked = new EventEmitter<void>();
   @Output() rightButtonClicked = new EventEmitter<void>();
 

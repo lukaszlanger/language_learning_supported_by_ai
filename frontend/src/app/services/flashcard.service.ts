@@ -16,4 +16,8 @@ export class FlashcardService {
     getAllByLessonId(id: number): Observable<FlashcardDto[]> {
       return this.http.get<FlashcardDto[]>(`${this.baseUrl}/flashcard/getAllByLessonId/${id}`);
     }
+
+    createFlashcard(flashcard: FlashcardDto): Observable<FlashcardDto> {
+      return this.http.post<FlashcardDto>(`${this.baseUrl}/flashcard/create`, flashcard);
+    }
 }

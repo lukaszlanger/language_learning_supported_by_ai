@@ -2,9 +2,9 @@
   title="Twoje lekcje"
   titleSmall=""
   page="lessons"
-  addButtonItemName="lekcję"
+  leftButtonItemName="Stwórz lekcję"
   (leftButtonClicked)="openModal()"
-  (rightButtonClicked)="closeModal()">>
+  (rightButtonClicked)="closeModal()">
 </app-toolbar>
 
 <ion-content [fullscreen]="true">
@@ -43,12 +43,12 @@
             </ion-button>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="">
+      <ion-content>
         <form [formGroup]="lessonForm" (ngSubmit)="submitLesson()">
           <ion-list lines="full" class="modal-list">
             <ion-item>
               <ion-label position="stacked">Temat lekcji</ion-label>
-              <ion-input formControlName="topic" type="text" placeholder="Podaj temat w języku nauki"></ion-input>
+              <ion-input formControlName="topic" type="text" placeholder="Podaj temat w języku obcym"></ion-input>
             </ion-item>
 
             <ion-item>

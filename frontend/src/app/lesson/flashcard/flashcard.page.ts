@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../toolbar/toolbar.component';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { bookmark, chatbubbles, informationCircle, close, language } from 'ionicons/icons';
+import { bookmark, chatbubbles, informationCircle, close, language, colorWandOutline } from 'ionicons/icons';
 import { ActivatedRoute } from '@angular/router';
 import { FlashcardService } from 'src/app/services/flashcard.service';
 import { FlashcardDto } from 'src/app/dtos/flashcard.dto';
 import { LessonService } from 'src/app/services/lesson.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-flashcard',
@@ -20,19 +20,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class FlashcardPage implements OnInit {
   title: string = 'Lekcja';
   smallTitle: string = 'Fiszki';
-  isModalOpen = false;
+  isFlashcardModalOpen = false;
+  isCreateModalOpen = false;
   selectedFlashcard: FlashcardDto | null = null;
   flashcards: FlashcardDto[] = [];
   lessonId: number | null = null;
   loading: boolean = false;
   errorMessage: string = '';
+  flashcardForm: FormGroup;
 
   constructor(
     private flashcardService: FlashcardService,
     private lessonService: LessonService,
     private route: ActivatedRoute,
   ) {
-    addIcons({ bookmark, close, informationCircle, chatbubbles, language});
+    addIcons({ bookmark, close, informationCircle, chatbubbles, language, colorWandOutline });
+    this.flashcardForm = new FormGroup({
+      term: new FormControl('', [Validators.required]),
+      translation: new FormControl(''),
+      details: new FormControl(''),
+      usage: new FormControl(''),
+      });
   }
 
   ngOnInit() {
@@ -77,13 +85,40 @@ export class FlashcardPage implements OnInit {
     return null;
   }
 
-  openModal(flashcard: FlashcardDto) {
+  openFlashcardModal(flashcard: FlashcardDto) {
     this.selectedFlashcard = flashcard;
-    this.isModalOpen = true;
+    this.isFlashcardModalOpen = true;
   }
   
-  closeModal() {
-    this.isModalOpen = false;
+  closeFlashcardModal() {
+    this.isFlashcardModalOpen = false;
     this.selectedFlashcard = null;
+  }
+
+  openCreateModal() {
+    this.isCreateModalOpen = true;
+  }
+  
+  closeCreateModal() {
+    this.isCreateModalOpen = false;
+    this.selectedFlashcard = null;
+  }
+
+  submitFlashcard() {
+    if (this.flashcardForm.valid) {
+      const flashcardData: FlashcardDto = {
+        ...this.flashcardForm.value,
+        lessonId: this.lessonId,
+      };
+      this.flashcardService.createFlashcard(flashcardData).subscribe({
+        next: () => {
+          this.loadFlashcards(this.lessonId!);
+          this.closeCreateModal();
+        },
+        error: (err) => {
+          console.error('Błąd podczas dodawania fiszki:', err);
+        },
+      });
+    }
   }
 }

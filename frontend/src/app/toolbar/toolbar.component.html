@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-button slot="start" (click)="leftButtonClicked.emit()" *ngIf="page === 'lessons' || page === 'flashcards'">
       <ion-icon slot="icon-only" name="add-circle"></ion-icon>
-      <span class="button-text">Dodaj {{ addButtonItemName }}</span>
+      <span class="button-text">{{ leftButtonItemName }}</span>
     </ion-button>
 
     <ion-title>
