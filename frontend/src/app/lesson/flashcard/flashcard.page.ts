@@ -10,6 +10,7 @@ import { FlashcardService } from 'src/app/services/flashcard.service';
 import { FlashcardDto } from 'src/app/dtos/flashcard.dto';
 import { LessonService } from 'src/app/services/lesson.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-flashcard',
@@ -25,7 +26,8 @@ export class FlashcardPage implements OnInit {
   selectedFlashcard: FlashcardDto | null = null;
   flashcards: FlashcardDto[] = [];
   lessonId: number | null = null;
-  loading: boolean = false;
+  isLoading: boolean = false;
+  isGeneratingFlashcards: boolean = false;
   errorMessage: string = '';
   flashcardForm: FormGroup;
 
@@ -44,7 +46,7 @@ export class FlashcardPage implements OnInit {
   }
 
   ngOnInit() {
-    this.loading = true;
+    this.isLoading = true;
     this.lessonId = this.getRouteParam('id');
     if (this.lessonId) {
       this.loadFlashcards(this.lessonId);
@@ -64,11 +66,11 @@ export class FlashcardPage implements OnInit {
     this.flashcardService.getAllByLessonId(lessonId).subscribe({
       next: (flashcards) => {
         this.flashcards = flashcards;
-        this.loading = false;
+        this.isLoading = false;
       },
       error: (err) => {
         this.errorMessage = 'Nie znaleziono fiszek dla tej lekcji.';
-        this.loading = false;
+        this.isLoading = false;
       },
     });
   }
@@ -101,7 +103,31 @@ export class FlashcardPage implements OnInit {
   
   closeCreateModal() {
     this.isCreateModalOpen = false;
-    this.selectedFlashcard = null;
+  }
+
+  generateFlashcardsWithAI() {
+    if (this.lessonId) {
+      this.isGeneratingFlashcards = true;
+      this.lessonService.getById(this.lessonId).pipe(
+        switchMap(lesson => {
+          if (!lesson.userId) {
+            throw new Error('UserId not found for the lesson.');
+          }
+          return this.flashcardService.generateFlashcardsWithAI(lesson.userId, this.lessonId!);
+        })
+      ).subscribe({
+        next: () => {
+          this.loadFlashcards(this.lessonId!);
+          this.closeCreateModal();
+        },
+        error: (err) => {
+          console.error('Błąd podczas generowania fiszek:', err);
+        },
+        complete: () => {
+          this.isGeneratingFlashcards = false;
+        }
+      });
+    }
   }
 
   submitFlashcard() {

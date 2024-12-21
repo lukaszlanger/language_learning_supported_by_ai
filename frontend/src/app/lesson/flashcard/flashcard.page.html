@@ -6,9 +6,9 @@
   (leftButtonClicked)="openCreateModal()"></app-toolbar>
 
 <ion-content [fullscreen]="true">
-  <div class="page-info" *ngIf="loading && errorMessage === ''">
+  <div class="page-info" *ngIf="isLoading && errorMessage === ''">
     <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
-    <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+    <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
   </div>
 
   <div class="flashcards">
@@ -78,9 +78,14 @@
           </ion-list>
 
           <div class="modal-submit-button">
-            <ion-button shape="round">
-              <ion-icon slot="start" name="color-wand-outline"></ion-icon>
-              <ion-text class="button-text">Generuj 10 fiszek z AI</ion-text>
+            <ion-button shape="round" (click)="generateFlashcardsWithAI()" [disabled]="isGeneratingFlashcards">
+              <ng-container *ngIf="!isGeneratingFlashcards; else spinnerTemplate">
+                <ion-icon slot="start" name="color-wand-outline"></ion-icon>
+                <ion-text class="button-text">Generuj 10 fiszek z AI</ion-text>
+              </ng-container>
+              <ng-template #spinnerTemplate>
+                <ion-spinner name="crescent" class="button-spinner"></ion-spinner>
+              </ng-template>
             </ion-button>
             
             <ion-button type="submit" shape="round" [disabled]="flashcardForm.invalid">

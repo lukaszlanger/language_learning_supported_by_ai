@@ -1,7 +1,6 @@
 ﻿using LanguageLearningAI.Core.Dtos;
 using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace LanguageLearningAI.API.Controllers
 {
@@ -44,12 +43,15 @@ namespace LanguageLearningAI.API.Controllers
             var lessonDetails = _lessonService.GetLessonByIdAsync(flashcardCreateDto.LessonId).Result;
             var userDetails = _authService.GetUserByIdAsync(lessonDetails.UserId).Result;
             return Ok(await _flashcardService.CreateAsync(
-                lessonDetails.LearningLanguage,
                 userDetails.NativeLanguage,
+                lessonDetails.LearningLanguage,
                 lessonDetails.Topic,
                 lessonDetails.DifficultyLevel,
+                lessonDetails.Id,
                 flashcardCreateDto.Term,
-                lessonDetails.Id));
+                flashcardCreateDto.Translation,
+                flashcardCreateDto.Details,
+                flashcardCreateDto.Usage));
         }
 
         [HttpPost("generateWithAI")]
@@ -57,5 +59,6 @@ namespace LanguageLearningAI.API.Controllers
         {
             return Ok(await _flashcardService.GenerateAndSaveFlashcardsAsync(flashcardGenerateWithAiDto));
         }
+
     }
 }

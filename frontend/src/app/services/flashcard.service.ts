@@ -10,14 +10,22 @@ import { Observable } from 'rxjs';
 export class FlashcardService {
   private baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {}
   
-    getAllByLessonId(id: number): Observable<FlashcardDto[]> {
-      return this.http.get<FlashcardDto[]>(`${this.baseUrl}/flashcard/getAllByLessonId/${id}`);
-    }
+  getAllByLessonId(id: number): Observable<FlashcardDto[]> {
+    return this.http.get<FlashcardDto[]>(`${this.baseUrl}/flashcard/getAllByLessonId/${id}`);
+  }
 
-    createFlashcard(flashcard: FlashcardDto): Observable<FlashcardDto> {
-      return this.http.post<FlashcardDto>(`${this.baseUrl}/flashcard/create`, flashcard);
-    }
+  createFlashcard(flashcard: FlashcardDto): Observable<FlashcardDto> {
+    return this.http.post<FlashcardDto>(`${this.baseUrl}/flashcard/create`, flashcard);
+  }
+
+  generateFlashcardsWithAI(userId: string, lessonId: number): Observable<any> {
+    const requestDto = {
+      userId,
+      lessonId,
+    };
+    return this.http.post(`${this.baseUrl}/flashcard/generateWithAI`, requestDto);
+  }
+  
 }

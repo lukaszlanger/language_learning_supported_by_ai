@@ -17,6 +17,13 @@ ion-title {
     margin: 0;
     font-family: 'SF Pro Display', Arial, sans-serif;
     line-height: normal;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.toolbar-title:hover {
+    transform: scale(1.1);
 }
 
 .toolbar-title small {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { IonIcon, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar } from '@ionic/angular/standalone';
+import { IonIcon, IonInput, IonLabel, IonRouterLink, IonRouterOutlet, IonList, IonItem, IonAvatar, IonSpinner } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { arrowForward } from 'ionicons/icons';
 import { AuthService } from '../services/auth.service';
@@ -27,6 +27,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
     IonItem,
     IonAvatar,
     ToolbarComponent,
+    IonSpinner
   ],
 })
 export class LoginPage {
@@ -34,7 +35,8 @@ export class LoginPage {
   errorMessage: string | null = null;
   avatarSymbol: string = ':)';
   welcomeMessage: string = 'Zaloguj się!';
-  isLoading = false;
+  isSubmitting: boolean = false;
+  isLoggingIn: boolean = false;
 
   constructor(
     private router: Router,
@@ -55,15 +57,15 @@ export class LoginPage {
     this.errorMessage = null;
 
     if (this.loginForm.valid) {
-      
-      this.isLoading = true;
+      this.isSubmitting = true;
       try {
         await this.authService.loginAndSetUser(this.loginForm.value);
-        this.onLogin();
+        this.setMessages();
+        this.router.navigate(['lessons']);
       } catch (error) {
         this.errorMessage = 'Nie udało się zalogować. Spróbuj ponownie.';
       } finally {
-        this.isLoading = false;
+        this.isSubmitting = false;
       }
     } else {
       this.errorMessage = 'Proszę wypełnić wszystkie pola poprawnie.';
@@ -71,13 +73,15 @@ export class LoginPage {
   }
 
   onLogin() {
+    this.isLoggingIn = true;
     this.setMessages();
     this.router.navigate(['lessons']);
+    this.isLoggingIn = false;
   }
 
   setMessages() {
     this.welcomeMessage = this.authService.user ? `Witaj, ${this.authService.user?.firstName}!` : 'Zaloguj się!';
-    this.avatarSymbol = this.authService.user?.firstName?.charAt(0).toUpperCase() || this.avatarSymbol;
+    this.avatarSymbol = this.authService.user?.firstName?.charAt(0).toUpperCase() || ':)';
   }
 
   isLoggedIn(): boolean {

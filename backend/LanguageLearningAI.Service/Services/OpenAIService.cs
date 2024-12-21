@@ -136,7 +136,7 @@ namespace LanguageLearningAI.Service.Services
                                  ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");
 
             return $@"
-            Generate a JSON object with about 15 unique flashcards on the topic '{topic}' in '{learningLanguage}' language
+            Generate a JSON object with about 10 unique flashcards on the topic '{topic}' in '{learningLanguage}' language
             for '{difficultyName}' difficulty level. The flashcards should teach and practice new vocabulary in the context of learning a foreign language.
             Each flashcard should have the following structure:
             {{
