@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { LessonService } from '../services/lesson.service';
 import { LessonDto } from '../dtos/lesson.dto';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-lessons',
@@ -76,18 +77,14 @@ export class LessonsPage implements OnInit {
 
   async submitLesson() {
     if (this.lessonForm.valid) {
-      console.log('Formularz jest poprawny:', this.lessonForm.value);
       const currentUser = this.authService.user;
-      console.log('Aktualny użytkownik:', currentUser);
       const lessonData: LessonDto = {
         ...this.lessonForm.value,
         userId: currentUser?.id
       };
-      console.log('Dane lekcji:', lessonData);
 
       try {
-        this.lessonService.createLesson(lessonData); 
-        console.log('Lekcja została pomyślnie dodana');
+        await firstValueFrom(this.lessonService.createLesson(lessonData));
         this.closeModal();
         this.loadLessons();
       } catch (error) {
