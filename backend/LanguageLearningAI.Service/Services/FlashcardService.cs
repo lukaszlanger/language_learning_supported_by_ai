@@ -26,20 +26,22 @@ namespace LanguageLearningAI.Service.Services
             string term,
             int lessonId)
         {
-            var aiResponseData = await _openAIService.GenerateFlashcardDetailsAsync(learningLanguage, nativeLanguage, lessonTopic, difficultyLevel,
-                term);
+            var aiResponseData = await _openAIService.GenerateFlashcardDetailsAsync(learningLanguage, nativeLanguage, lessonTopic, difficultyLevel, term);
 
-            var flashcardCreate = new FlashcardCreateDto() { Term = term, LessonId = lessonId };
-            foreach (var item in aiResponseData)
+            var flashcardCreate = new FlashcardCreateDto
             {
-                flashcardCreate.Details = item.ContainsKey("details") ? item["details"] : string.Empty;
-                flashcardCreate.Translation = item.ContainsKey("translation") ? item["translation"] : string.Empty;
-                flashcardCreate.Usage = item.ContainsKey("usage") ? item["usage"] : string.Empty;
-            }
+                Term = term,
+                LessonId = lessonId,
+                Details = aiResponseData.ContainsKey("details") ? aiResponseData["details"] : string.Empty,
+                Translation = aiResponseData.ContainsKey("translation") ? aiResponseData["translation"] : string.Empty,
+                Usage = aiResponseData.ContainsKey("usage") ? aiResponseData["usage"] : string.Empty
+            };
 
             var flashcardId = await _flashcardRepository.AddAsync(EntityMapper.Map(flashcardCreate));
+
             return await GetFlashcardByIdAsync(flashcardId);
         }
+
 
         public async Task<List<FlashcardDto>> GenerateAndSaveFlashcardsAsync(FlashcardGenerateWithAIDto flashcardGenerateWithAiDto)
         {
