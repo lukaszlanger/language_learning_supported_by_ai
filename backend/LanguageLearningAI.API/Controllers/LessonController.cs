@@ -15,8 +15,15 @@ namespace LanguageLearningAI.API.Controllers
             _lessonService = lessonService;
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllLessonsByUser()
+        {
+            var lessons = await _lessonService.GetLessons();
+            return Ok(lessons);
+        }
+
         [HttpGet("allLessonsByUser/{userId}")]
-        public async Task<IActionResult> GetAllLessons(string userId)
+        public async Task<IActionResult> GetAllLessonsByUser(string userId)
         {
             var lessons = await _lessonService.GetLessonsByUserAsync(userId);
             return Ok(lessons);
@@ -29,7 +36,7 @@ namespace LanguageLearningAI.API.Controllers
             return Ok(lesson);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> CreateLesson([FromBody] LessonCreateDto createLessonDto)
         {
             var lesson = await _lessonService.AddLessonAsync(createLessonDto);

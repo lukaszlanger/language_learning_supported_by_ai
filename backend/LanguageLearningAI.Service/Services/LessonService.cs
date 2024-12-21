@@ -21,6 +21,13 @@ namespace LanguageLearningAI.Service.Services
             _quizRepository = quizRepository;
         }
 
+        public async Task<IEnumerable<LessonDto>> GetLessons()
+        {
+            var lessons = await _lessonRepository.GetLessons();
+
+            return lessons.Select(lesson => EntityMapper.Map(lesson)).ToList();
+        }
+
         public async Task<IEnumerable<LessonDto>> GetLessonsByUserAsync(string userId)
         {
             var lessons = await _lessonRepository.GetLessonsByUserAsync(userId);
@@ -41,7 +48,6 @@ namespace LanguageLearningAI.Service.Services
 
             return lessonDtos;
         }
-
 
         public async Task<LessonDto> GetLessonByIdAsync(int id)
         {

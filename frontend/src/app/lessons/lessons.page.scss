@@ -78,7 +78,7 @@
     --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 }
   
-.modal-button {
+.modal-close-button {
     margin-right: 8px;
     --background: none;
     --box-shadow: none;
@@ -111,4 +111,10 @@
     height: 20px;
     padding: 4px 0;
     color: #aaaaaa;
+}
+
+.modal-submit-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }

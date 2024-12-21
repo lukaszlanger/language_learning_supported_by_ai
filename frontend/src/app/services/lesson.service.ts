@@ -21,4 +21,8 @@ export class LessonService {
   getById(id: number): Observable<LessonDto> {
     return this.http.get<LessonDto>(`${this.baseUrl}/lesson/${id}`);
   }
+
+  createLesson(lesson: LessonDto): Observable<LessonDto> {
+    return this.http.post<LessonDto>(`${this.baseUrl}/lesson/create`, lesson);
+  }
 }

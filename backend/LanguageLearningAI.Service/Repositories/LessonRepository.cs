@@ -12,6 +12,8 @@ namespace LanguageLearningAI.Service.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Lesson>> GetLessons() => await _context.Lessons.ToListAsync();
+
         public async Task<IEnumerable<Lesson>> GetLessonsByUserAsync(string userId) => await _context.Lessons.Where(l => l.UserId == userId).ToListAsync();
 
         public async Task<Lesson> GetByIdAsync(int id)

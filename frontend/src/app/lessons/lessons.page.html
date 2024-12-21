@@ -15,7 +15,7 @@
   <div class="lesson-cards">
     <ion-card *ngFor="let lesson of lessons" class="lesson-card">
       <ion-card-header>
-        <ion-card-title>{{ lesson.topic }}</ion-card-title>
+        <ion-card-title>{{ getFlagForLanguage(lesson.learningLanguage) }} {{ lesson.topic }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div class="lesson-details">
@@ -38,13 +38,44 @@
       <ion-header>
         <ion-toolbar class="modal-toolbar">
           <ion-title class="modal-title">Dodaj nową lekcję</ion-title>
-            <ion-button slot="end" (click)="closeModal()" class="modal-button">
+            <ion-button slot="end" (click)="closeModal()" class="modal-close-button">
               <ion-icon slot="icon-only" name="close"></ion-icon>
             </ion-button>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
-        Tu będzie formularz
+      <ion-content class="">
+        <form [formGroup]="lessonForm" (ngSubmit)="submitLesson()">
+          <ion-list lines="full" class="modal-list">
+            <ion-item>
+              <ion-label position="stacked">Temat lekcji</ion-label>
+              <ion-input formControlName="topic" type="text" placeholder="Podaj temat w języku nauki"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Poziom trudności</ion-label>
+              <ion-select formControlName="difficultyLevel" placeholder="Wybierz poziom">
+                <ion-select-option [value]="0">Początkujący</ion-select-option>
+                <ion-select-option [value]="1">Średniozaawansowany</ion-select-option>
+                <ion-select-option [value]="2">Zaawansowany</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Język nauki</ion-label>
+              <ion-select formControlName="learningLanguage" placeholder="Wybierz język">
+                <ion-select-option *ngFor="let language of availableLanguages" [value]="language">
+                  {{ language }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+
+          <div class="modal-submit-button">
+            <ion-button type="submit" shape="round" color="primary" [disabled]="lessonForm.invalid">
+              Dodaj lekcję
+            </ion-button>
+          </div>
+        </form>
       </ion-content>
     </ng-template>
   </ion-modal>
