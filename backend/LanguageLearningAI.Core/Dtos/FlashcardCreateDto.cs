@@ -1,33 +1,39 @@
 ﻿namespace LanguageLearningAI.Core.Dtos
 {
     /// <summary>
-    /// Represents the data transfer object for creating a flashcard.
+    /// Represents a flashcard data transfer object.
     /// </summary>
-    public class FlashcardCreateDto
+    public class FlashcardDto
     {
         /// <summary>
-        /// Gets or sets the topic of the lesson.
+        /// Gets or sets the ID of the flashcard.
         /// </summary>
-        /// <example>Grocery store</example>
-        public string Topic { get; set; }
+        /// <example>1</example>
+        public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the difficulty level of the lesson.
+        /// Gets or sets the term of the flashcard.
         /// </summary>
-        /// <example>2</example>
-        public int DifficultyLevel { get; set; }
+        /// <example>Apple</example>
+        public string Term { get; set; }
 
         /// <summary>
-        /// Gets or sets the learning language of the lesson.
+        /// Gets or sets the details of the term.
         /// </summary>
-        /// <example>English</example>
-        public string LearningLanguage { get; set; }
+        /// <example>Fruit</example>
+        public string Details { get; set; }
 
         /// <summary>
-        /// Gets or sets the native language of the user.
+        /// Gets or sets the translation of the term.
         /// </summary>
-        /// <example>Polish</example>
-        public string NativeLanguage { get; set; }
+        /// <example>Jabłko</example>
+        public string Translation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the example usage of the term in a sentence.
+        /// </summary>
+        /// <example>Apple is a fruit</example>
+        public string Usage { get; set; }
 
         /// <summary>
         /// Gets or sets the lesson associated with the flashcard.

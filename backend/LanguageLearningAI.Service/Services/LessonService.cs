@@ -55,7 +55,7 @@ namespace LanguageLearningAI.Service.Services
             return EntityMapper.Map(lesson);
         }
 
-        public async Task<LessonDto> AddLessonAsync(LessonCreateDto createLessonDto)
+        public async Task<LessonDto> CreateAsync(LessonCreateDto createLessonDto)
         {
             var lessonId = await _lessonRepository.AddAsync(EntityMapper.Map(createLessonDto));
             return await GetLessonByIdAsync(lessonId);

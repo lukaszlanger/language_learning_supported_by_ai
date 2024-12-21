@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonModal, IonSpinner } from '@ionic/angular/standalone';
+import { IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, IonModal, IonSpinner, IonSelect } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from '../../toolbar/toolbar.component';
 import { IonicModule } from '@ionic/angular';
@@ -9,15 +9,17 @@ import { ActivatedRoute } from '@angular/router';
 import { FlashcardService } from 'src/app/services/flashcard.service';
 import { FlashcardDto } from 'src/app/dtos/flashcard.dto';
 import { LessonService } from 'src/app/services/lesson.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-flashcard',
     templateUrl: 'flashcard.page.html',
     styleUrls: ['flashcard.page.scss'],
-    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal, IonSpinner]
+    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal, IonSpinner, FormsModule, ReactiveFormsModule, IonSelect]
 })
 export class FlashcardPage implements OnInit {
   title: string = 'Lekcja';
+  smallTitle: string = 'Fiszki';
   isModalOpen = false;
   selectedFlashcard: FlashcardDto | null = null;
   flashcards: FlashcardDto[] = [];
@@ -41,6 +43,7 @@ export class FlashcardPage implements OnInit {
       this.lessonService.getById(this.lessonId).subscribe({
         next: (lesson) => {
           this.title = lesson.topic!;
+          this.smallTitle = lesson.learningLanguage!;
         },
         error: (err) => {
           this.errorMessage = 'Nie znaleziono lekcji.';

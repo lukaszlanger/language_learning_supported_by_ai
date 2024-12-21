@@ -3,14 +3,8 @@
     /// <summary>
     /// Represents a flashcard data transfer object.
     /// </summary>
-    public class FlashcardDto
+    public class FlashcardCreateDto
     {
-        /// <summary>
-        /// Gets or sets the ID of the flashcard.
-        /// </summary>
-        /// <example>1</example>
-        public int Id { get; set; }
-
         /// <summary>
         /// Gets or sets the term of the flashcard.
         /// </summary>
@@ -21,19 +15,19 @@
         /// Gets or sets the details of the term.
         /// </summary>
         /// <example>Fruit</example>
-        public string Details { get; set; }
+        public string? Details { get; set; }
 
         /// <summary>
         /// Gets or sets the translation of the term.
         /// </summary>
         /// <example>Jabłko</example>
-        public string Translation { get; set; }
+        public string? Translation { get; set; }
 
         /// <summary>
         /// Gets or sets the example usage of the term in a sentence.
         /// </summary>
         /// <example>Apple is a fruit</example>
-        public string Usage { get; set; }
+        public string? Usage { get; set; }
 
         /// <summary>
         /// Gets or sets the lesson associated with the flashcard.

@@ -24,7 +24,7 @@ namespace LanguageLearningAI.Service.Repositories
 
         public async Task<Flashcard> GetByIdAsync(int id)
         {
-            return await _context.Flashcards.FindAsync(id);
+            return await _context.Flashcards.FindAsync(id) ?? throw new Exception("Flashcard not found");
         }
 
         public async Task<int> AddAsync(Flashcard flashcard)

@@ -4,41 +4,6 @@
         <name>LanguageLearningAI.Core</name>
     </assembly>
     <members>
-        <member name="T:LanguageLearningAI.Core.Dtos.FlashcardCreateDto">
-            <summary>
-            Represents the data transfer object for creating a flashcard.
-            </summary>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.Topic">
-            <summary>
-            Gets or sets the topic of the lesson.
-            </summary>
-            <example>Grocery store</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.DifficultyLevel">
-            <summary>
-            Gets or sets the difficulty level of the lesson.
-            </summary>
-            <example>2</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.LearningLanguage">
-            <summary>
-            Gets or sets the learning language of the lesson.
-            </summary>
-            <example>English</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.NativeLanguage">
-            <summary>
-            Gets or sets the native language of the user.
-            </summary>
-            <example>Polish</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.LessonId">
-            <summary>
-            Gets or sets the lesson associated with the flashcard.
-            </summary>
-            <example>2</example>
-        </member>
         <member name="T:LanguageLearningAI.Core.Dtos.FlashcardDto">
             <summary>
             Represents a flashcard data transfer object.
@@ -75,6 +40,76 @@
             <example>Apple is a fruit</example>
         </member>
         <member name="P:LanguageLearningAI.Core.Dtos.FlashcardDto.LessonId">
+            <summary>
+            Gets or sets the lesson associated with the flashcard.
+            </summary>
+            <example>2</example>
+        </member>
+        <member name="T:LanguageLearningAI.Core.Dtos.FlashcardCreateDto">
+            <summary>
+            Represents a flashcard data transfer object.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.Term">
+            <summary>
+            Gets or sets the term of the flashcard.
+            </summary>
+            <example>Apple</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.Details">
+            <summary>
+            Gets or sets the details of the term.
+            </summary>
+            <example>Fruit</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.Translation">
+            <summary>
+            Gets or sets the translation of the term.
+            </summary>
+            <example>Jabłko</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.Usage">
+            <summary>
+            Gets or sets the example usage of the term in a sentence.
+            </summary>
+            <example>Apple is a fruit</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardCreateDto.LessonId">
+            <summary>
+            Gets or sets the lesson associated with the flashcard.
+            </summary>
+            <example>2</example>
+        </member>
+        <member name="T:LanguageLearningAI.Core.Dtos.FlashcardGenerateWithAIDto">
+            <summary>
+            Represents the data transfer object for creating a flashcard.
+            </summary>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardGenerateWithAIDto.Topic">
+            <summary>
+            Gets or sets the topic of the lesson.
+            </summary>
+            <example>Grocery store</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardGenerateWithAIDto.DifficultyLevel">
+            <summary>
+            Gets or sets the difficulty level of the lesson.
+            </summary>
+            <example>2</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardGenerateWithAIDto.LearningLanguage">
+            <summary>
+            Gets or sets the learning language of the lesson.
+            </summary>
+            <example>English</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardGenerateWithAIDto.NativeLanguage">
+            <summary>
+            Gets or sets the native language of the user.
+            </summary>
+            <example>Polish</example>
+        </member>
+        <member name="P:LanguageLearningAI.Core.Dtos.FlashcardGenerateWithAIDto.LessonId">
             <summary>
             Gets or sets the lesson associated with the flashcard.
             </summary>

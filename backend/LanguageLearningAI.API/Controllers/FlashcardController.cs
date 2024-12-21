@@ -1,6 +1,7 @@
 ﻿using LanguageLearningAI.Core.Dtos;
 using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LanguageLearningAI.API.Controllers
 {
@@ -9,10 +10,17 @@ namespace LanguageLearningAI.API.Controllers
     public class FlashcardController : ControllerBase
     {
         private readonly FlashcardService _flashcardService;
+        private readonly LessonService _lessonService;
+        private readonly AuthService _authService;
 
-        public FlashcardController(FlashcardService flashcardService)
+        public FlashcardController(
+            FlashcardService flashcardService,
+            LessonService lessonService,
+            AuthService authService)
         {
             _flashcardService = flashcardService;
+            _lessonService = lessonService;
+            _authService = authService;
         }
 
         [HttpGet]
@@ -30,18 +38,24 @@ namespace LanguageLearningAI.API.Controllers
             return Ok(flashcards);
         }
 
-        [HttpPost("generateWithAI")]
-        public async Task<IActionResult> GenerateFlashcards([FromBody] FlashcardCreateDto flashcardCreateDto)
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateFlashcard([FromBody] FlashcardCreateDto flashcardCreateDto)
         {
-            var quiz = await _flashcardService.GenerateAndSaveFlashcardsAsync(
-                flashcardCreateDto.Topic,
-                flashcardCreateDto.LearningLanguage,
-                flashcardCreateDto.NativeLanguage,
-                flashcardCreateDto.DifficultyLevel,
-                flashcardCreateDto.LessonId
-            );
+            var lessonDetails = _lessonService.GetLessonByIdAsync(flashcardCreateDto.LessonId).Result;
+            var userDetails = _authService.GetUserByIdAsync(lessonDetails.UserId).Result;
+            return Ok(await _flashcardService.CreateAsync(
+                lessonDetails.LearningLanguage,
+                userDetails.NativeLanguage,
+                lessonDetails.Topic,
+                lessonDetails.DifficultyLevel,
+                flashcardCreateDto.Term,
+                lessonDetails.Id));
+        }
 
-            return Ok(quiz);
+        [HttpPost("generateWithAI")]
+        public async Task<IActionResult> GenerateFlashcardsWithAI([FromBody] FlashcardGenerateWithAIDto flashcardGenerateWithAiDto)
+        {
+            return Ok(await _flashcardService.GenerateAndSaveFlashcardsAsync(flashcardGenerateWithAiDto));
         }
     }
 }

@@ -57,5 +57,18 @@ namespace LanguageLearningAI.Service.Services
                 NativeLanguage = user.NativeLanguage
             };
         }
+
+        public async Task<UserDto> GetUserByIdAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            return new UserDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                NativeLanguage = user.NativeLanguage
+            };
+        }
     }
 }

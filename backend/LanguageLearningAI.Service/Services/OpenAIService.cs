@@ -84,7 +84,47 @@ namespace LanguageLearningAI.Service.Services
             return DeserializeResponse<FlashcardDto>(responseString);
         }
 
-        private string GetPromptForQuizQuestions(string topic, string learningLanguage, int difficultyLevel)
+        public async Task<List<Dictionary<string, string>>> GenerateFlashcardDetailsAsync(
+            string learningLanguage,
+            string nativeLanguage,
+            string lessonTopic,
+            int difficultyLevel,
+            string term)
+        {
+            var prompt = GetPromptForFlashcardDetails(learningLanguage, nativeLanguage, lessonTopic, difficultyLevel, term);
+
+            var requestBody = new
+            {
+                model = _model,
+                messages = new[]
+                {
+                    new { role = "system", content = "You are an assistant generating short details (description) for flashcard term." },
+                    new { role = "user", content = prompt }
+                },
+                max_tokens = 1000,
+                temperature = 0.7
+            };
+
+            var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync(ApiUrl, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($"OpenAI API request failed with status {response.StatusCode}: {errorContent}");
+            }
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseString);
+
+            return DeserializeResponse<Dictionary<string, string>>(responseString);
+        }
+
+        private string GetPromptForQuizQuestions(
+            string topic,
+            string learningLanguage,
+            int difficultyLevel)
         {
             var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel)
                                  ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");
@@ -100,7 +140,11 @@ namespace LanguageLearningAI.Service.Services
             }}";
         }
 
-        private string GetPromptForFlashcards(string topic, string learningLanguage, string nativeLanguage, int difficultyLevel)
+        private string GetPromptForFlashcards(
+            string topic,
+            string learningLanguage,
+            string nativeLanguage,
+            int difficultyLevel)
         {
             var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel)
                                  ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");
@@ -115,6 +159,28 @@ namespace LanguageLearningAI.Service.Services
                 ""translation"": ""string"",
                 ""usage"": ""string""
             }}, where term is a flashcard title/word/phrase, details is a short description of the phrase or word, translation is a term translated to '{nativeLanguage}'";
+        }
+
+        private string GetPromptForFlashcardDetails(
+            string learningLanguage,
+            string nativeLanguage,
+            string lessonTopic,
+            int difficultyLevel,
+            string term
+            )
+        {
+            var difficultyName = Enum.GetName(typeof(DifficultyLevel), difficultyLevel)
+                                 ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");
+
+            return $@"
+            Generate a JSON object with the following fields:
+            {{
+                ""details"": ""string"",
+                ""translation"": ""string"",
+                ""usage"": ""string""
+            }}, where details is a brief description or explanation for the term '{term}' in the '{learningLanguage}' language,
+            translation is the translation to '{nativeLanguage}' language of the term '{term}',
+            and usage is an example usage of the term '{term}' in the '{learningLanguage}' language, suitable for the '{difficultyName}' level, and in the context of the lesson topic '{lessonTopic}'";
         }
 
         private List<T> DeserializeResponse<T>(string responseString)

@@ -28,6 +28,16 @@ namespace LanguageLearningAI.Core.Mapping
                 LessonId = dto.LessonId
             };
 
+        public static Flashcard Map(FlashcardCreateDto dto) =>
+            new()
+            {
+                Term = dto.Term,
+                Details = dto.Details,
+                Translation = dto.Translation,
+                Usage = dto.Usage,
+                LessonId = dto.LessonId
+            };
+
         public static LessonDto Map(Lesson lesson) =>
             new()
             {
