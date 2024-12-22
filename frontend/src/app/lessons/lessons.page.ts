@@ -20,7 +20,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class LessonsPage implements OnInit {
   lessons: LessonDto[] = [];
-  loading: boolean = false;
+  isLoading: boolean = false;
   errorMessage: string = '';
   isModalOpen = false;
   lessonForm: FormGroup;
@@ -48,7 +48,7 @@ export class LessonsPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loading = true;
+    this.isLoading = true;
     const userId = this.authService.user?.id;
   
     if (!userId) {
@@ -64,11 +64,11 @@ export class LessonsPage implements OnInit {
       this.lessonService.getAllByUserId(this.authService.user?.id).subscribe({
         next: (lessons) => {
           this.lessons = lessons;
-          this.loading = false;
+          this.isLoading = false;
         },
         error: (err) => {
           this.errorMessage = 'Wystąpił błąd podczas pobierania lekcji.';
-          this.loading = false;
+          this.isLoading = false;
         }
       });
     }

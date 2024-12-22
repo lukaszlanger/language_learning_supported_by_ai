@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/app/services/quiz.service';
 import { LessonService } from 'src/app/services/lesson.service';
+import { QuizDto } from 'src/app/dtos/quiz.dto';
 
 @Component({
     selector: 'app-quiz',
@@ -16,11 +17,11 @@ import { LessonService } from 'src/app/services/lesson.service';
 })
 export class QuizPage implements OnInit {
   title: string = 'Lekcja';
-  smallTitle: string = 'Fiszki';
+  smallTitle: string = 'Quiz';
   isLoading: boolean = false;
   errorMessage: string = '';
   lessonId: number | null = null;
-  quizzes: any[] = [];
+  quizzes: QuizDto[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -29,44 +30,109 @@ export class QuizPage implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.lessonId = this.getRouteParam('id');
-    if (this.lessonId) {
-      this.loadQuizzes(this.lessonId);
-      this.lessonService.getById(this.lessonId).subscribe({
-        next: (lesson) => {
-          this.title = lesson.topic!;
-          this.smallTitle = lesson.learningLanguage!;
-        },
-        error: (err) => {
-          this.errorMessage = 'Nie znaleziono lekcji.';
-        },
-      });
-    }
+    this.isLoading = false;
+    // this.lessonId = this.getRouteParam('id');
+    // if (this.lessonId) {
+    //   this.loadQuizzes(this.lessonId);
+    //   this.lessonService.getById(this.lessonId).subscribe({
+    //     next: (lesson) => {
+    //       this.title = lesson.topic!;
+    //       this.smallTitle = lesson.learningLanguage!;
+    //     },
+    //     error: (err) => {
+    //       this.errorMessage = 'Błąd podczas pobierania lekcji.';
+    //     },
+    //   });
+    // }
   }
 
   loadQuizzes(lessonId: number): void {
-    this.quizService.getAllByLessonId(lessonId).subscribe({
-      next: (quizzes) => {
-        this.quizzes = quizzes;
-        this.isLoading = false;
+    this.quizzes = [
+      {
+        id: 1,
+        lessonId: lessonId,
+        quizQuestions: [
+          {
+            id: 1,
+            quizId: 1,
+            question: 'What is the capital of France?',
+            answers: ['Paris', 'London', 'Berlin', 'Madrid'],
+            correctAnswer: 'Paris',
+            userAnswer: undefined,
+            isCorrect: undefined
+          },
+          {
+            id: 2,
+            quizId: 1,
+            question: 'What is 2 + 2?',
+            answers: ['3', '4', '5', '6'],
+            correctAnswer: '4',
+            userAnswer: undefined,
+            isCorrect: undefined
+          },
+          {
+            id: 3,
+            quizId: 1,
+            question: 'What is the largest planet in our solar system?',
+            answers: ['Earth', 'Mars', 'Jupiter', 'Saturn'],
+            correctAnswer: 'Jupiter',
+            userAnswer: undefined,
+            isCorrect: undefined
+          }
+        ]
       },
-      error: (err) => {
-        this.errorMessage = 'Nie znaleziono quizów dla tej lekcji.';
-        this.isLoading = false;
-      },
-    });
+      {
+        id: 2,
+        lessonId: lessonId,
+        quizQuestions: [
+          {
+            id: 4,
+            quizId: 2,
+            question: 'What is the capital of Germany?',
+            answers: ['Paris', 'London', 'Berlin', 'Madrid'],
+            correctAnswer: 'Berlin',
+            userAnswer: undefined,
+            isCorrect: undefined
+          },
+          {
+            id: 5,
+            quizId: 2,
+            question: 'What is 3 + 3?',
+            answers: ['5', '6', '7', '8'],
+            correctAnswer: '6',
+            userAnswer: undefined,
+            isCorrect: undefined
+          },
+          {
+            id: 6,
+            quizId: 2,
+            question: 'What is the smallest planet in our solar system?',
+            answers: ['Earth', 'Mars', 'Mercury', 'Venus'],
+            correctAnswer: 'Mercury',
+            userAnswer: undefined,
+            isCorrect: undefined
+          }
+        ]
+      }
+    ];
+    this.isLoading = false;
+
+
+    // this.quizService.getAllByLessonId(lessonId).subscribe({
+    //   next: (quizzes) => {
+    //     this.quizzes = quizzes;
+    //     this.isLoading = false;
+    //   },
+    //   error: (err) => {
+    //     this.errorMessage = 'Nie znaleziono quizów dla tej lekcji.';
+    //     this.isLoading = false;
+    //   },
+    // });
   }
 
   private getRouteParam(param: string): number | null {
-    let route = this.route.root;
-    while (route.firstChild) {
-      route = route.firstChild;
-      const paramValue = route.snapshot.paramMap.get(param);
-      if (paramValue) {
-        return Number(paramValue);
-      }
-    }
-    return null;
+    let paramValue = this.route.root.firstChild?.snapshot.paramMap.get(param);
+    return paramValue ? Number(paramValue) : null;
   }
 
 }

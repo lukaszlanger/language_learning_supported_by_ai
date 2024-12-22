@@ -56,7 +56,7 @@ export class FlashcardPage implements OnInit {
           this.smallTitle = lesson.learningLanguage!;
         },
         error: (err) => {
-          this.errorMessage = 'Nie znaleziono lekcji.';
+          this.errorMessage = 'Błąd podczas pobierania lekcji.';
         },
       });
     }
@@ -76,15 +76,8 @@ export class FlashcardPage implements OnInit {
   }
 
   private getRouteParam(param: string): number | null {
-    let route = this.route.root;
-    while (route.firstChild) {
-      route = route.firstChild;
-      const paramValue = route.snapshot.paramMap.get(param);
-      if (paramValue) {
-        return Number(paramValue);
-      }
-    }
-    return null;
+    let paramValue = this.route.root.firstChild?.snapshot.paramMap.get(param);
+    return paramValue ? Number(paramValue) : null;
   }
 
   openFlashcardModal(flashcard: FlashcardDto) {

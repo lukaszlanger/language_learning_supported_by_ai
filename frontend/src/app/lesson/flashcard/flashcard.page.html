@@ -7,7 +7,7 @@
 </app-toolbar>
 
 <ion-content [fullscreen]="true">
-  <div class="page-info" *ngIf="isLoading && errorMessage === ''">
+  <div class="page-info" *ngIf="isLoading || errorMessage !== ''">
     <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
     <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
   </div>
