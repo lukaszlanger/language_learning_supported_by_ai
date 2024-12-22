@@ -45,11 +45,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: white;box-shadow: 0 4px 8px var(--button-shadow, rgba(0, 0, 0, 0.2)) !important;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
     
             &.next-button.centered {
                 margin-left: auto;
             }
+        }
+
+        .nav-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px var(--button-shadow, rgba(0, 0, 0, 0.2)) !important;
         }
     
         .submit-quiz-button {
@@ -59,6 +65,13 @@
             border-radius: 25px;
             color: white;
             text-align: center;
+            color: white;box-shadow: 0 4px 8px var(--button-shadow, rgba(0, 0, 0, 0.2)) !important;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .submit-quiz-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px var(--button-shadow, rgba(0, 0, 0, 0.2)) !important;
         }
     }
   
@@ -68,7 +81,7 @@
         justify-content: center;
         margin-top: 20px;
   
-      .pagination-button {
+        .pagination-button {
             width: 38px;
             height: 25px;
             border-radius: 50%;
@@ -82,26 +95,26 @@
             color: white;
             transition: background-color 0.3s, color 0.3s;
   
-        &[color="selected"] {
-            background-color: var(--ion-color-primary); /* Czarny */
-            color: white;
-        }
+            &[color="selected"] {
+                background-color: var(--ion-color-primary); /* Czarny */
+                color: white;
+            }
 
-        &[color="selected"]:hover {
-            background-color: var(--ion-background-color-reverse);
-            color: var(--ion-background-color);
-        }
-  
-        &[color="normal"] {
-            background-color: var(--ion-background-color-second);
-            color: var(--ion-text-color);
-        }
+            &[color="selected"]:hover {
+                background-color: var(--ion-background-color-reverse);
+                color: var(--ion-background-color);
+            }
+    
+            &[color="normal"] {
+                background-color: var(--ion-background-color-second);
+                color: var(--ion-text-color);
+            }
 
-        &[color="normal"]:hover {
-            background-color: var(--ion-background-color-reverse);
-            color: var(--ion-background-color);
-          }
-      }
+            &[color="normal"]:hover {
+                background-color: var(--ion-background-color-reverse);
+                color: var(--ion-background-color);
+            }
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        }
     }
-  }
-  
+}

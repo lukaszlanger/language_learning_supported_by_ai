@@ -29,11 +29,8 @@ export class QuizPage implements OnInit {
   selectedQuiz: QuizDto | undefined;
   quizForm: FormGroup;
   selectedAnswers: { [key: number]: string } = {};
+  currentQuestion: QuizQuestionDto | undefined;
   currentIndex = 0;
-
-  get currentQuestion(): QuizQuestionDto | undefined {
-    return this.selectedQuiz?.quizQuestions?.[this.currentIndex];
-  }
 
   get isLastQuestion(): boolean {
     return this.currentIndex === (this.selectedQuiz?.quizQuestions?.length || 0) - 1;
@@ -44,7 +41,7 @@ export class QuizPage implements OnInit {
     private quizService: QuizService,
     private lessonService: LessonService,
     private formBuilder: FormBuilder) {
-      addIcons({ barbell, basket, call, globe, heart, home, person, pin, star, trash, helpCircleOutline, browsers, arrowForward, arrowBack });
+      addIcons({ arrowForward, arrowBack });
       this.quizForm = this.formBuilder.group({
         answers: ['', Validators.required]
       });
@@ -143,6 +140,7 @@ export class QuizPage implements OnInit {
       this.selectedQuizId = this.quizzes[0].id!;
       this.selectedQuiz = this.quizzes[0];
     }
+    this.updateCurrentQuestion();
 
     // this.quizService.getAllByLessonId(lessonId).subscribe({
     //   next: (quizzes) => {
@@ -166,29 +164,50 @@ export class QuizPage implements OnInit {
     this.selectedQuiz = this.quizzes.find(quiz => quiz.id === selectedId) || undefined;
   }
 
-  selectAnswer(answer: string): void {
-    this.selectedAnswers[this.currentIndex] = answer;
-  }
-
-  nextQuestion(): void {
-    if (this.currentIndex < (this.selectedQuiz?.quizQuestions?.length || 0) - 1) {
-      this.currentIndex++;
+  updateCurrentQuestion() {
+    if (this.selectedQuiz) {
+      this.currentQuestion = this.selectedQuiz?.quizQuestions?.[this.currentIndex];
+      this.quizForm.controls['answers'].setValue(this.selectedAnswers[this.currentIndex] || '');
     }
   }
 
-  previousQuestion(): void {
+  selectAnswer(event: any) {
+    this.selectedAnswers[this.currentIndex] = event.detail.value;
+  }
+
+  nextQuestion() {
+    this.saveAnswer();
+    if (this.currentIndex < (this.selectedQuiz?.quizQuestions?.length || 0) - 1) {
+      this.currentIndex++;
+      this.updateCurrentQuestion();
+    }
+  }
+
+  previousQuestion() {
+    this.saveAnswer();
     if (this.currentIndex > 0) {
       this.currentIndex--;
+      this.updateCurrentQuestion();
+    }
+  }
+
+  saveAnswer() {
+    const currentAnswer = this.quizForm.controls['answers'].value;
+    if (currentAnswer) {
+      this.selectedAnswers[this.currentIndex] = currentAnswer;
     }
   }
 
   goToQuestion(index: number): void {
+    this.saveAnswer();
+    this.updateCurrentQuestion();
     this.currentIndex = index;
   }
+  
 
-  onSubmit(): void {
-    console.log('Zapisz odpowiedzi:', this.selectedAnswers);
-    // Wyślij odpowiedzi na backend
+  onSubmit() {
+    this.saveAnswer();
+    console.log('User answers:', this.selectedAnswers);
   }
 
 }

@@ -14,7 +14,7 @@
   <form *ngIf="selectedQuiz" [formGroup]="quizForm" class="quiz-form" (ngSubmit)="onSubmit()">
     <div class="question-container">
       <h3>{{ currentQuestion?.question }}</h3>
-      <ion-radio-group formControlName="answers">
+      <ion-radio-group formControlName="answers" (ionChange)="selectAnswer($event)">
         <ion-item *ngFor="let answer of currentQuestion?.answers" class="answer-item" (click)="quizForm.controls['answers'].setValue(answer)">
           <ion-radio slot="start" [value]="answer"></ion-radio>
           <ion-label>{{ answer }}</ion-label>
