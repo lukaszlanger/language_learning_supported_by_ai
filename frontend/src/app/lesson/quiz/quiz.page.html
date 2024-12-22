@@ -10,4 +10,19 @@
     <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
     <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
   </div>
+
+  <ion-segment [(ngModel)]="selectedQuizId" (ionChange)="onSegmentChange($event)">
+    <ion-segment-button *ngFor="let quiz of quizzes; let i = index" [value]="quiz.id">
+      <ion-text class="segment-text">Quiz {{ i + 1 }}</ion-text>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedQuiz">
+    <div *ngFor="let question of selectedQuiz.quizQuestions">
+      <h3>{{ question.question }}</h3>
+      <ul>
+        <li *ngFor="let answer of question.answers">{{ answer }}</li>
+      </ul>
+    </div>
+  </div>
 </ion-content>

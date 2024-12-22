@@ -1,19 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonModal, IonSpinner, IonSelect } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonModal, IonSpinner, IonSelect, IonSegment, IonSegmentButton, IonProgressBar } from '@ionic/angular/standalone';
 import { ToolbarComponent } from 'src/app/toolbar/toolbar.component';
 import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/app/services/quiz.service';
 import { LessonService } from 'src/app/services/lesson.service';
 import { QuizDto } from 'src/app/dtos/quiz.dto';
+import { addIcons } from 'ionicons';
+import { barbell, basket, browsers, call, globe, heart, helpCircleOutline, home, person, pin, star, trash } from 'ionicons/icons';
 
 @Component({
     selector: 'app-quiz',
     templateUrl: 'quiz.page.html',
     styleUrls: ['quiz.page.scss'],
-    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal, IonSpinner, FormsModule, ReactiveFormsModule, IonSelect]
+    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal, IonSpinner, FormsModule, ReactiveFormsModule, IonSelect, IonSegment, IonSegmentButton, IonProgressBar]
 })
 export class QuizPage implements OnInit {
   title: string = 'Lekcja';
@@ -22,14 +24,19 @@ export class QuizPage implements OnInit {
   errorMessage: string = '';
   lessonId: number | null = null;
   quizzes: QuizDto[] = [];
+  selectedQuizId: number | null = null;
+  selectedQuiz: QuizDto | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private quizService: QuizService,
-    private lessonService: LessonService) {}
+    private lessonService: LessonService) {
+      addIcons({ barbell, basket, call, globe, heart, home, person, pin, star, trash, helpCircleOutline, browsers });
+    }
 
   ngOnInit() {
     this.isLoading = true;
+    this.loadQuizzes(2);
     this.isLoading = false;
     // this.lessonId = this.getRouteParam('id');
     // if (this.lessonId) {
@@ -116,7 +123,10 @@ export class QuizPage implements OnInit {
       }
     ];
     this.isLoading = false;
-
+    if (this.quizzes.length > 0) {
+      this.selectedQuizId = this.quizzes[0].id!;
+      this.selectedQuiz = this.quizzes[0];
+    }
 
     // this.quizService.getAllByLessonId(lessonId).subscribe({
     //   next: (quizzes) => {
@@ -133,6 +143,11 @@ export class QuizPage implements OnInit {
   private getRouteParam(param: string): number | null {
     let paramValue = this.route.root.firstChild?.snapshot.paramMap.get(param);
     return paramValue ? Number(paramValue) : null;
+  }
+
+  onSegmentChange(event: any) {
+    const selectedId = event.detail.value;
+    this.selectedQuiz = this.quizzes.find(quiz => quiz.id === selectedId) || null;
   }
 
 }

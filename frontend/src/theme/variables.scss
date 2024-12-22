@@ -13,6 +13,8 @@
   --ion-color-error: #ff6666;
   --ion-font-family: 'SF Pro Text', Arial, sans-serif;
   --ion-card-background: #ffffff;
+  --scrollbar-color: #5c1e24;
+  --scrollbar-background-color: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,7 +27,9 @@
     --ion-item-background: #1c1c1c;
     --ion-text-color: #c2c2c2;
     --ion-toolbar-background: var(--gradient);
-    --ion-card-background: #252525
+    --ion-card-background: #252525;
+    --scrollbar-color: #141414;
+    --scrollbar-background-color: #202020;
   }
 }
 
@@ -68,4 +72,36 @@ ion-title {
   justify-content: center;
   align-items: center;
   height: 85%;
+}
+
+ion-segment {
+  &::-webkit-scrollbar {
+      height: 4px;
+      background: var(--scrollbar-background-color);
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-color);
+      border-radius: 10px;
+  }
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-background-color);
+}
+
+ion-content {
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background: var(--scrollbar-background-color);
+  }
+}
+
+ion-content {
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-color);
+    border-radius: 10px;
+  }
 }
