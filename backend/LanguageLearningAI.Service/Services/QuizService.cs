@@ -20,14 +20,13 @@ namespace LanguageLearningAI.Service.Services
             _openAIService = openAIService;
         }
 
-        public async Task<QuizDto> GenerateAndSaveQuizAsync(string topic, string learningLanguage, int difficultyLevel, int lessonId, string userId)
+        public async Task<QuizDto> GenerateAndSaveQuizAsync(string topic, string learningLanguage, int difficultyLevel, int lessonId)
         {
             var quizQuestionsDto = await _openAIService.GenerateQuizQuestionsAsync(topic, learningLanguage, difficultyLevel);
 
             return new QuizDto
             {
                 LessonId = lessonId,
-                UserId = userId,
                 Questions = quizQuestionsDto
             };
 
@@ -36,7 +35,6 @@ namespace LanguageLearningAI.Service.Services
             var quiz = new Quiz
             {
                 LessonId = lessonId,
-                UserId = userId,
                 Questions = quizQuestionsDto.Select(q => new QuizQuestion
                 {
                     Question = q.Question,
@@ -56,7 +54,6 @@ namespace LanguageLearningAI.Service.Services
             {
                 Id = quiz.Id,
                 LessonId = quiz.LessonId,
-                UserId = quiz.UserId,
                 Questions = quiz.Questions.Select(q => new QuizQuestionDto
                 {
                     Id = q.Id,
@@ -78,7 +75,6 @@ namespace LanguageLearningAI.Service.Services
             {
                 Id = quiz.Id,
                 LessonId = quiz.LessonId,
-                UserId = quiz.UserId,
                 Questions = quiz.Questions.Select(q => new QuizQuestionDto
                 {
                     Id = q.Id,
@@ -104,7 +100,6 @@ namespace LanguageLearningAI.Service.Services
             {
                 Id = quiz.Id,
                 LessonId = quiz.LessonId,
-                UserId = quiz.UserId,
                 Questions = quiz.Questions.Select(q => new QuizQuestionDto
                 {
                     Id = q.Id,
@@ -127,7 +122,6 @@ namespace LanguageLearningAI.Service.Services
             var quiz = new Quiz
             {
                 LessonId = quizCreateDto.LessonId,
-                UserId = quizCreateDto.UserId
             };
 
             await _quizRepository.AddAsync(quiz);

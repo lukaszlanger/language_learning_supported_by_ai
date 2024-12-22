@@ -43,15 +43,16 @@
   </div>
 
   <ion-footer>
-  <div class="footer-links">
-    <ion-text *ngIf="isLoggedIn()">
-      <a (click)="logout()">Wyloguj się</a>
-    </ion-text>
-  
-    <div *ngIf="!isLoggedIn()" class="auth-links">
-      <ion-text><a href="#">Rejestracja</a></ion-text>
-      <ion-text>|</ion-text>
-      <ion-text><a href="#">Przypomnij hasło</a></ion-text>
+    <div class="footer-links">
+      <ion-text *ngIf="isLoggedIn()">
+        <a (click)="logout()">Wyloguj się</a>
+      </ion-text>
+    
+      <div *ngIf="!isLoggedIn()" class="auth-links">
+        <ion-text><a href="#">Rejestracja</a></ion-text>
+        <ion-text>|</ion-text>
+        <ion-text><a href="#">Przypomnij hasło</a></ion-text>
+      </div>
     </div>
-  </div></ion-footer>
+  </ion-footer>
 </ion-content>

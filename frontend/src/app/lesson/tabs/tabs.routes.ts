@@ -19,7 +19,7 @@ export const routes: Routes = [
       {
         path: 'quiz',
         loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+          import('../quiz/quiz.page').then((m) => m.QuizPage),
       },
       {
         path: 'stats',

@@ -22,8 +22,7 @@ namespace LanguageLearningAI.API.Controllers
                 quizCreateDto.Topic,
                 quizCreateDto.LearningLanguage,
                 quizCreateDto.DifficultyLevel,
-                quizCreateDto.LessonId,
-                quizCreateDto.UserId
+                quizCreateDto.LessonId
             );
 
             return Ok(quiz);

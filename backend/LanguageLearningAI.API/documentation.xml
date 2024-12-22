@@ -219,12 +219,6 @@
             </summary>
             <example>1</example>
         </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.QuizCreateDto.UserId">
-            <summary>
-            Gets or sets id of the user assigned to quiz.
-            </summary>
-            <example>1</example>
-        </member>
         <member name="T:LanguageLearningAI.Core.Dtos.QuizDto">
             <summary>
             Represents a quiz data transfer object.
@@ -239,12 +233,6 @@
         <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.LessonId">
             <summary>
             Gets or sets the ID of the lesson associated with the quiz.
-            </summary>
-            <example>1</example>
-        </member>
-        <member name="P:LanguageLearningAI.Core.Dtos.QuizDto.UserId">
-            <summary>
-            Gets or sets the ID of the user associated with the quiz.
             </summary>
             <example>1</example>
         </member>

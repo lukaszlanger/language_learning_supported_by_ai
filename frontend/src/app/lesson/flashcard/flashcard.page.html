@@ -3,7 +3,8 @@
   titleSmall="{{ smallTitle }}"
   page="flashcards"
   leftButtonItemName="Generuj fiszki"
-  (leftButtonClicked)="openCreateModal()"></app-toolbar>
+  (leftButtonClicked)="openCreateModal()">
+</app-toolbar>
 
 <ion-content [fullscreen]="true">
   <div class="page-info" *ngIf="isLoading && errorMessage === ''">
