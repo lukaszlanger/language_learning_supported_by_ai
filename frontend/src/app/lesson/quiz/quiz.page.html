@@ -11,18 +11,45 @@
     <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
   </div>
 
-  <ion-segment [(ngModel)]="selectedQuizId" (ionChange)="onSegmentChange($event)">
-    <ion-segment-button *ngFor="let quiz of quizzes; let i = index" [value]="quiz.id">
-      <ion-text class="segment-text">Quiz {{ i + 1 }}</ion-text>
-    </ion-segment-button>
-  </ion-segment>
-
-  <div *ngIf="selectedQuiz">
-    <div *ngFor="let question of selectedQuiz.quizQuestions">
-      <h3>{{ question.question }}</h3>
-      <ul>
-        <li *ngFor="let answer of question.answers">{{ answer }}</li>
-      </ul>
+  <form *ngIf="selectedQuiz" [formGroup]="quizForm" class="quiz-form" (ngSubmit)="onSubmit()">
+    <div class="question-container">
+      <h3>{{ currentQuestion?.question }}</h3>
+      <ion-radio-group formControlName="answers">
+        <ion-item *ngFor="let answer of currentQuestion?.answers" class="answer-item" (click)="quizForm.controls['answers'].setValue(answer)">
+          <ion-radio slot="start" [value]="answer"></ion-radio>
+          <ion-label>{{ answer }}</ion-label>
+        </ion-item>
+      </ion-radio-group>
     </div>
-  </div>
+  
+    <div class="navigation-buttons">
+      <ion-button *ngIf="currentIndex > 0" (click)="previousQuestion()" shape="round" class="nav-button">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    
+      <ion-button 
+        *ngIf="!isLastQuestion" 
+        (click)="nextQuestion()" 
+        shape="round" 
+        class="nav-button next-button"
+        [class.centered]="currentIndex === 0">
+        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+    
+      <ion-button *ngIf="isLastQuestion" type="submit" shape="round" class="submit-quiz-button">
+        Zakończ Quiz
+      </ion-button>
+    </div>
+    
+    <div class="pagination">
+      <ion-button
+        *ngFor="let question of selectedQuiz?.quizQuestions; let i = index"
+        [color]="i === currentIndex ? 'selected' : 'normal'"
+        (click)="goToQuestion(i)"
+        class="pagination-button"
+        shape="round">
+        {{ i + 1 }}
+      </ion-button>
+    </div>    
+  </form>
 </ion-content>

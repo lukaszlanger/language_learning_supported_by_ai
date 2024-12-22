@@ -3,6 +3,8 @@
 :root.md {
   --gradient: linear-gradient(135deg, #7a2e36, #5c1e24);
   --ion-background-color: #f5f5f5;
+  --ion-background-color-second: #dfdfdf;
+  --ion-background-color-reverse: #1c1c1c;
   --ion-item-background: #f5f5f5;
   --ion-item-background-color: #f5f5f5;
   --ion-toolbar-background: var(--gradient);
@@ -23,6 +25,8 @@
   :root.md {
     --gradient: linear-gradient(135deg, #5a232c, #3b1418);
     --ion-background-color: #1c1c1c;
+    --ion-background-color-second: #353535;
+    --ion-background-color-reverse: #f5f5f5;
     --ion-item-background-color: #1c1c1c;
     --ion-item-background: #1c1c1c;
     --ion-text-color: #c2c2c2;

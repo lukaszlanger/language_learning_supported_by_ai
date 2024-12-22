@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonModal, IonSpinner, IonSelect, IonSegment, IonSegmentButton, IonProgressBar } from '@ionic/angular/standalone';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonModal, IonSpinner, IonSelect, IonSegment, IonSegmentButton, IonProgressBar, IonRadio, IonList } from '@ionic/angular/standalone';
 import { ToolbarComponent } from 'src/app/toolbar/toolbar.component';
 import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
@@ -9,13 +9,14 @@ import { QuizService } from 'src/app/services/quiz.service';
 import { LessonService } from 'src/app/services/lesson.service';
 import { QuizDto } from 'src/app/dtos/quiz.dto';
 import { addIcons } from 'ionicons';
-import { barbell, basket, browsers, call, globe, heart, helpCircleOutline, home, person, pin, star, trash } from 'ionicons/icons';
+import { arrowBack, arrowForward, barbell, basket, browsers, call, globe, heart, helpCircleOutline, home, person, pin, star, trash } from 'ionicons/icons';
+import { QuizQuestionDto } from 'src/app/dtos/quiz-question.dto';
 
 @Component({
     selector: 'app-quiz',
     templateUrl: 'quiz.page.html',
     styleUrls: ['quiz.page.scss'],
-    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal, IonSpinner, FormsModule, ReactiveFormsModule, IonSelect, IonSegment, IonSegmentButton, IonProgressBar]
+    imports: [IonHeader, IonToolbar, IonTitle, IonContent, CommonModule, ToolbarComponent, IonicModule, IonIcon, IonModal, IonSpinner, FormsModule, ReactiveFormsModule, IonSelect, IonSegment, IonSegmentButton, IonProgressBar, IonRadio, IonList]
 })
 export class QuizPage implements OnInit {
   title: string = 'Lekcja';
@@ -25,13 +26,28 @@ export class QuizPage implements OnInit {
   lessonId: number | null = null;
   quizzes: QuizDto[] = [];
   selectedQuizId: number | null = null;
-  selectedQuiz: QuizDto | null = null;
+  selectedQuiz: QuizDto | undefined;
+  quizForm: FormGroup;
+  selectedAnswers: { [key: number]: string } = {};
+  currentIndex = 0;
+
+  get currentQuestion(): QuizQuestionDto | undefined {
+    return this.selectedQuiz?.quizQuestions?.[this.currentIndex];
+  }
+
+  get isLastQuestion(): boolean {
+    return this.currentIndex === (this.selectedQuiz?.quizQuestions?.length || 0) - 1;
+  }
 
   constructor(
     private route: ActivatedRoute,
     private quizService: QuizService,
-    private lessonService: LessonService) {
-      addIcons({ barbell, basket, call, globe, heart, home, person, pin, star, trash, helpCircleOutline, browsers });
+    private lessonService: LessonService,
+    private formBuilder: FormBuilder) {
+      addIcons({ barbell, basket, call, globe, heart, home, person, pin, star, trash, helpCircleOutline, browsers, arrowForward, arrowBack });
+      this.quizForm = this.formBuilder.group({
+        answers: ['', Validators.required]
+      });
     }
 
   ngOnInit() {
@@ -147,7 +163,32 @@ export class QuizPage implements OnInit {
 
   onSegmentChange(event: any) {
     const selectedId = event.detail.value;
-    this.selectedQuiz = this.quizzes.find(quiz => quiz.id === selectedId) || null;
+    this.selectedQuiz = this.quizzes.find(quiz => quiz.id === selectedId) || undefined;
+  }
+
+  selectAnswer(answer: string): void {
+    this.selectedAnswers[this.currentIndex] = answer;
+  }
+
+  nextQuestion(): void {
+    if (this.currentIndex < (this.selectedQuiz?.quizQuestions?.length || 0) - 1) {
+      this.currentIndex++;
+    }
+  }
+
+  previousQuestion(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    }
+  }
+
+  goToQuestion(index: number): void {
+    this.currentIndex = index;
+  }
+
+  onSubmit(): void {
+    console.log('Zapisz odpowiedzi:', this.selectedAnswers);
+    // Wyślij odpowiedzi na backend
   }
 
 }
