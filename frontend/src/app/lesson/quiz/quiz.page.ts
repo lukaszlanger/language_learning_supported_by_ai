@@ -9,8 +9,9 @@ import { QuizService } from 'src/app/services/quiz.service';
 import { LessonService } from 'src/app/services/lesson.service';
 import { QuizDto } from 'src/app/dtos/quiz.dto';
 import { addIcons } from 'ionicons';
-import { arrowBack, arrowForward, barbell, basket, browsers, call, globe, heart, helpCircleOutline, home, person, pin, star, trash } from 'ionicons/icons';
+import { arrowBack, arrowForward } from 'ionicons/icons';
 import { QuizQuestionDto } from 'src/app/dtos/quiz-question.dto';
+import { switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-quiz',
@@ -22,6 +23,7 @@ export class QuizPage implements OnInit {
   title: string = 'Lekcja';
   smallTitle: string = 'Quiz';
   isLoading: boolean = false;
+  isGeneratingQuiz: boolean = false;
   errorMessage: string = '';
   lessonId: number | null = null;
   quizzes: QuizDto[] = [];
@@ -33,7 +35,7 @@ export class QuizPage implements OnInit {
   currentIndex = 0;
 
   get isLastQuestion(): boolean {
-    return this.currentIndex === (this.selectedQuiz?.quizQuestions?.length || 0) - 1;
+    return this.currentIndex === (this.selectedQuiz?.questions?.length || 0) - 1;
   }
 
   constructor(
@@ -49,109 +51,39 @@ export class QuizPage implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.loadQuizzes(2);
-    this.isLoading = false;
-    // this.lessonId = this.getRouteParam('id');
-    // if (this.lessonId) {
-    //   this.loadQuizzes(this.lessonId);
-    //   this.lessonService.getById(this.lessonId).subscribe({
-    //     next: (lesson) => {
-    //       this.title = lesson.topic!;
-    //       this.smallTitle = lesson.learningLanguage!;
-    //     },
-    //     error: (err) => {
-    //       this.errorMessage = 'Błąd podczas pobierania lekcji.';
-    //     },
-    //   });
-    // }
+    this.lessonId = this.getRouteParam('id');
+    if (this.lessonId) {
+      this.loadQuizzes(this.lessonId);
+      this.lessonService.getById(this.lessonId).subscribe({
+        next: (lesson) => {
+          this.title = lesson.topic!;
+          this.smallTitle = lesson.learningLanguage!;
+        },
+        error: (err) => {
+          this.errorMessage = 'Błąd podczas pobierania lekcji.';
+        },
+      });
+    }
   }
 
   loadQuizzes(lessonId: number): void {
-    this.quizzes = [
-      {
-        id: 1,
-        lessonId: lessonId,
-        quizQuestions: [
-          {
-            id: 1,
-            quizId: 1,
-            question: 'What is the capital of France?',
-            answers: ['Paris', 'London', 'Berlin', 'Madrid'],
-            correctAnswer: 'Paris',
-            userAnswer: undefined,
-            isCorrect: undefined
-          },
-          {
-            id: 2,
-            quizId: 1,
-            question: 'What is 2 + 2?',
-            answers: ['3', '4', '5', '6'],
-            correctAnswer: '4',
-            userAnswer: undefined,
-            isCorrect: undefined
-          },
-          {
-            id: 3,
-            quizId: 1,
-            question: 'What is the largest planet in our solar system?',
-            answers: ['Earth', 'Mars', 'Jupiter', 'Saturn'],
-            correctAnswer: 'Jupiter',
-            userAnswer: undefined,
-            isCorrect: undefined
-          }
-        ]
+    this.quizService.getAllByLessonId(lessonId).subscribe({
+      next: (quizzes) => {
+        this.quizzes = quizzes;
+        this.isLoading = false;
+        if (this.quizzes.length > 0) {
+          this.selectedQuiz = this.quizzes[0];
+          this.currentIndex = 0;
+          this.updateCurrentQuestion();
+        } else {
+          this.errorMessage = 'Brak quizów dla tej lekcji.';
+        }
       },
-      {
-        id: 2,
-        lessonId: lessonId,
-        quizQuestions: [
-          {
-            id: 4,
-            quizId: 2,
-            question: 'What is the capital of Germany?',
-            answers: ['Paris', 'London', 'Berlin', 'Madrid'],
-            correctAnswer: 'Berlin',
-            userAnswer: undefined,
-            isCorrect: undefined
-          },
-          {
-            id: 5,
-            quizId: 2,
-            question: 'What is 3 + 3?',
-            answers: ['5', '6', '7', '8'],
-            correctAnswer: '6',
-            userAnswer: undefined,
-            isCorrect: undefined
-          },
-          {
-            id: 6,
-            quizId: 2,
-            question: 'What is the smallest planet in our solar system?',
-            answers: ['Earth', 'Mars', 'Mercury', 'Venus'],
-            correctAnswer: 'Mercury',
-            userAnswer: undefined,
-            isCorrect: undefined
-          }
-        ]
-      }
-    ];
-    this.isLoading = false;
-    if (this.quizzes.length > 0) {
-      this.selectedQuizId = this.quizzes[0].id!;
-      this.selectedQuiz = this.quizzes[0];
-    }
-    this.updateCurrentQuestion();
-
-    // this.quizService.getAllByLessonId(lessonId).subscribe({
-    //   next: (quizzes) => {
-    //     this.quizzes = quizzes;
-    //     this.isLoading = false;
-    //   },
-    //   error: (err) => {
-    //     this.errorMessage = 'Nie znaleziono quizów dla tej lekcji.';
-    //     this.isLoading = false;
-    //   },
-    // });
+      error: (err) => {
+        this.errorMessage = 'Nie znaleziono quizów dla tej lekcji.';
+        this.isLoading = false;
+      },
+    });
   }
 
   private getRouteParam(param: string): number | null {
@@ -161,12 +93,20 @@ export class QuizPage implements OnInit {
 
   onSegmentChange(event: any) {
     const selectedId = event.detail.value;
-    this.selectedQuiz = this.quizzes.find(quiz => quiz.id === selectedId) || undefined;
-  }
-
+    const selectedQuiz = this.quizzes.find(quiz => quiz.id === selectedId);
+  
+    if (selectedQuiz) {
+      this.selectedQuizId = selectedId;
+      this.selectedQuiz = selectedQuiz;
+      this.currentIndex = 0;
+      this.selectedAnswers = {};
+      this.updateCurrentQuestion();
+    }
+  }  
+  
   updateCurrentQuestion() {
     if (this.selectedQuiz) {
-      this.currentQuestion = this.selectedQuiz?.quizQuestions?.[this.currentIndex];
+      this.currentQuestion = this.selectedQuiz?.questions?.[this.currentIndex];
       this.quizForm.controls['answers'].setValue(this.selectedAnswers[this.currentIndex] || '');
     }
   }
@@ -177,7 +117,7 @@ export class QuizPage implements OnInit {
 
   nextQuestion() {
     this.saveAnswer();
-    if (this.currentIndex < (this.selectedQuiz?.quizQuestions?.length || 0) - 1) {
+    if (this.currentIndex < (this.selectedQuiz?.questions?.length || 0) - 1) {
       this.currentIndex++;
       this.updateCurrentQuestion();
     }
@@ -203,11 +143,31 @@ export class QuizPage implements OnInit {
     this.updateCurrentQuestion();
     this.currentIndex = index;
   }
-  
 
   onSubmit() {
     this.saveAnswer();
     console.log('User answers:', this.selectedAnswers);
   }
 
+  generateQuizWithAI() {
+    if (this.lessonId) {
+      this.isGeneratingQuiz = true;
+      this.lessonService.getById(this.lessonId).pipe(
+        switchMap(lesson => {
+          return this.quizService.generateQuizWithAI(this.lessonId!);
+        })
+      ).subscribe({
+        next: () => {
+          this.loadQuizzes(this.lessonId!);
+          // this.closeCreateModal();
+        },
+        error: (err) => {
+          console.error('Błąd podczas generowania fiszek:', err);
+        },
+        complete: () => {
+          this.isGeneratingQuiz = false;
+        }
+      });
+    }
+  }
 }

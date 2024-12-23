@@ -13,6 +13,10 @@ export class QuizService {
   constructor(private http: HttpClient) {}
 
   getAllByLessonId(id: number): Observable<QuizDto[]> {
-    return this.http.get<QuizDto[]>(`${this.baseUrl}/quiz/getAllByLessonId/${id}`);
+    return this.http.get<QuizDto[]>(`${this.baseUrl}/quiz/allByLessonId/${id}`);
+  }
+
+  generateQuizWithAI(lessonId: number): Observable<QuizDto> {
+    return this.http.post<QuizDto>(`${this.baseUrl}/quiz/generateWithAI?lessonId=${lessonId}`, {});
   }
 }

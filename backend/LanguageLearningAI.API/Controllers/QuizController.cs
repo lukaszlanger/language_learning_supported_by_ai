@@ -16,20 +16,15 @@ namespace LanguageLearningAI.API.Controllers
         }
 
         [HttpPost("generateWithAI")]
-        public async Task<IActionResult> GenerateQuiz([FromBody] QuizCreateDto quizCreateDto)
+        public async Task<IActionResult> GenerateQuiz([FromQuery] int lessonId)
         {
-            var quiz = await _quizService.GenerateAndSaveQuizAsync(
-                quizCreateDto.Topic,
-                quizCreateDto.LearningLanguage,
-                quizCreateDto.DifficultyLevel,
-                quizCreateDto.LessonId
-            );
+            var quiz = await _quizService.GenerateAndSaveQuizAsync(lessonId);
 
             return Ok(quiz);
         }
 
-        [HttpGet("allByLesson/{lessonId}")]
-        public async Task<IActionResult> GetAllQuizzesByLesson(int lessonId)
+        [HttpGet("allByLessonId/{lessonId}")]
+        public async Task<ActionResult<IEnumerable<QuizDto>>> GetAllQuizzesByLesson(int lessonId)
         {
             var quizzes = await _quizService.GetAllQuizzesByLessonAsync(lessonId);
             return Ok(quizzes);

@@ -2,7 +2,8 @@
   title="{{ title }}"
   titleSmall="{{ smallTitle }}"
   page="quiz"
-  leftButtonItemName="Generuj quiz">
+  leftButtonItemName="Generuj quiz"
+  (leftButtonClicked)="generateQuizWithAI()">
 </app-toolbar>
 
 <ion-content [fullscreen]="true">
@@ -10,6 +11,12 @@
     <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
     <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
   </div>
+
+  <ion-segment [(ngModel)]="selectedQuizId" (ionChange)="onSegmentChange($event)">
+    <ion-segment-button *ngFor="let quiz of quizzes; let i = index" [value]="quiz.id">
+      <ion-text class="segment-text">Quiz {{ i + 1 }}</ion-text>
+    </ion-segment-button>
+  </ion-segment>
 
   <form *ngIf="selectedQuiz" [formGroup]="quizForm" class="quiz-form" (ngSubmit)="onSubmit()">
     <div class="question-container">
@@ -43,7 +50,7 @@
     
     <div class="pagination">
       <ion-button
-        *ngFor="let question of selectedQuiz?.quizQuestions; let i = index"
+        *ngFor="let question of selectedQuiz?.questions; let i = index"
         [color]="i === currentIndex ? 'selected' : 'normal'"
         (click)="goToQuestion(i)"
         class="pagination-button"

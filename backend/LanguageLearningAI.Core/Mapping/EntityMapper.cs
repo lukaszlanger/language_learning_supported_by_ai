@@ -66,5 +66,46 @@ namespace LanguageLearningAI.Core.Mapping
                 LearningLanguage = dto.LearningLanguage,
                 UserId = dto.UserId
             };
+
+        public static Quiz Map(QuizDto dto) =>
+            new()
+            {
+                Id = dto.Id,
+                LessonId = dto.LessonId,
+                Questions = dto.Questions.Select(Map).ToList()
+            };
+
+        public static QuizQuestion Map(QuizQuestionDto dto) =>
+            new()
+            {
+                Id = dto.Id,
+                QuizId = dto.QuizId,
+                Question = dto.Question,
+                Answers = dto.Answers.ToList(),
+                CorrectAnswer = dto.CorrectAnswer,
+                UserAnswer = dto.UserAnswer,
+                IsCorrect = dto.IsCorrect
+            };
+
+        public static QuizDto Map(Quiz entity) =>
+            new()
+            {
+                Id = entity.Id,
+                LessonId = entity.LessonId,
+                Questions = entity.Questions.Select(Map).ToList()
+            };
+
+        public static QuizQuestionDto Map(QuizQuestion entity) =>
+            new()
+            {
+                Id = entity.Id,
+                QuizId = entity.QuizId,
+                Question = entity.Question,
+                Answers = entity.Answers.ToList(),
+                CorrectAnswer = entity.CorrectAnswer,
+                UserAnswer = entity.UserAnswer,
+                IsCorrect = entity.IsCorrect
+            };
+
     }
 }

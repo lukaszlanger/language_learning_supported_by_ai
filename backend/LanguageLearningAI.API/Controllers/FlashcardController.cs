@@ -1,6 +1,7 @@
 ﻿using LanguageLearningAI.Core.Dtos;
 using LanguageLearningAI.Service.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace LanguageLearningAI.API.Controllers
 {
@@ -22,15 +23,15 @@ namespace LanguageLearningAI.API.Controllers
             _authService = authService;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<FlashcardDto>>> GetAllFlashcards()
         {
             var phrases = await _flashcardService.GetAllFlashcardsAsync();
             return Ok(phrases);
         }
 
-        [HttpGet("getAllByLessonId/{lessonId}")]
-        public async Task<ActionResult<IEnumerable<FlashcardDto>>> GetFlashcardsByLessonId(int lessonId)
+        [HttpGet("allByLessonId/{lessonId}")]
+        public async Task<ActionResult<IEnumerable<FlashcardDto>>> GetAllFlashcardsByLessonId(int lessonId)
         {
             var flashcards = await _flashcardService.GetFlashcardsByLessonIdAsync(lessonId);
 
@@ -55,10 +56,9 @@ namespace LanguageLearningAI.API.Controllers
         }
 
         [HttpPost("generateWithAI")]
-        public async Task<IActionResult> GenerateFlashcardsWithAI([FromBody] FlashcardGenerateWithAIDto flashcardGenerateWithAiDto)
+        public async Task<IActionResult> GenerateFlashcardsWithAI([FromQuery] string userId, [FromQuery] int lessonId)
         {
-            return Ok(await _flashcardService.GenerateAndSaveFlashcardsAsync(flashcardGenerateWithAiDto));
+            return Ok(await _flashcardService.GenerateAndSaveFlashcardsAsync(userId, lessonId));
         }
-
     }
 }

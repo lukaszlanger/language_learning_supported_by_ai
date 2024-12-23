@@ -56,11 +56,10 @@ namespace LanguageLearningAI.Service.Services
             return await GetFlashcardByIdAsync(flashcardId);
         }
 
-        public async Task<List<FlashcardDto>> GenerateAndSaveFlashcardsAsync(FlashcardGenerateWithAIDto flashcardGenerateWithAiDto)
+        public async Task<List<FlashcardDto>> GenerateAndSaveFlashcardsAsync(string userId, int lessonId)
         {
-            var lesson = await _lessonService.GetLessonByIdAsync(flashcardGenerateWithAiDto.LessonId) ?? throw new ArgumentException($"Lesson with ID {flashcardGenerateWithAiDto.LessonId} not found.");
-
-            var user = await _authService.GetUserByIdAsync(flashcardGenerateWithAiDto.UserId) ?? throw new ArgumentException($"User with ID {flashcardGenerateWithAiDto.UserId} not found.");
+            var lesson = await _lessonService.GetLessonByIdAsync(lessonId) ?? throw new ArgumentException($"Lesson with ID {lessonId} not found.");
+            var user = await _authService.GetUserByIdAsync(userId) ?? throw new ArgumentException($"User with ID {userId} not found.");
 
             var flashcards = await _openAIService.GenerateFlashcardsAsync(
                 lesson.Topic,
@@ -71,7 +70,7 @@ namespace LanguageLearningAI.Service.Services
 
             foreach (var flashcard in flashcards)
             {
-                flashcard.LessonId = flashcardGenerateWithAiDto.LessonId;
+                flashcard.LessonId = lessonId;
                 var flashcardId = await _flashcardRepository.AddAsync(EntityMapper.Map(flashcard));
                 flashcard.Id = flashcardId;
             }
