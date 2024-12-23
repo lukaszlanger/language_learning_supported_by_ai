@@ -9,7 +9,7 @@ import { QuizService } from 'src/app/services/quiz.service';
 import { LessonService } from 'src/app/services/lesson.service';
 import { QuizDto } from 'src/app/dtos/quiz.dto';
 import { addIcons } from 'ionicons';
-import { arrowBack, arrowForward } from 'ionicons/icons';
+import { arrowBack, arrowForward, checkmarkCircle } from 'ionicons/icons';
 import { QuizQuestionDto } from 'src/app/dtos/quiz-question.dto';
 import { switchMap } from 'rxjs';
 
@@ -24,6 +24,8 @@ export class QuizPage implements OnInit {
   smallTitle: string = 'Quiz';
   isLoading: boolean = false;
   isGeneratingQuiz: boolean = false;
+  isCreateModalOpen: boolean = false;
+  modalMessage: string = '';
   errorMessage: string = '';
   lessonId: number | null = null;
   quizzes: QuizDto[] = [];
@@ -44,7 +46,7 @@ export class QuizPage implements OnInit {
     private lessonService: LessonService,
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef) {
-      addIcons({ arrowForward, arrowBack });
+      addIcons({ arrowForward, arrowBack, checkmarkCircle });
       this.quizForm = this.formBuilder.group({
         answers: ['', Validators.required]
       });
@@ -173,21 +175,29 @@ export class QuizPage implements OnInit {
 
   generateQuizWithAI() {
     if (this.lessonId) {
+      this.isCreateModalOpen = true;
       this.isGeneratingQuiz = true;
+      this.modalMessage = 'Generuję nowy quiz...';
+  
       this.lessonService.getById(this.lessonId).pipe(
         switchMap(lesson => {
           return this.quizService.generateQuizWithAI(this.lessonId!);
         })
       ).subscribe({
         next: () => {
+          this.modalMessage = 'Stworzono nowy quiz!';
+          this.errorMessage = '';
           this.loadQuizzes(this.lessonId!);
-          // this.closeCreateModal();
         },
         error: (err) => {
-          console.error('Błąd podczas generowania fiszek:', err);
+          console.error('Błąd podczas generowania quizu:', err);
+          this.modalMessage = 'Nie udało się stworzyć nowego quizu.';
         },
         complete: () => {
           this.isGeneratingQuiz = false;
+          setTimeout(() => {
+            this.isCreateModalOpen = false;
+          }, 2000);
         }
       });
     }

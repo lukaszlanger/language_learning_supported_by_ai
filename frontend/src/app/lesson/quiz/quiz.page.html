@@ -12,7 +12,7 @@
     <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
   </div>
 
-  <ion-segment class="segment" [(ngModel)]="selectedQuizId" (ionChange)="onSegmentChange($event)">
+  <ion-segment *ngIf="quizzes.length > 0" class="segment" [(ngModel)]="selectedQuizId" (ionChange)="onSegmentChange($event)">
     <ion-segment-button *ngFor="let quiz of quizzes; let i = index" [value]="quiz.id">
       <ion-text class="segment-text">Quiz {{ i + 1 }}</ion-text>
     </ion-segment-button>
@@ -59,4 +59,14 @@
       </ion-button>
     </div>    
   </form>
+
+  <ion-modal [isOpen]="isCreateModalOpen" class="modal modal-flashcard">
+    <ng-template>
+      <div class="modal-content">
+        <ion-spinner *ngIf="isGeneratingQuiz" name="crescent"></ion-spinner>
+        <ion-icon *ngIf="!isGeneratingQuiz" name="checkmark-circle" color="green"></ion-icon>
+        <p>{{ modalMessage }}</p>
+      </div>
+    </ng-template>
+  </ion-modal>
 </ion-content>

@@ -1,7 +1,6 @@
 .segment {
     background: var(--ion-tab-bar-background, var(--ion-background-color, #fff));
     border-bottom: 1px solid var(--ion-tab-bar-border-color, var(--ion-border-color, var(--ion-color-step-150, var(--ion-background-color-step-150, rgba(0, 0, 0, 0.07)))))
-    
 }
 
 .segment-text {
@@ -122,5 +121,36 @@
             }
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
         }
+    }
+}
+
+.modal {
+    --border-radius: 16px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+    --width: fit-content;
+    --min-width: 350px;
+    --height: fit-content;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 32px;
+    padding-bottom: 25px;
+  
+    ion-spinner {
+        margin-bottom: 16px;
+    }
+  
+    p {
+        font-size: 18px;
+        color: var(--ion-text-color);
+    }
+
+    ion-icon {
+        font-size: 30px
     }
 }
