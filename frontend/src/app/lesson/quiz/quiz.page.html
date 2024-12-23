@@ -12,7 +12,7 @@
     <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
   </div>
 
-  <ion-segment [(ngModel)]="selectedQuizId" (ionChange)="onSegmentChange($event)">
+  <ion-segment class="segment" [(ngModel)]="selectedQuizId" (ionChange)="onSegmentChange($event)">
     <ion-segment-button *ngFor="let quiz of quizzes; let i = index" [value]="quiz.id">
       <ion-text class="segment-text">Quiz {{ i + 1 }}</ion-text>
     </ion-segment-button>
