@@ -164,7 +164,7 @@ export class QuizPage implements OnInit {
       this.currentIndex = index;
       this.updateCurrentQuestion();
     } else {
-      console.error('Indeks pytania poza zakresem:', index);
+      console.error('Question index is out of range:', index);
     }
   }  
 
@@ -190,7 +190,7 @@ export class QuizPage implements OnInit {
           this.loadQuizzes(this.lessonId!);
         },
         error: (err) => {
-          console.error('Błąd podczas generowania quizu:', err);
+          console.error('Error occured during quiz generation:', err);
           this.modalMessage = 'Nie udało się stworzyć nowego quizu.';
         },
         complete: () => {

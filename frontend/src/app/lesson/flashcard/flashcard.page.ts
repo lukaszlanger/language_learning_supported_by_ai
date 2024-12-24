@@ -114,7 +114,7 @@ export class FlashcardPage implements OnInit {
           this.closeCreateModal();
         },
         error: (err) => {
-          console.error('Błąd podczas generowania fiszek:', err);
+          console.error('Error occured during flashcards generation:', err);
         },
         complete: () => {
           this.isGeneratingFlashcards = false;
@@ -135,7 +135,7 @@ export class FlashcardPage implements OnInit {
           this.closeCreateModal();
         },
         error: (err) => {
-          console.error('Błąd podczas dodawania fiszki:', err);
+          console.error('Error occured while adding flashcards:', err);
         },
       });
     }

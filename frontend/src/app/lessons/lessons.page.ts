@@ -87,14 +87,14 @@ export class LessonsPage implements OnInit {
         this.closeModal();
         this.loadLessons();
       } catch (error) {
-        console.error('Błąd podczas dodawania lekcji:', error);
+        console.error('Error occured while adding lesson:', error);
       }
     }
   }
   
   navigateToLesson(lessonId: number) {
     this.router.navigate(['/lesson', lessonId]).catch((err) => {
-      console.error('Błąd podczas nawigacji:', err);
+      console.error('Error occured during route navigation:', err);
     });
   }
 
