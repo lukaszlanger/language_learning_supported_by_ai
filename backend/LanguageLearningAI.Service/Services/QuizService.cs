@@ -63,5 +63,20 @@ namespace LanguageLearningAI.Service.Services
                 ? throw new KeyNotFoundException("Quiz not found")
                 : EntityMapper.Map(quiz);
         }
+
+        public async Task UpdateQuizAsync(QuizDto quizDto)
+        {
+            var quiz = await _quizRepository.GetByIdAsync(quizDto.Id) ?? throw new KeyNotFoundException("Quiz not found");
+
+            quiz.LessonId = quizDto.LessonId;
+            quiz.Questions = quizDto.Questions.Select(q => new QuizQuestion
+            {
+                Question = q.Question,
+                Answers = q.Answers.ToList(),
+                CorrectAnswer = q.CorrectAnswer
+            }).ToList();
+
+            await _quizRepository.UpdateAsync(quiz);
+        }
     }
 }

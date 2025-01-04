@@ -29,6 +29,13 @@ namespace LanguageLearningAI.API.Controllers
             var quizzes = await _quizService.GetAllQuizzesByLessonAsync(lessonId);
             return Ok(quizzes);
         }
+
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateQuiz([FromBody] QuizDto quiz)
+        {
+            await _quizService.UpdateQuizAsync(quiz);
+            return Ok();
+        }
     }
 
 }

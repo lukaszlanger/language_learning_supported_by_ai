@@ -157,6 +157,40 @@ export class QuizPage implements OnInit {
     }
   }
 
+  checkIfAnswerIsCorrect(question: QuizQuestionDto): boolean {
+    return this.selectedAnswers[question.id!] === question.correctAnswer;
+  }
+
+  validateAnswers(): boolean {
+    
+    return this.selectedQuiz?.questions?.every((question, index) => {
+      return !!this.selectedAnswers[index];
+    }) || false;
+  }
+
+  updateQuiz() {
+    if (this.selectedQuiz) {
+      this.isCreateModalOpen = true;
+      this.modalMessage = 'Aktualizuję quiz...';
+  
+      this.quizService.update(this.selectedQuiz).subscribe({
+        next: () => {
+          this.modalMessage = 'Quiz został zaktualizowany!';
+          this.errorMessage = '';
+        },
+        error: (err) => {
+          console.error('Error occured during quiz update:', err);
+          this.modalMessage = 'Nie udało się zaktualizować quizu.';
+        },
+        complete: () => {
+          setTimeout(() => {
+            this.isCreateModalOpen = false;
+          }, 2000);
+        }
+      });
+    }
+  }
+
   goToQuestion(index: number): void {
     this.saveAnswer();
   
@@ -166,10 +200,11 @@ export class QuizPage implements OnInit {
     } else {
       console.error('Question index is out of range:', index);
     }
-  }  
+  }
 
   onSubmit() {
     this.saveAnswer();
+    this.updateQuiz();
     console.log('User answers:', this.selectedAnswers);
   }
 

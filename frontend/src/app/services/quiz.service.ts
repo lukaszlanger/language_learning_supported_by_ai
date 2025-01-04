@@ -19,4 +19,8 @@ export class QuizService {
   generateQuizWithAI(lessonId: number): Observable<QuizDto> {
     return this.http.post<QuizDto>(`${this.baseUrl}/quiz/generateWithAI?lessonId=${lessonId}`, {});
   }
+
+  update(quiz: QuizDto): Observable<QuizDto> {
+    return this.http.put<QuizDto>(`${this.baseUrl}/quiz/update`, quiz);
+  }
 }
