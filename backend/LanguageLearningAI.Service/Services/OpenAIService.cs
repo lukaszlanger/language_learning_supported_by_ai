@@ -68,7 +68,6 @@ namespace LanguageLearningAI.Service.Services
             }
 
             var responseString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"Raw API Response: {responseString}");
 
             return DeserializeResponse<T>(responseString);
         }
@@ -144,7 +143,9 @@ namespace LanguageLearningAI.Service.Services
                 ""details"": ""string"",
                 ""translation"": ""string"",
                 ""usage"": ""string""
-            }}";
+            }}, where details is a brief description or explanation for the term in the '{learningLanguage}' language,
+            translation is the translation to '{nativeLanguage}' language of the term,
+            and usage is an example usage of the term in the '{learningLanguage}' language, suitable for the '{difficultyName}' level, and in the context of the lesson topic '{topic}'";
         }
 
         private string GetPromptForFlashcardDetails(string learningLanguage, string nativeLanguage, string lessonTopic, int difficultyLevel, string term)
