@@ -76,35 +76,38 @@ namespace LanguageLearningAI.Service.Services
         {
             try
             {
-                var root = JsonDocument.Parse(responseString).RootElement;
-
-                var content = root
-                    .GetProperty("choices")[0]
-                    .GetProperty("message")
-                    .GetProperty("content")
-                    .GetString();
-
-                if (!string.IsNullOrWhiteSpace(content) && content.StartsWith("```json"))
+                using (JsonDocument document = JsonDocument.Parse(responseString))
                 {
-                    content = content.Replace("```json", "").Replace("```", "").Trim();
+                    var root = document.RootElement;
+
+                    var content = root
+                        .GetProperty("choices")[0]
+                        .GetProperty("message")
+                        .GetProperty("content")
+                        .GetString();
+
+                    if (!string.IsNullOrWhiteSpace(content) && content.StartsWith("```json"))
+                    {
+                        content = content.Replace("```json", "").Replace("```", "").Trim();
+                    }
+
+                    if (string.IsNullOrWhiteSpace(content))
+                    {
+                        throw new JsonException("Content is empty after cleaning.");
+                    }
+
+                    var deserialized = JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    if (deserialized == null)
+                    {
+                        throw new JsonException("Deserialized content is null.");
+                    }
+
+                    return deserialized;
                 }
-
-                if (string.IsNullOrWhiteSpace(content))
-                {
-                    throw new JsonException("Content is empty after cleaning.");
-                }
-
-                var deserialized = JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-
-                if (deserialized == null)
-                {
-                    throw new JsonException("Deserialized content is null.");
-                }
-
-                return deserialized;
             }
             catch (JsonException jsonEx)
             {
@@ -112,6 +115,7 @@ namespace LanguageLearningAI.Service.Services
                 throw new InvalidOperationException("Error processing OpenAI response: JSON Parsing failed.", jsonEx);
             }
         }
+
 
         private string GetPromptForQuizQuestions(string topic, string learningLanguage, int difficultyLevel)
         {
