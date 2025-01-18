@@ -99,7 +99,9 @@ namespace LanguageLearningAI.Service.Services
                     PropertyNameCaseInsensitive = true
                 });
 
-                return deserialized == null ? throw new JsonException("Deserialized content is null.") : deserialized;
+                return deserialized == null
+                    ? throw new JsonException("Deserialized content is null.")
+                    : deserialized;
             }
             catch (JsonException jsonEx)
             {
@@ -115,8 +117,8 @@ namespace LanguageLearningAI.Service.Services
 
             return $@"
             Generate a JSON object with 10 quiz questions on the topic '{topic}' in '{learningLanguage}' language 
-            for '{difficultyName}' difficulty level. The questions should teach and practice new vocabulary in the context of learning a foreign language.
-            Each question should have the following structure:
+            for '{difficultyName}' difficulty level. Each question should teach and practice new vocabulary in the context of learning a foreign language.
+            Structure:
             {{
                 ""question"": ""string"",
                 ""answers"": [""string"", ""string"", ""string"", ""string""],
@@ -130,17 +132,18 @@ namespace LanguageLearningAI.Service.Services
                                  ?? throw new ArgumentOutOfRangeException(nameof(difficultyLevel), "Invalid difficulty level");
 
             return $@"
-            Generate a JSON object with about 10 unique flashcards on the topic '{topic}' in '{learningLanguage}' language
-            for '{difficultyName}' difficulty level. The flashcards should teach and practice new vocabulary in the context of learning a foreign language.
-            Each flashcard should have the following structure:
+            Generate a JSON object with 10 unique flashcards on the topic '{topic}' in '{learningLanguage}' language 
+            for '{difficultyName}' difficulty level. Each flashcard should teach and practice new vocabulary in the context of learning a foreign language.
+            Structure:
             {{
                 ""term"": ""string"",
                 ""details"": ""string"",
                 ""translation"": ""string"",
                 ""usage"": ""string""
-            }}, where details is a brief description or explanation for the term in the '{learningLanguage}' language,
-            translation is the translation to '{nativeLanguage}' language of the term,
-            and usage is an example usage of the term in the '{learningLanguage}' language, suitable for the '{difficultyName}' level, and in the context of the lesson topic '{topic}'";
+            }}
+            - details: a brief description in '{learningLanguage}'.
+            - translation: translation to '{nativeLanguage}'.
+            - usage: an example sentence in '{learningLanguage}' for '{difficultyName}' level.";
         }
 
         private string GetPromptForFlashcardDetails(string learningLanguage, string nativeLanguage, string lessonTopic, int difficultyLevel, string term)
