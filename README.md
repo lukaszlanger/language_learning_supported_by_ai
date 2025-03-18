@@ -3,8 +3,9 @@
 ### 🌍 **About the Application**
 
 Language Learning Supported by AI is an innovative language learning platform powered by artificial intelligence. Using intelligent algorithms, the application enhances learning through content generation, translations, and dynamic quizzes.
+### The application was programmed as part of a Master's thesis.
 
-The application adapts to your level and preferences, offering:
+It adapts to your skill level and preferences, offering:
 
 🎯 Quiz generation tailored to your skills  
 📖 Flashcard creation to aid vocabulary memorization  
