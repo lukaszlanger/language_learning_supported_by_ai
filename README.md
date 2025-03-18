@@ -1,6 +1,6 @@
-# Language Learning Platform supported by AI 📱🎓
+# Language Learning Platform supported by AI 🎓
 
-🌍 **About the Application**
+### 🌍 **About the Application**
 
 Language Learning Supported by AI is an innovative language learning platform powered by artificial intelligence. Using intelligent algorithms, the application enhances learning through content generation, translations, and dynamic quizzes.
 
@@ -9,38 +9,29 @@ The application adapts to your level and preferences, offering:
 🎯 Quiz generation tailored to your skills  
 📖 Flashcard creation to aid vocabulary memorization  
 🔍 Automated translations and explanations of difficult phrases  
-📝 Personalized content based on your progress
+📝 Personalized content based on chosen difficulty level
 
-🚀 **Technology Stack**
+### 🚀 **Technology Stack**
 
 The application is built using cutting-edge technologies to ensure performance and user convenience.
 
 🖥️ **Backend**  
-- C# / .NET 8 – modern and efficient API  
-- Entity Framework Core 8 – SQL Server database management  
-- OpenAI API – AI-powered content generation and translations  
-- Swagger (Swashbuckle 6.9.0) – interactive API documentation
+- C# / .NET 8
+- Entity Framework Core 8
+- OpenAI API (model used in project gpt-4o-mini)
 
 📱 **Frontend**  
-- Angular 19 – dynamic and modern user interface  
-- Ionic 8 – responsive mobile and web application  
-- Capacitor – integration with native device features
+- Angular 19
+- Ionic 8
 
-🛠️ **Tools and Others**  
-- RxJS 7.8 – reactive programming  
-- TypeScript 5.6 – code safety and readability  
-- ESLint + Angular ESLint – maintaining high code quality  
-- Jasmine + Karma – application testing
-
-🖼️ **Screenshots**  
+### 🖼️ **Screenshots**  
 (Insert application screenshots here)
 
-📌 **Future Development**
-
+### 📌 **Future Development**
 We plan to further improve the application, including:
 
 🌟 Expanding quizzes with new question formats  
-☁️ Integration with cloud services (e.g., Azure)  
-📊 Better user progress analysis
+🆕 Adding new functions  
+📊 Better user progress analysis and statistics
 
-💡 Have an idea for a feature? We’d love to hear your suggestions! 🚀
+### 💡 Have an idea for a feature? I’d love to hear your suggestions! 🚀
