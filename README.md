@@ -25,10 +25,12 @@ The application is built using cutting-edge technologies to ensure performance a
 - Ionic 8
 
 ### 🖼️ **Screenshots**  
-(Insert application screenshots here)
+<img src="https://raw.githubusercontent.com/lukaszlanger/language_learning_supported_by_ai/refs/heads/main/screenshots/boththemes.png" width="80%">
+<img src="https://raw.githubusercontent.com/lukaszlanger/language_learning_supported_by_ai/refs/heads/main/screenshots/quiz.jpg" width="80%">
+<img src="https://raw.githubusercontent.com/lukaszlanger/language_learning_supported_by_ai/refs/heads/main/screenshots/flashcard.jpg" width="80%">
 
 ### 📌 **Future Development**
-We plan to further improve the application, including:
+I plan to further improve the application, including:
 
 🌟 Expanding quizzes with new question formats  
 🆕 Adding new functions  
